@@ -1,0 +1,40 @@
+<ion-view view-title="Time Line">
+  <ion-content class="padding">
+    <div class="row">
+      <div class="col col-33">
+        <h2>iWanna</h2>
+      </div>
+      <!--<div class="col col-offset-67">-->
+        <!--<button ng-click="openSearch()" class="button icon ion-ios-search"></button>-->
+      <!--</div>-->
+      <div class="col col-offset-50">
+        <button ng-click="writeWanna()" class="button icon ion-compose"></button>
+      </div>
+    </div>
+    <div class="bar bar-header item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" placeholder="Search">
+      </label>
+      <button class="button button-clear">
+        Cancel
+      </button>
+    </div>
+
+
+    <ion-item class="list" ng-repeat="wanna in wannas">
+
+        <a type="button" class="item item-avatar" href="#" ng-Click="goContentPage(wanna)">
+          <image class="icon ion-ios-football"></image>
+          <h2>{{wanna.content}}</h2>
+          <p>{{wanna.description}}</p>
+
+        </a>
+
+
+
+    </ion-item>
+
+    </div>
+  </ion-content>
+</ion-view>

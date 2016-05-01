@@ -1,0 +1,20 @@
+<ion-view view-title="Search Friends">
+  <ion-content class="padding">
+    <ion item class="list card" ng-repeat="profile in profiles">
+<!-- 		<button class = "button button-block button-positive" ng-click = "follow($index, profile.$id)">Add Friend</button>
+      <div class="item item-avatar">
+        <h2>{{profile.name}}</h2>
+
+      </div> -->
+
+        <div class="item item-button-right">
+      		{{profile.name}}
+   			<button class="button button-positive" ng-click = "follow($index, profile.$id)">
+      			<i class="icon ion-person-add"></i>
+    		</button>
+ 		</div>
+
+
+    </ion-item>
+  </ion-content>
+</ion-view>

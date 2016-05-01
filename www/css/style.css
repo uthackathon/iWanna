@@ -1,0 +1,65 @@
+/* Empty. Add your own CSS if you like */
+
+.popup-container .popup{
+  border-radius: 5%;
+  width: 70%;
+  background-color: white;
+}
+
+.panelbody .loginForm {
+  border: none;
+}
+
+.loginForm .loginInput{
+
+  padding-left: 28px;
+}
+
+.ion-images:before {
+  font-size: 80px;
+}
+
+button i.ion-ios-camera:before {
+  font-size: 80px;
+}
+
+div.list.card.photoChoice　{
+  margin-top: 30%;
+}
+
+div.item.item-divider.title {
+  padding: 5%;
+  background-color: #11c1f3;
+}
+
+div.item.item-divider.title h2 {
+  color: #ffffff;
+  text-align: center;
+  font-size: 22px;
+}
+
+div.item.item-image.choice {
+  padding: 5%;
+}
+
+.landing {
+  background: url(../img/home.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.facebook{
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.email-button {
+  position: absolute;
+  top: 300px;
+}
+
+.big{
+  font-size: 20px;
+}
