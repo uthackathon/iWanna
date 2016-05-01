@@ -127,7 +127,19 @@ var app = angular.module('starter', [
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+        controller: 'AccountCtrl',
+        resolve: {
+           
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
+
       }
     }
   });

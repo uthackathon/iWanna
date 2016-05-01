@@ -2,7 +2,7 @@
 
 app.factory('Profiles', function(FURL, $firebaseArray, Auth) {
   var ref = new Firebase(FURL);
-  var profiles = $firebaseArray(ref.child('profiles'));
+  var profiles = $firebaseArray(ref.child('users'));
 
   var Profiles = {
 

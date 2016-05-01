@@ -1,12 +1,11 @@
 'use strict'
 
-app.controller('AccountCtrl', function($scope, Auth){
-  // $scope.settings = {
-  //     enableFriends: false
-  // };
+app.controller('AccountCtrl', function($scope, Auth, uid){
 
- $scope.logout = function(){
-   Auth.logout();
+	$scope.accountInformation = Auth.getProfile(uid);
+
+ 	$scope.logout = function(){
+   	Auth.logout();
  }
 
 });
