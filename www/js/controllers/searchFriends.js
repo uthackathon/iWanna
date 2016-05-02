@@ -18,7 +18,7 @@ app.controller('SearchFriendsCtrl', function($firebaseAuth, Follow, Match, Auth,
 
 				var item = data[i];
 				if(item.name == friendNameToFind && item.$id != currentUid){
-					//nameが一致かつ、自分自信ではない時
+					//nameが一致かつ、自分自身ではない時
 					$scope.profiles.push(item);
 				}
 

@@ -78,6 +78,28 @@ var app = angular.module('starter', [
     }
   })
 
+  .state('tab.home', {
+    url: '/home',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-home.html',
+        controller: 'HomeCtrl',
+        resolve: {
+           
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
+
+      }
+    }
+  })
+
   .state('tab.searchfriends', {
     url: '/searchfriends',
     views: {

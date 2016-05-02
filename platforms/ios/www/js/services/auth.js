@@ -9,13 +9,13 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
     user:{},
 
     createProfile: function(uid,user) {
-      return ref.child('profiles').child(uid).set(user);
+      return ref.child('users').child(uid).set(user);
       // return profiles.child(uid).$add("test");
    
     },
 
     getProfile: function(uid) {
-      return $firebaseObject(ref.child('profiles').child(uid));
+      return $firebaseObject(ref.child('users').child(uid));
     },
     
     getUid: function() {
@@ -28,7 +28,7 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
       
 
     getProfiles: function(){
-      return $firebaseArray(ref.child('profiles'));
+      return $firebaseArray(ref.child('users'));
     },
 
     login: function(user){
