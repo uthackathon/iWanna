@@ -1,8 +1,10 @@
 'use strict'
 
-app.controller('DashCtrl', function($scope,$state,Wannas,SharedStateService) {
-                  $scope.wannas =Wannas.all()
-                  console.log('the products',$scope.products);
+app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService) {
+               var currentUid = uid;
+
+               $scope.wannas =Wannas.all(currentUid);
+               console.log('the products',$scope.products);
 
 
                $scope.writeWanna=function(){

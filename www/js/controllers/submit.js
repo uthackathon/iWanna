@@ -1,27 +1,58 @@
 'use strict'
 
-app.controller('SubmitCtrl', function($scope,$state, Wannas) {
+app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas) {
+               var currentUid = uid;
+               var iconArray = [0,0,0,0,0];
+               var userName= Wannas.getUserName(currentUid);
 
-               var Array = [0,0,0,0,0];
 
                $scope.wannaSubmit=function(wanna){
+               console.log("user name is",userName);
+
+               var now = new Date();//日付しゅとく データ整形してない
+               //date object のメソッドについては http://so-zou.jp/web-app/tech/programming/javascript/grammar/object/date.htm#no3
+
+               //日本時間ではなく UTC で入れている。
+               var time={
+                 year: now.getUTCFullYear(),
+                 month: now.getUTCMonth()+1,//月は0から11まで
+                 date: now.getUTCDate(),
+                 hours: now.getUTCHours(),
+                 minutes: now.getUTCMinutes(),
+                 seconds: now.getUTCSeconds(),
+               };
+               console.log("time data");
+               console.log("year",time.year);
+               console.log("month",time.month);
+               console.log("date",time.date);
+               console.log("hours",time.hours);
+               console.log("minutes",time.minutes);
+               console.log("seconds",time.seconds);
 
                console.log("submit button was clicked",wanna);
-               Wannas.saveWanna(wanna);
-               $state.go('tab.dash');//state.goディレクトリ関係がわからない
+               //ここでwanna をfirebase 上に記録。
+               Wannas.saveWanna(wanna,currentUid,userName,iconArray,time);
+               $state.go('tab.dash');
                };
 
+
+               //sport button をデバック用に使ってます。
                $scope.wannaSport=function(){
+               console.log(typeof now);
+
+
+               console.log("uid is", currentUid);
                console.log("sport button was clicked");
+
                var target = document.getElementById('sportButton');
-               if (Array[0]==0){
+               if (iconArray[0]==0){
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               Array[0]=1;
+               iconArray[0]=1;
                }else{
                target.style.backgroundColor='';
                target.style.color='';
-               Array[0]=0;
+               iconArray[0]=0;
                }
                //状態を表すもの (1,0) などで色を戻したりできそう。
 
@@ -32,14 +63,14 @@ app.controller('SubmitCtrl', function($scope,$state, Wannas) {
                var target = document.getElementById('dinnerButton');
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               if (Array[1]==0){
+               if (iconArray[1]==0){
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               Array[1]=1;
+               iconArray[1]=1;
                }else{
                target.style.backgroundColor='';
                target.style.color='';
-               Array[1]=0;
+               iconArray[1]=0;
                }
                };
 
@@ -48,14 +79,14 @@ app.controller('SubmitCtrl', function($scope,$state, Wannas) {
                var target = document.getElementById('shoppingButton');
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               if (Array[2]==0){
+               if (iconArray[2]==0){
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               Array[2]=1;
+               iconArray[2]=1;
                }else{
                target.style.backgroundColor='';
                target.style.color='';
-               Array[2]=0;
+               iconArray[2]=0;
                }
                };
 
@@ -64,14 +95,14 @@ app.controller('SubmitCtrl', function($scope,$state, Wannas) {
                var target = document.getElementById('sightseeingButton');
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               if (Array[3]==0){
+               if (iconArray[3]==0){
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               Array[3]=1;
+               iconArray[3]=1;
                }else{
                target.style.backgroundColor='';
                target.style.color='';
-               Array[3]=0;
+               iconArray[3]=0;
                }
                };
 
@@ -80,14 +111,14 @@ app.controller('SubmitCtrl', function($scope,$state, Wannas) {
                var target = document.getElementById('musicButton');
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               if (Array[4]==0){
+               if (iconArray[4]==0){
                target.style.backgroundColor='#27c2f1';
                target.style.color='#ffffff';
-               Array[4]=1;
+               iconArray[4]=1;
                }else{
                target.style.backgroundColor='';
                target.style.color='';
-               Array[4]=0;
+               iconArray[4]=0;
                }
                };
 
