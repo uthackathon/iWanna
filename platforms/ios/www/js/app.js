@@ -26,7 +26,7 @@ var app = angular.module('starter', [
     }
   });
 })
-  .constant('FURL', 'https://etsy-clone55.firebaseio.com/')
+  .constant('FURL', 'https://iwanna-app.firebaseio.com/')
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -53,6 +53,36 @@ var app = angular.module('starter', [
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
+        controller: 'DashCtrl'
+      }
+    }
+  })
+
+  .state('tab.submit', {
+    url: '/dash/submit',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/submit.html',
+        controller: 'SubmitCtrl'
+      }
+    }
+  })
+
+  .state('tab.wanna-content', {
+    url: '/dash/:wannaId',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/wanna-content.html',
+        controller: 'WannaContentCtrl'
+      }
+    }
+  })
+
+  .state('tab.searchfriends', {
+    url: '/searchfriends',
+    views: {
+      'tab-searchfriends': {
+        templateUrl: 'templates/tab-searchfriends.html',
         controller: 'SearchFriendsCtrl',
         resolve: {
            
@@ -60,6 +90,7 @@ var app = angular.module('starter', [
           uid: function(Auth) {
             return Auth.requireAuth()
               .then(function(auth){
+                console.log(auth);
                 return auth.uid;
             });
           }
@@ -91,20 +122,29 @@ var app = angular.module('starter', [
   })
 
 
-
-  
-
   .state('tab.account', {
     url: '/account',
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+        controller: 'AccountCtrl',
+        resolve: {
+           
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
+
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/tab/dash');
 
 });

@@ -1,0 +1,32 @@
+<ion-view view-title="Home">
+	<ion-content>
+		<div class="list">
+
+
+		  <a class="item item-icon-left" href="#">
+		    <i class="icon ion-person"></i>
+		    {{accountInformation.name}}
+		  </a>
+
+		 </div>
+		 
+		 <div>
+			その他プロフィールとUserのWannaがここに表示。以下はbrowserでは動きません。
+		 </div>
+  <!--   <ion-list>
+    <ion-toggle  ng-model="settings.enableFriends">
+        Enable Friends
+    </ion-toggle>
+    </ion-list> -->
+	<div class="list">
+		
+		<button class="button button-block  icon-left ion-social-twitter button-calm" ng-click = "twitterShare()">Twitterに"iWannaリスト"を投稿する
+		</button>
+
+		<button class="button button-block  icon-left ion-social-facebook button-calm" ng-click = "twitterShare()">Facebookに"iWannaリスト"を投稿する
+		</button>
+
+	</div>
+
+  </ion-content>
+</ion-view>

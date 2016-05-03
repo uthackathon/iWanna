@@ -1,0 +1,23 @@
+<ion-view view-title="Search Friends">
+  <ion-content class="padding">
+  
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input ng-change = "searchFriendsByName($index,friendNameToFind)" ng-model="friendNameToFind" placeholder="Search Friends">
+        </label>
+      </div>
+
+    <ion item class="list card" ng-repeat="profile in profiles">
+
+    <div class="item item-button-right">
+      		{{profile.name}}
+   			<button class="button button-positive" ng-click = "follow($index, profile.$id)">
+      			<i class="icon ion-person-add"></i>
+    		</button>
+ 		</div>
+
+
+    </ion-item>
+  </ion-content>
+</ion-view>
