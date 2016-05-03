@@ -53,7 +53,18 @@ var app = angular.module('starter', [
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+        controller: 'DashCtrl',
+        resolve: {
+
+
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
       }
     }
   })
@@ -63,7 +74,18 @@ var app = angular.module('starter', [
     views: {
       'tab-dash': {
         templateUrl: 'templates/submit.html',
-        controller: 'SubmitCtrl'
+        controller: 'SubmitCtrl',
+        resolve: {
+
+
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
       }
     }
   })
@@ -164,7 +186,9 @@ var app = angular.module('starter', [
 
       }
     }
-  });
+  })
+
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
