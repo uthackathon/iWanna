@@ -38,24 +38,25 @@ app.controller('SearchFriendsCtrl', function($firebaseAuth, $ionicLoading, $ioni
 	
 	},
 
-	//こう書くことにより、ページ遷移した時に呼び出せるらしい(要調査)
-	$scope.$on('$ionicView.enter', function(e){
+	// //以下のように書くことにより、ページ遷移した時に呼び出せるらしい(要調査)が、ページを更新するたびにリストに追加されてしまうのでやめた。
+	//しかしながら、使用時に友達申請されたらどうなるかよく分からない。初めてログインした時から友達リストが変わらない????
+	// $scope.$on('$ionicView.enter', function(e){
 
-		//$loded().thenは読み込みに時間がかかる関数を呼び出す時に必須。thenの中のfunctionには呼び出し終わった関数のretunが入る。
-		Followed.allFollowedsByUser(currentUid).$loaded().then(function(followedList) {
-			for (var i = 0; i < followedList.length; i++){
-			var id = followedList[i].$id;
-			var user = Auth.getProfile(id);
-			$scope.recommendedUsers.push(user);
-				}
-			});
-		Follow.allFollowsByUser(currentUid).$loaded().then(function(followList) {
-			//undescorejsを使用。ここでは上で一度求めたrecommendUsersのidとfollowlistのidを比較し、idが一致しているものを要素から取り除くというアルゴリズムをなんと２行で実現している。
-			$scope.recommendedUsers = _.filter($scope.recommendedUsers, function(obj){
-				return _.isEmpty(_.where(followList, {$id: obj.$id}));
-			});
+	//$loded().thenは読み込みに時間がかかる関数を呼び出す時に必須。thenの中のfunctionには呼び出し終わった関数のretunが入る。
+	Followed.allFollowedsByUser(currentUid).$loaded().then(function(followedList) {
+		for (var i = 0; i < followedList.length; i++){
+		var id = followedList[i].$id;
+		var user = Auth.getProfile(id);
+		$scope.recommendedUsers.push(user);
+			}
 		});
-	});	
+	Follow.allFollowsByUser(currentUid).$loaded().then(function(followList) {
+		//undescorejsを使用。ここでは上で一度求めたrecommendUsersのidとfollowlistのidを比較し、idが一致しているものを要素から取り除くというアルゴリズムをなんと２行で実現している。
+		$scope.recommendedUsers = _.filter($scope.recommendedUsers, function(obj){
+			return _.isEmpty(_.where(followList, {$id: obj.$id}));
+		});
+	});
+	// });	
 	
 
   	$scope.follow = function(index, follow_uid) {

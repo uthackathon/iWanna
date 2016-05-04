@@ -11,6 +11,29 @@ var app = angular.module('starter', [
   'ngCordova'
 ])
 
+.service('$cordovaScreenshot', ['$q', function($q) {
+    return {
+        capture: function(filename, extension, quality) {
+            extension = extension || 'jpg';
+            quality = quality || '100';
+
+            var defer = $q.defer();
+
+            navigator.screenshot.save(function(error, res) {
+                if (error) {
+                    console.error(error);
+                    defer.reject(error);
+                } else {
+                    console.log('screenshot saved in: ', res.filePath);
+                    defer.resolve(res.filePath);
+                }
+            }, extension, quality, filename);
+
+            return defer.promise;
+        }
+    };
+}])
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -40,7 +63,7 @@ var app = angular.module('starter', [
       controller: 'LoginCtrl'
     })
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
@@ -76,8 +99,6 @@ var app = angular.module('starter', [
         templateUrl: 'templates/submit.html',
         controller: 'SubmitCtrl',
         resolve: {
-
-
                   uid: function(Auth) {
                     return Auth.requireAuth()
                       .then(function(auth){
@@ -103,7 +124,7 @@ var app = angular.module('starter', [
   .state('tab.home', {
     url: '/home',
     views: {
-      'tab-account': {
+      'tab-home': {
         templateUrl: 'templates/tab-home.html',
         controller: 'HomeCtrl',
         resolve: {
@@ -122,12 +143,53 @@ var app = angular.module('starter', [
     }
   })
 
+  .state('tab.twitter-share', {
+    url: '/home/twitter-share',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/twitter-share.html',
+        controller: 'TwitterShareCtrl',
+        resolve: {
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
+      }
+    }
+  })
+
   .state('tab.searchfriends', {
     url: '/searchfriends',
     views: {
       'tab-searchfriends': {
         templateUrl: 'templates/tab-searchfriends.html',
         controller: 'SearchFriendsCtrl',
+        resolve: {
+           
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
+        
+      }
+    }
+  })
+
+  .state('tab.messages', {
+    url: '/messages',
+    views: {
+      'tab-messages': {
+        templateUrl: 'templates/tab-messages.html',
+        controller: 'MessagesCtrl',
         resolve: {
            
 
@@ -191,6 +253,6 @@ var app = angular.module('starter', [
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/login');
 
 });
