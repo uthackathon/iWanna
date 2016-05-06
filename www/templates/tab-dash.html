@@ -71,7 +71,7 @@
     <div class="list" ng-repeat="wanna in wannas">
 
       <a class="item item-avatar" href="#" ng-Click="goContentPage(wanna)">
-        <img src="img/dinner.png">
+        <img src={{wanna.icon[0]}}>
         <h2>{{wanna.content}}</h2>
         <p>{{wanna.user_name}}</p>
       </a>
