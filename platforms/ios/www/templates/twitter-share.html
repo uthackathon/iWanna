@@ -1,0 +1,16 @@
+<ion-view view-title="Twitter Share">
+	<ion-content>
+		<div>
+		<ion item class="list card" ng-repeat="wanna in allWannasList">
+			<div class="list">
+      		{{wanna.content}}
+      		</div>
+    	</ion-item>
+		</div>
+
+		<button class="button icon-left ion-social-twitter button-calm" ng-click = "screenShotShareViaTwitter()">
+		</button>
+
+
+  	</ion-content>
+</ion-view>

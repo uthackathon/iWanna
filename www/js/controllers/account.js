@@ -1,13 +1,9 @@
 'use strict'
 
-app.controller('AccountCtrl', function($scope, Auth, uid, SocialShare){
+app.controller('AccountCtrl', function($scope, Auth, uid){
 
 	$scope.accountInformation = Auth.getProfile(uid);
 
-    $scope.twitterShare=function(){
-    	console.log("twitter")
-  		SocialShare.shareViaTwitter('test',null,"test/url");
-    }
 
  	$scope.logout = function(){
 

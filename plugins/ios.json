@@ -75,6 +75,9 @@
         },
         "cordova-plugin-x-socialsharing": {
             "PACKAGE_NAME": "com.ionicframework.myapp686415"
+        },
+        "com.darktalker.cordova.screenshot": {
+            "PACKAGE_NAME": "com.ionicframework.myapp686415"
         }
     },
     "dependent_plugins": {}

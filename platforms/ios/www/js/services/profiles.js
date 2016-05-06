@@ -11,9 +11,11 @@ app.factory('Profiles', function(FURL, $firebaseArray, Auth) {
     },
     saveProfile: function(profile, image){
       var newProfile = {
-        name: profile.name,
+      name: profile.name,
         
-      };
+    };
+
+     
 
     }
   };
