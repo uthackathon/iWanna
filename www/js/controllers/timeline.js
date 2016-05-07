@@ -46,10 +46,11 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService)
                             var serchword = new RegExp(tipsToFind);
                             if ( item.content.match(serchword) || item.description.match(serchword)) {
                                 $scope.serchwannas.push(item);
+                                //列に検索されたものを追加
                             }
                         }
 
-                        if ($scope.serchwannas.length !== 0){
+                        if ($scope.serchwannas.length !== 0){//ヒットしたとき
                             $scope.wannas = $scope.serchwannas
                             console.log('searched wannas are',$scope.wannas);
                         }
