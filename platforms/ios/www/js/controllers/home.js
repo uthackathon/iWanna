@@ -1,8 +1,10 @@
 'use strict'
 
-app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare){
+app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare,Wannas){
 
 	$scope.accountInformation = Auth.getProfile(uid);
+
+  $scope.allWannasList = Wannas.all(uid);
 
   // $scope.twitterShare=function(){
 
@@ -18,7 +20,7 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
 
           //post on facebook (image & link can be null)
           
-            SocialShare.shareViaTwitter("Text to post here...", result, "Link to share")
+            SocialShare.shareViaTwitter("Text to post here...", result, "url")
                   .then(function(result) {
                         //do something on post success or ignore it...
                    }, function(err) {
@@ -31,9 +33,13 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
 
   $scope.twitterShare = function(){
     console.log("write button was clicked");
-    $state.go('tab.twitter-share');//state.goディレクトリ関係がわからない
+    $state.go('twitter-share');//state.goディレクトリ関係がわからない
   };
 
+  $scope.facebookShare = function(){
+    console.log("write button was clicked");
+    $state.go('facebook-share');//state.goディレクトリ関係がわからない
+  };
 
  	$scope.logout = function(){
 

@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('TwitterShareCtrl', function($scope,$state, Auth, uid, $cordovaScreenshot, SocialShare, Wannas){
+app.controller('FacebookShareCtrl', function($scope,$state, Auth, uid, $cordovaScreenshot, SocialShare, Wannas){
   $scope.allWannasList = Wannas.all(uid);
   $scope.screenShotShareViaTwitter = function(){
 
@@ -10,7 +10,7 @@ app.controller('TwitterShareCtrl', function($scope,$state, Auth, uid, $cordovaSc
 
           //post on facebook (image & link can be null)
           
-            SocialShare.shareViaTwitter("This is my iWanna list! Download this app from below link and let me know what you are interested in!!", result, "Link to share")
+            SocialShare.shareViaFacebook("This is my iWanna list! Download this app from below link and let me know what you are interested in!!", result, "Link to share")
                   .then(function(result) {
                         //do something on post success or ignore it...
                    }, function(err) {
