@@ -1,9 +1,8 @@
 'use strict'
 
-app.controller('TwitterShareCtrl', function($scope, Auth, uid, $cordovaScreenshot, SocialShare, Wannas){
+app.controller('TwitterShareCtrl', function($scope,$state, Auth, uid, $cordovaScreenshot, SocialShare, Wannas){
   $scope.allWannasList = Wannas.all(uid);
   $scope.screenShotShareViaTwitter = function(){
-
 
     $cordovaScreenshot.capture()
     .then(function(result) {
@@ -11,7 +10,7 @@ app.controller('TwitterShareCtrl', function($scope, Auth, uid, $cordovaScreensho
 
           //post on facebook (image & link can be null)
           
-            SocialShare.shareViaTwitter("Text to post here...", result, "Link to share")
+            SocialShare.shareViaTwitter("This is my iWanna list! Download this app from below link and let me know what you are interested in!!", result, "Link to share")
                   .then(function(result) {
                         //do something on post success or ignore it...
                    }, function(err) {
@@ -20,6 +19,9 @@ app.controller('TwitterShareCtrl', function($scope, Auth, uid, $cordovaScreensho
      }, function(err) {
          console.log("there was an error taking a a screenshot!");
     });
-  }
+  },
+  $scope.backToHome  = function(){
+    $state.go('tab.home');
+  } 
 
 })

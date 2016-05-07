@@ -42,6 +42,21 @@ div.item.item-image.choice {
   padding: 5%;
 }
 
+/*.ion-header-bar.bar-stable.bar.bar-header.has-tabs-top{
+     color: #11c1f3;
+  background-color: #11c1f3;
+
+}
+div.nav-bar-block{
+    color: #11c1f3;
+  background-color: #11c1f3;
+}*/
+
+
+div.title.title-left.header-item{
+  color: #11c1f3;
+}
+
 .landing {
   background: url(../img/home.png) no-repeat center center fixed;
   -webkit-background-size: cover;
