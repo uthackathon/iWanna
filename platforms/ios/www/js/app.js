@@ -57,11 +57,43 @@ var app = angular.module('starter', [
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    .state('login',{
-      url: '/login',
-      templateUrl: 'templates/login.html',
-      controller: 'LoginCtrl'
-    })
+  .state('login',{
+     url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
+  })
+
+  .state('twitter-share',{
+     url: '/twitter-share',
+    templateUrl: 'templates/twitter-share.html',
+    controller: 'TwitterShareCtrl',
+    resolve: {
+                uid: function(Auth) {
+                  return Auth.requireAuth()
+                    .then(function(auth){
+                      console.log(auth);
+                      return auth.uid;
+                  });
+                }
+              }
+  })
+  .state('facebook-share',{
+     url: '/facebook-share',
+    templateUrl: 'templates/facebook-share.html',
+    controller: 'FacebookShareCtrl',
+    resolve: {
+                uid: function(Auth) {
+                  return Auth.requireAuth()
+                    .then(function(auth){
+                      console.log(auth);
+                      return auth.uid;
+                  });
+                }
+              }
+  })
+
+
+
   // setup an abstract state for the tabs directive
   .state('tab', {
     url: '/tab',
