@@ -6,9 +6,8 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService)
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
 
                var currentUid = uid;
-               //$scope.serchwannas = [];
                $scope.wannas =Wannas.all(currentUid);
-               $scope.allwanna = Wannas.all(currentUid);
+               var allwanna = Wannas.all(currentUid);
 
                $scope.writeWanna=function(){
                console.log("write button was clicked");
@@ -34,25 +33,32 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService)
                 //wannasの検索、とりあえずserchFriendsからコピー
                 //検索窓からの取り込み=tipsToFind
                 $scope.searchWannas = function(tipsToFind){
-                    console.log("searching...",tipsToFind);
-
-                    //該当するオブジェクトを全て返す
-                    $scope.serchwannas = _.where($scope.allwanna, {content: tipsToFind});
-                    if ($scope.serchwannas.length !== 0){
-                        $scope.wannas = $scope.serchwannas
-                        console.log('searched wannas are',$scope.wannas);
-                    }
-                    else if ($scope.serchwannas.length == 0){//何もヒットしなかったときはすべて表示
-                        $scope.wannas =Wannas.all(currentUid);
-                        console.log('wannas are not finded');
-                    }
                     if (tipsToFind == "") {
-                    //検索窓が空欄の時は検索前に戻す(tipsToFindが空白の時はserchwannasが定義されないようなので作成)
+                    //検索窓が空欄の時は検索前に戻す(全部が当てはまるという検索の時間省略のため)
                         $scope.wannas =Wannas.all(currentUid);
                         console.log('reset');
                     }
-                };
+                    else {//検索部
+                        $scope.serchwannas = [];
+                        console.log("searching...",tipsToFind);
+                        for (var i = 0; i < allwanna.length; i++){
+                            var item = allwanna[i];
+                            var serchword = new RegExp(tipsToFind);
+                            if ( item.content.match(serchword) || item.description.match(serchword)) {
+                                $scope.serchwannas.push(item);
+                            }
+                        }
 
+                        if ($scope.serchwannas.length !== 0){
+                            $scope.wannas = $scope.serchwannas
+                            console.log('searched wannas are',$scope.wannas);
+                        }
+                        else if ($scope.serchwannas.length == 0){//何もヒットしなかったときは表示なし
+                            $scope.wannas =　[]
+                            console.log('wannas are not finded');
+                        }
+                    }
+                };
 
 })
 //
