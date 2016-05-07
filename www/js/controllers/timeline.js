@@ -53,8 +53,8 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService)
                             $scope.wannas = $scope.serchwannas
                             console.log('searched wannas are',$scope.wannas);
                         }
-                        else if ($scope.serchwannas.length == 0){//何もヒットしなかったときはすべて表示
-                            $scope.wannas =Wannas.all(currentUid);
+                        else if ($scope.serchwannas.length == 0){//何もヒットしなかったときは表示なし
+                            $scope.wannas =　[]
                             console.log('wannas are not finded');
                         }
                     }
