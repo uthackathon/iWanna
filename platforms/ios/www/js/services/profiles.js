@@ -14,9 +14,7 @@ app.factory('Profiles', function(FURL, $firebaseArray, Auth) {
       name: profile.name,
         
     };
-
-     
-
+    
     }
   };
   return Profiles;

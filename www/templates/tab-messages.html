@@ -1,0 +1,15 @@
+<ion-view view-title="Messages">
+  <ion-content class="padding">
+    <div class="list" ng-repeat="room in AllRooms">
+
+    <a class="item item-avatar" href="#" ng-Click="goMessageRoom(room.roomId)" >
+      <img src="person.jpg">
+      <h2>Message</h2>
+      <p>{{room.friendName}}</p>
+    </a>
+
+</div>
+
+<button ng-click = "testButton()">kumagaiとchatボタン(押しすぎない)</button>
+  </ion-content>
+</ion-view>
