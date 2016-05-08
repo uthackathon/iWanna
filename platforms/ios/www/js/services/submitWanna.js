@@ -41,7 +41,50 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                     console.log('added to the database');
 
                   })
-                }
+                },
+
+
+
+                addLike: function(wannaOwnerId,wannaId,currentUid){
+                  console.log("wannaOwnerId",wannaOwnerId);
+                  console.log("wannaId",wannaId);
+                  console.log("currentUid",currentUid);
+
+                  var likesInWanna = $firebaseArray(ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).child("likes"));//firebase構造によって変えてみてください。
+
+//                  var likesInWanna = ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).child("likes");//firebase構造によって変えてみてください。
+
+                  var likesInUser = $firebaseArray(ref.child('users').child(currentUid).child('likes'));//firebase構造によって変えてみてください。
+                  var wannaPth= wannaOwnerId+"/"+wannaId;
+
+                  likesInWanna.$add(currentUid).then(function(){
+                                      console.log('like added to the wanna-database');}).then(function(){console.log('like added to the wanna-database');})
+
+//                  likesInWanna.update({currentUid})
+                  likesInUser.$add(wannaPth).then(function(){
+                                      console.log('like added to the user-database');})
+
+
+
+                },
+
+//                deleteLike:function(wannaOwnerId,wannaId,currentUid){
+//                                             console.log("wannaOwnerId",wannaOwnerId);
+//                                             console.log("wannaId",wannaId);
+//                                             console.log("currentUid",currentUid);
+//                                             var likesInWanna = $firebaseArray(ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).child("likes"));//firebase構造によって変えてみてください。
+//                                             var likesInUser = $firebaseArray(ref.child('users').child(currentUid).child('likes'));//firebase構造によって変えてみてください。
+//                                             var wannaPth= wannaOwnerId+"/"+wannaId;
+//
+//                                             likesInWanna.$add(currentUid).then(function(){
+//                                                                 console.log('like added to the wanna-database');})
+//                                             likesInUser.$add(wannaPth).then(function(){
+//                                                                 console.log('like added to the user-database');})
+//
+//
+//                                           },
+
+
               };
               return Wannas;
 })
