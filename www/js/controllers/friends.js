@@ -13,9 +13,10 @@ app.controller('FriendsCtrl', function(Match, Auth, uid, $scope, Follow){
 				Auth.getProfile(item.$id).$loaded().then(function(profile) {
 					$scope.allFriendslist.push(profile);
 				});
-			}
-		console.log("the list is",$scope.list);
+		}
 	});
-	
-	
+
+		console.log("the list is",$scope.allFriendslist);
+
+
 })
