@@ -1,0 +1,25 @@
+<ion-view view-title="Account">
+	<ion-content>
+		<div class="list">
+
+		  <div class="item item-divider">
+		    User Information
+		  </div>
+		  <a class="item item-icon-left" href="#">
+		    <i class="icon ion-person"></i>
+		    {{accountInformation.name}}
+		  </a>
+		   <a class="item item-icon-left" href="#">
+		    <i class="icon ion-email"></i>
+		    {{accountInformation.email}}
+		  </a>
+		 </div>
+  <!--   <ion-list>
+    <ion-toggle  ng-model="settings.enableFriends">
+        Enable Friends
+    </ion-toggle>
+    </ion-list> -->
+
+    <button class="button button-block button-assertive" ng-click="logout()">Logout</button>
+  </ion-content>
+</ion-view>
