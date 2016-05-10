@@ -10,6 +10,7 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                 var friendidList = [];
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
+                //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
                     for (var i = 0; i < data.length; i++) {
                         var item = data[i];
                         friendidList.push(item.$id);
