@@ -1,0 +1,84 @@
+<ion-view view-title="Timeline">
+  <ion-content class="padding">
+    <div class="row">
+      <div class="col col-50">
+        <h2>iWanna</h2>
+      </div>
+      <!--<div class="col col-offset-67">-->
+        <!--<button ng-click="openSearch()" class="button icon ion-ios-search"></button>-->
+      <!--</div>-->
+      <div class="col col-50">
+        <div align="right">
+          <button ng-click="writeWanna()" class="button icon ion-compose"></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bar bar-header item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input ng-change = "searchWannas(tipsToFind)"  ng-model="tipsToFind" placeholder="Search">
+      </label>
+      <button class="button button-clear">
+        Cancel
+      </button>
+    </div>
+
+
+    <!--<ion-item class="list" ng-repeat="wanna in wannas">-->
+
+        <!--<a type="button" class="item item-avatar" href="#" ng-Click="goContentPage(wanna)">-->
+          <!--<img src="adam.jpg" >-->
+          <!--<h2>{{wanna.content}}</h2>-->
+          <!--<p>{{wanna.user_name}}</p>-->
+          <!--<div align="right">-->
+            <!--&lt;!&ndash;http://heo.jp/tag/layout/center.html&ndash;&gt;-->
+            <!--<button id="likeButton" type="button" class="button icon ion-heart" ng-Click="likeWanna(wanna)"></button>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;Tips&ndash;&gt;-->
+
+          <!--&lt;!&ndash;kurukuru&ndash;&gt;-->
+          <!--&lt;!&ndash;http://codepen.io/ionic/pens/public/&ndash;&gt;-->
+          <!--&lt;!&ndash;<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>&ndash;&gt;-->
+
+          <!--&lt;!&ndash;get wanna id&ndash;&gt;-->
+          <!--&lt;!&ndash;<p>{{wanna.$id}}</p>&ndash;&gt;-->
+        <!--</a>-->
+    <!--</ion-item>-->
+
+    <!--<div class="card"  ng-repeat="wanna in wannas">-->
+      <!--<div class="row">-->
+        <!--<div class="col col-20">-->
+          <!--<h2> <i class="icon ion-jet"></i> </h2>-->
+        <!--</div>-->
+
+        <!--<div class="col col-80">-->
+          <!--<h4>{{wanna.content}}</h4>-->
+          <!--<p>{{wanna.user_name}}</p>-->
+        <!--</div>-->
+
+      <!--</div>-->
+
+      <!--<div class="item item-text-wrap">-->
+        <!--<div align="right">-->
+          <!--&lt;!&ndash;http://heo.jp/tag/layout/center.html&ndash;&gt;-->
+          <!--<button id="likeButton2" type="button" class="button icon ion-heart" ng-Click="likeWanna(wanna)"></button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+
+    <div class="list" ng-repeat="wanna in wannas">
+
+      <a class="item item-avatar" href="#" ng-Click="goContentPage(wanna)">
+        <img src={{wanna.icon[0]}}>
+        <h2>{{wanna.content}}</h2>
+        <p>{{wanna.user_name}}</p>
+      </a>
+      <div align="right">
+        <!--http://heo.jp/tag/layout/center.html-->
+        <button id="likeButton" type="button" class="button icon ion-heart" ng-Click="likeWanna(wanna)"></button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

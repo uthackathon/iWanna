@@ -1,0 +1,57 @@
+<ion-view view-title="Submit">
+  <ion-content class="padding">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form ng-submit="wannaSubmit(wanna)">
+      <label class="item item-input">
+        <input type="text" ng-model="wanna.content" placeholder="What do you want to do?">
+      </label>
+      <br>
+      <label class="item item-input">
+        <input type="text" ng-model="wanna.description" placeholder="Comments">
+      </label>
+    <div class="row">
+      <!--<div class="col">-->
+        <!--<button class="button icon ion-ios-football">style</button>-->
+      <!--</div>-->
+      <div class="col col-20">
+        <button id="sportButton" type="button" class="button icon ion-ios-football" ng-click="wannaSport()"></button>
+      </div>
+      <div class="col col-20">
+        <button id="dinnerButton"type="button" class="button icon ion-ios-wineglass" ng-click="wannaDinner()"></button>
+      </div>
+      <div class="col col-20">
+        <button id="shoppingButton"type="button" class="button icon ion-bag" ng-click="wannaShopping()"></button>
+      </div>
+      <div class="col col-20">
+        <button id="sightseeingButton" type="button" class="button icon ion-map" ng-click="wannaSightseeing()"></button>
+      </div>
+      <div class="col col-20">
+        <button id="musicButton" type="button" class="button icon ion-music-note" ng-click="wannaMusic()"></button>
+      </div>
+    </div>
+<!--type="buttonを上記に入れたら、アイコンでsubmitされてしまう現象を回避できた-->
+    <br>
+    <div class="row">
+      <button type = "submit" class="button button-full button-calm" ng-click="wannaSubmit()">
+        Submit
+      </button>
+    </div>
+    </form>
+
+    <!--<div class="row">-->
+      <!--<div class="col col-33">.col</div>-->
+      <!--<div class="col">.col</div>-->
+      <!--<div class="col">.col</div>-->
+      <!--<div class="col">1<br>2<br>3<br>4</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+      <!--<button class="button button-block button-positive">-->
+        <!--Submit-->
+      <!--</button>-->
+    <!--</div>-->
+  </ion-content>
+</ion-view>
