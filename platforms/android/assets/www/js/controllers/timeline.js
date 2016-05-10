@@ -1,13 +1,32 @@
 'use strict'
 
-app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService) {
+app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,Match) {
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
 
                var currentUid = uid;
-               $scope.wannas =Wannas.all(currentUid);
                var allwanna = Wannas.all(currentUid);
+                var friendidList = [];
+
+                Match.allMatchesByUser(uid).$loaded().then(function(data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        friendidList.push(item.$id);
+                        Wannas.all(item.$id).$loaded().then(function(friendwanna) {
+                            console.log(friendwanna.length);
+                            for (var j = 0; j < friendwanna.length; j++) {
+                                allwanna.push(friendwanna[j]);
+                                console.log(friendwanna[j]);
+                            }
+                        });
+                    }
+                    console.log("allwanna is",allwanna);
+                    console.log("friend ids are",friendidList);
+                });
+
+
+                $scope.wannas = allwanna;
 
                $scope.writeWanna=function(){
                console.log("write button was clicked");
@@ -35,7 +54,7 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService)
                 $scope.searchWannas = function(tipsToFind){
                     if (tipsToFind == "") {
                     //検索窓が空欄の時は検索前に戻す(全部が当てはまるという検索の時間省略のため)
-                        $scope.wannas =Wannas.all(currentUid);
+                        $scope.wannas =allwanna;
                         console.log('reset');
                     }
                     else {//検索部
