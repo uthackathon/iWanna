@@ -1,0 +1,43 @@
+<ion-view view-title="Home">
+	<ion-content>
+		<div class="list">
+
+
+		  	<a class="item item-icon-left" href="#">
+		    <i class="icon ion-person"></i>
+		    {{accountInformation.name}}
+		  	</a>
+
+	    </div>
+		
+	    <div>
+	        <div class="list card">
+ 				<a href="#" class="item item-icon-left"  ng-repeat="wanna in allWannasList">
+    				<i class="icon ion-home"></i>
+    				{{wanna.content}}
+  				</a>
+  			</div>
+			<!-- <ion item class="list card" ng-repeat="wanna in allWannasList">
+				<div class="list">
+      			{{wanna.content}}
+      			</div>
+    		</ion-item> -->
+		</div>
+	    </div>
+  <!--   <ion-list>
+    <ion-toggle  ng-model="settings.enableFriends">
+        Enable Friends
+    </ion-toggle>
+    </ion-list> -->
+	<div class="list">
+		
+		<button class="button button-block  icon-left ion-social-twitter button-calm" ng-click = "twitterShare()">Twitterで"iWannaリスト"をシェア
+		</button>
+
+		<button class="button button-block  icon-left ion-social-facebook button-calm" ng-click = "facebookShare()">Facebookで"iWannaリスト"をシェア
+		</button>
+
+	</div>
+
+  </ion-content>
+</ion-view>
