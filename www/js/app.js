@@ -144,7 +144,7 @@ var app = angular.module('starter', [
   })
 
   .state('tab.wanna-content', {
-    url: '/dash/:wannaId',
+    url: '/dash/:wannaId',//'/dash:wannaIdでは?
     views: {
       'tab-dash': {
         templateUrl: 'templates/wanna-content.html',
@@ -236,6 +236,27 @@ var app = angular.module('starter', [
         
       }
     }
+  })
+
+  .state('tab.message-room', {
+    url: '/messages:roomId',
+    views: {
+      'tab-messages': {
+        templateUrl: 'templates/message-room.html',
+        controller: 'MessageRoomCtrl'
+      }
+    },
+    resolve: {
+           
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
   })
 
   .state('tab.friends', {
