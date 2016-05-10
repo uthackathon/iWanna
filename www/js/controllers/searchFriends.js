@@ -3,7 +3,7 @@
 'use strict'
 
 app.controller('SearchFriendsCtrl', function($firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope) {
-	
+
     var currentUid = uid
 
     $scope.currentIndex = null;
@@ -15,29 +15,41 @@ app.controller('SearchFriendsCtrl', function($firebaseAuth, $ionicLoading, $ioni
     $scope.recommendedUsers = [];
 
 	$scope.searchFriendsByName = function(index,friendNameToFind){
-		//まずは検索窓の初期化		
-		$scope.cardRemove(index);	
+		//まずは検索窓の初期化
+		$scope.cardRemove(index);
 
-	  	Auth.getProfiles().$loaded().then(function(data){
-			for (var i = 0; i < data.length; i++){
+        Auth.getProfiles().$loaded().then(function(data){
+            if (friendNameToFind == "") {
+                        //検索窓が空欄の時は検索前に戻す(全部が当てはまるという検索の時間省略のため)
+                            $scope.profiles = [];
+                            console.log('reset');
+                        }
+            else {//検索部
+                        $scope.serchprofiles = [];
+                        console.log("searching...",friendNameToFind);
+                        var serchword = new RegExp(friendNameToFind);
+                        for (var i = 0; i < data.length; i++){
+                            var item = data[i];
+                            if ( item.name.match(serchword) && item.$id != currentUid) {
+                                //nameが部分一致かつ、自分自身ではない時
+                                $scope.serchprofiles.push(item);
+                            }
+                        };
 
-				var item = data[i];
-				if(item.name == friendNameToFind && item.$id != currentUid){
-					//nameが一致かつ、自分自身ではない時
-					$scope.profiles.push(item);
-				}
-
-				if ($scope.profiles.length > 0){
-					//indexの変更
-					$scope.currentIndex = $scope.profiles.length - 1;
-					$scope.currentCardUid = $scope.profiles[$scope.currentIndex].$id;
-				}
-
-			}
-		});
-	
-	},
-
+                        if ($scope.serchprofiles.length !== 0){//ヒットしたとき
+                            $scope.profiles = $scope.serchprofiles
+                            console.log('searched friends are',$scope.profiles);
+                        //indexの変更
+                        $scope.currentIndex = $scope.profiles.length - 1;
+                        $scope.currentCardUid = $scope.profiles[$scope.currentIndex].$id;
+                        }
+                        else if ($scope.serchprofiles.length == 0){//何もヒットしなかったときは表示なし
+                            $scope.profiles =　[]
+                            console.log('friend is not finded');
+                        };
+            };
+        });
+    };
 	// //以下のように書くことにより、ページ遷移した時に呼び出せるらしい(要調査)が、ページを更新するたびにリストに追加されてしまうのでやめた。
 	//しかしながら、使用時に友達申請されたらどうなるかよく分からない。初めてログインした時から友達リストが変わらない????
 	// $scope.$on('$ionicView.enter', function(e){
@@ -56,8 +68,8 @@ app.controller('SearchFriendsCtrl', function($firebaseAuth, $ionicLoading, $ioni
 			return _.isEmpty(_.where(followList, {$id: obj.$id}));
 		});
 	});
-	// });	
-	
+	// });
+
 
   	$scope.follow = function(index, follow_uid) {
   		Follow.addFollow(currentUid, follow_uid);
