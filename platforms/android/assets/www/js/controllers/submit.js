@@ -20,21 +20,24 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas) {
                //date object のメソッドについては http://so-zou.jp/web-app/tech/programming/javascript/grammar/object/date.htm#no3
 
                //日本時間ではなく UTC で入れている。
-               var time={
-                 year: now.getUTCFullYear(),
-                 month: now.getUTCMonth()+1,//月は0から11まで
-                 date: now.getUTCDate(),
-                 hours: now.getUTCHours(),
-                 minutes: now.getUTCMinutes(),
-                 seconds: now.getUTCSeconds(),
-               };
-               console.log("time data");
-               console.log("year",time.year);
-               console.log("month",time.month);
-               console.log("date",time.date);
-               console.log("hours",time.hours);
-               console.log("minutes",time.minutes);
-               console.log("seconds",time.seconds);
+               console.log("year",typeof now.getUTCFullYear());
+//               var time={
+//                 year: now.getUTCFullYear(),
+//                 month: now.getUTCMonth()+1,//月は0から11まで
+//                 date: now.getUTCDate(),
+//                 hours: now.getUTCHours(),
+//                 minutes: now.getUTCMinutes(),
+//                 seconds: now.getUTCSeconds(),
+//               };
+
+               var time = now.getUTCFullYear()*10000000000+(now.getUTCMonth()+1)*100000000+now.getUTCDate()*1000000+now.getUTCHours()*10000+now.getUTCMinutes()*100+now.getUTCSeconds();
+//               console.log("time data");
+//               console.log("year",time.year);
+//               console.log("month",time.month);
+//               console.log("date",time.date);
+//               console.log("hours",time.hours);
+//               console.log("minutes",time.minutes);
+//               console.log("seconds",time.seconds);
 
                console.log("submit button was clicked",wanna);
 

@@ -15,10 +15,10 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                         var item = data[i];
                         friendidList.push(item.$id);
                         Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                            console.log(friendwanna.length);
+                            //console.log(friendwanna.length);
                             for (var j = 0; j < friendwanna.length; j++) {
                                 allwanna.push(friendwanna[j]);
-                                console.log(friendwanna[j]);
+                                //console.log(friendwanna[j]);
                             }
                         });
                     }
