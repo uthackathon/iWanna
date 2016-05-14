@@ -8,7 +8,8 @@
 var app = angular.module('starter', [
   'ionic',
   'firebase',
-  'ngCordova'
+  'ngCordova',
+  'ngFileUpload'
 ])
 
 .service('$cordovaScreenshot', ['$q', function($q) {
@@ -160,7 +161,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-home.html',
         controller: 'HomeCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -201,7 +202,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-searchfriends.html',
         controller: 'SearchFriendsCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -211,7 +212,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -223,7 +224,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-messages.html',
         controller: 'MessagesCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -233,7 +234,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -247,7 +248,7 @@ var app = angular.module('starter', [
       }
     },
     resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -266,7 +267,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-friends.html',
         controller: 'FriendsCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -275,7 +276,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -288,7 +289,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()

@@ -8,7 +8,8 @@
 var app = angular.module('starter', [
   'ionic',
   'firebase',
-  'ngCordova'
+  'ngCordova',
+  'ngFileUpload'
 ])
 
 .service('$cordovaScreenshot', ['$q', function($q) {
@@ -144,7 +145,7 @@ var app = angular.module('starter', [
   })
 
   .state('tab.wanna-content', {
-    url: '/dash/:wannaId',
+    url: '/dash/:wannaId',//'/dash:wannaIdでは?
     views: {
       'tab-dash': {
         templateUrl: 'templates/wanna-content.html',
@@ -160,7 +161,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-home.html',
         controller: 'HomeCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -201,7 +202,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-searchfriends.html',
         controller: 'SearchFriendsCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -211,7 +212,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -223,7 +224,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-messages.html',
         controller: 'MessagesCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -233,9 +234,30 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
+  })
+
+  .state('tab.message-room', {
+    url: '/messages:roomId',
+    views: {
+      'tab-messages': {
+        templateUrl: 'templates/message-room.html',
+        controller: 'MessageRoomCtrl'
+      }
+    },
+    resolve: {
+
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
   })
 
   .state('tab.friends', {
@@ -245,7 +267,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-friends.html',
         controller: 'FriendsCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -254,7 +276,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -267,7 +289,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
