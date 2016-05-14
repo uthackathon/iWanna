@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas) {
+app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopup) {
                var currentUid = uid;
                var iconArray = [0,0,0,0,0];
                var icon1="img/soccer.png";//アイコンの画像名をwanna につけて保存
@@ -21,23 +21,8 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas) {
 
                //日本時間ではなく UTC で入れている。
                console.log("year",typeof now.getUTCFullYear());
-//               var time={
-//                 year: now.getUTCFullYear(),
-//                 month: now.getUTCMonth()+1,//月は0から11まで
-//                 date: now.getUTCDate(),
-//                 hours: now.getUTCHours(),
-//                 minutes: now.getUTCMinutes(),
-//                 seconds: now.getUTCSeconds(),
-//               };
 
                var time = now.getUTCFullYear()*10000000000+(now.getUTCMonth()+1)*100000000+now.getUTCDate()*1000000+now.getUTCHours()*10000+now.getUTCMinutes()*100+now.getUTCSeconds();
-//               console.log("time data");
-//               console.log("year",time.year);
-//               console.log("month",time.month);
-//               console.log("date",time.date);
-//               console.log("hours",time.hours);
-//               console.log("minutes",time.minutes);
-//               console.log("seconds",time.seconds);
 
                console.log("submit button was clicked",wanna);
 
@@ -58,14 +43,22 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas) {
                if(iconArray[4]){
                 var num = iconNames.unshift(icon5);
                }
-
-
                console.log("icon names",wanna);
 
 
+               if(userName==""){
+                 var alertPopup = $ionicPopup.alert({
+                                    title: 'エラー',
+                                    template: 'ユーザー名の取得に失敗しました。'
+                 });
+               }else{
+               if(wanna.description==null){
+                wanna.description="No description";
+               }
                //ここでwanna をfirebase 上に記録。
                Wannas.saveWanna(wanna,currentUid,userName,iconNames,time);
                $state.go('tab.dash');
+               }
                };
 
 
