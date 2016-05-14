@@ -44,23 +44,25 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 
 
 
-                addLike: function(wannaOwnerId,wannaId,currentUid){
+                addLikeToWanna: function(wannaOwnerId,wannaId,currentUid){
                   console.log("wannaOwnerId",wannaOwnerId);
                   console.log("wannaId",wannaId);
                   console.log("currentUid",currentUid);
-
                   var likesInWanna = $firebaseArray(ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).child("likes"));//firebase構造によって変えてみてください。
+                  return likesInWanna.$add(currentUid).then(function(){
+                                      console.log('like added to the wanna-database');})
+                },
+
+                addLikeToUser: function(wannaOwnerId,wannaId,currentUid){
+                  console.log("wannaOwnerId",wannaOwnerId);
+                  console.log("wannaId",wannaId);
+                  console.log("currentUid",currentUid);
                   var likesInUser = $firebaseArray(ref.child('users').child(currentUid).child('likes'));//firebase構造によって変えてみてください。
                   var wannaPath= wannaOwnerId+"/"+wannaId;
-
-                  likesInWanna.$add(currentUid).then(function(){
-                                      console.log('like added to the wanna-database');}).then(function(){console.log('like added to the wanna-database');})
-                  likesInUser.$add(wannaPath).then(function(){
+                  return likesInUser.$add(wannaPath).then(function(){
                                       console.log('like added to the user-database');})
-
-
-
                 },
+
 
                 removeLike:function(wannaOwnerId,wannaId,currentUid){
                                              console.log("wannaOwnerId",wannaOwnerId);

@@ -10,7 +10,6 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                var icon5="img/music.png";
                var buttonsName=['sportButton','dinnerButton','shoppingButton','sightseeingButton','musicButton'];
 
-               var userName= Wannas.getUserName(currentUid);
 
 
                $scope.wannaSubmit=function(wanna){
@@ -45,7 +44,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                }
                console.log("icon names",wanna);
 
-
+               var userName= Wannas.getUserName(currentUid);
                if(userName==""){
                  var alertPopup = $ionicPopup.alert({
                                     title: 'エラー',

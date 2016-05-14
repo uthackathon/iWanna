@@ -9,6 +9,7 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                var allwanna = Wannas.all(currentUid);
                var friendidList = [];
                var likedWannaList=[];
+               var likeValid=0;
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
@@ -28,8 +29,8 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                 });
 
 
-
                $scope.wannas = allwanna;
+
 
                $scope.writeWanna=function(){
                console.log("write button was clicked");
@@ -46,6 +47,7 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                   console.log("timeline",wanna.content);
                };
 
+
                $scope.myFunction = function(isLast,wanna){
                  if(isLast){//html の表示が終わった時に動く内容 （like の色付け）
                     console.log("the end of repeat",wanna.$id);
@@ -57,6 +59,8 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                         pretarget.style.backgroundColor='#FFFFFF';
                         pretarget.style.color='#FFC0CB';
                     }
+                    likeValid=1;
+                    console.log("like valid phase");
                    },500);
 
                  }
@@ -66,12 +70,29 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                $scope.likeWanna=function(wanna){
                       console.log("like button was clicked");
                      // wanna.ownerId=currentUid;//test用の緊急処理。wanna 全てにownerId を書き込んでこの行を消すべし
-                     var pretarget = document.getElementById(wanna.$id);
-                                                pretarget.style.backgroundColor='#FFFFFF';
-                                                pretarget.style.color='#FFC0CB';
+                     //<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>
+                     if(likeValid){//likeValid が1のときだけ、like ボタンが有効
+                        var likeButton = document.getElementById(wanna.$id);
+                        var buttonColor=likeButton.style.color;
+                        console.log("button color",buttonColor);
+                        if(buttonColor){//likeボタンがすでに色つきの時
+                            console.log("colorful");
+                        }else{//likeにまだ色がついてない時
+                            Wannas.addLikeToWanna(wanna.ownerId,wanna.$id,currentUid).then(function(data){
+                            });
+                            Wannas.addLikeToUser(wanna.ownerId,wanna.$id,currentUid).then(function(data){
+                                                likeButton.style.backgroundColor='#FFFFFF';
+                                                likeButton.style.color='#FFC0CB';
+                            })
+                        }
+                      }else{
+                        console.log("like button is not valid");
+                      }
 
-                      Wannas.addLike(wanna.ownerId,wanna.$id,currentUid)
-                      };
+                      ;
+
+
+               };
 
                 //wannasの検索、とりあえずserchFriendsからコピー
                 //検索窓からの取り込み=tipsToFind
