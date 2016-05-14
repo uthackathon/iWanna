@@ -46,6 +46,7 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                   console.log("timeline",wanna.content);
                };
 
+               //本当は、$scope.wannasが変更されるたびに like の色を変えたい
                $scope.myFunction = function(isLast,wanna){
                  if(isLast){//html の表示が終わった時に動く内容 （like の色付け）
                     console.log("the end of repeat",wanna.$id);
