@@ -16,7 +16,7 @@
 
           <div class="item item-button-right">
       		  {{profile.name}}
-   			    <button class="button button-positive" ng-click = "follow($index, profile.$id)">
+   			    <button class="button button-calm" ng-click = "follow($index, profile.$id)">
       			  <i class="icon ion-person-add"></i>
     		    </button>
  		      </div>
@@ -32,7 +32,7 @@
       <ion item class="list card" ng-repeat="recommendedUser in recommendedUsers">
       <div class="item item-button-right">
             {{recommendedUser.name}}
-          <button class="button button-positive" ng-click = "followRecommended($index, recommendedUser.$id)">
+          <button class="button button-calm" ng-click = "followRecommended($index, recommendedUser.$id)">
               <i class="icon ion-person-add"></i>
           </button>
       </div>
