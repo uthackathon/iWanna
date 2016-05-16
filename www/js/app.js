@@ -98,6 +98,7 @@ var app = angular.module('starter', [
   // setup an abstract state for the tabs directive
   .state('tab', {
     url: '/tab',
+    cache: false,
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
