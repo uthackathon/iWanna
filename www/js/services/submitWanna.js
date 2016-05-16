@@ -44,56 +44,74 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 
 
 
-                addLikeToWanna: function(wannaOwnerId,wannaId,currentUid){
-                  console.log("wannaOwnerId",wannaOwnerId);
-                  console.log("wannaId",wannaId);
-                  console.log("currentUid",currentUid);
-                  var likesInWanna = $firebaseArray(ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).child("likes"));//firebase構造によって変えてみてください。
-                  return likesInWanna.$add(currentUid).then(function(){
-                                      console.log('like added to the wanna-database');})
+                addLikeToWanna: function(wannaOwnerId,wannaId,currentUid,likeButton){
+                  var onComplete = function(error){
+                    if (error){
+                        console.log('[FAILED] like to the wanna-database');
+                        return 0;
+                    } else {
+                        console.log('like added to the wanna-database');
+                        return 1;
+                    }
+                  };
+                  ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).child("likes").child(currentUid).set(true,onComplete);
                 },
 
-                addLikeToUser: function(wannaOwnerId,wannaId,currentUid){
-                  console.log("wannaOwnerId",wannaOwnerId);
-                  console.log("wannaId",wannaId);
-                  console.log("currentUid",currentUid);
-                  var likesInUser = $firebaseArray(ref.child('users').child(currentUid).child('likes'));//firebase構造によって変えてみてください。
+                addLikeToUser: function(wannaOwnerId,wannaId,currentUid,likeButton){
+                  var onComplete = function(error){//callback をtimeline.js に入れるのが上手くいかなかった(.then のpromise 設定が面倒)ので、ここに入れた
+                                      if (error){
+                                          console.log('[FAILED] like to the user-database');
+                                          return 0;
+                                      } else {
+                                          console.log('like added to the user-database');
+                                                likeButton.style.backgroundColor='#FFFFFF';
+                                                likeButton.style.color='#FFC0CB';
+                                          return 1;
+                                      }
+                                    };
                   var wannaPath= wannaOwnerId+"/"+wannaId;
-                  return likesInUser.$add(wannaPath).then(function(){
-                                      console.log('like added to the user-database');})
+                  ref.child('users').child(currentUid).child('likes').child(wannaPath).set(true,onComplete);
+                },
+
+                removeLikeFromWanna: function(wannaOwnerId,wannaId,currentUid,likeButton){
+                  var onComplete = function(error){//callback をtimeline.js に入れるのが上手くいかなかった(.then のpromise 設定が面倒)ので、ここに入れた
+                                      if (error){
+                                          console.log('[FAILED] remove from the wanna-database');
+                                          return 0;
+                                      } else {
+                                          console.log('like was removed from the wanna-database');
+                                          return 1;
+                                      }
+                                    };
+                  ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).child("likes").child(currentUid).remove(onComplete);
+                },
+
+                removeLikeFromUser: function(wannaOwnerId,wannaId,currentUid,likeButton){
+                  var onComplete = function(error){//callback をtimeline.js に入れるのが上手くいかなかった(.then のpromise 設定が面倒)ので、ここに入れた
+                                      if (error){
+                                          console.log('[FAILED] remove from the user-database');
+                                          return 0;
+                                      } else {
+                                          console.log('like was removed from the user-database');
+                                                likeButton.style.backgroundColor='';
+                                                likeButton.style.color='';
+                                          return 1;
+                                      }
+                                    };
+                  var wannaPath= wannaOwnerId+"/"+wannaId;
+                  ref.child('users').child(currentUid).child('likes').child(wannaPath).remove(onComplete);
                 },
 
 
-                removeLike:function(wannaOwnerId,wannaId,currentUid){
-                                             console.log("wannaOwnerId",wannaOwnerId);
-                                             console.log("wannaId",wannaId);
-                                             console.log("currentUid",currentUid);
-                                             var UserDataInWanna = $firebaseArray(ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).child("likes").key(currentUid));//firebase構造によって変えてみてください。
-                                             var WannaDataInUser = $firebaseArray(ref.child('users').child(currentUid).child('likes').key(wannaId));//firebase構造によって変えてみてください。
-                                             var wannaPath= wannaOwnerId+"/"+wannaId;
 
-                                             UserDataInWanna.remove().then(function(){
-                                                                 console.log('like removed in the wanna-database');})
-                                             WannaDataInUser.remove().then(function(){
-                                                                 console.log('like removed in the user-database');})
-
-
-                },
-
-                findUsersLikes:function(data,currentUid){
+                findUsersLikes:function(wannas,currentUid){
                  var likedWannaId=[];
-                 for (var i = 0; i < data.length; i++){
-                   var item = data[i];
-                   var likeUsers =[];
-                   for(var key in item.likes){
-                    likeUsers.push(item.likes[key]);
-                   }
-                   var pos=likeUsers.indexOf(currentUid);
-                   if(pos!=-1){//自分のid がlikes の中にあるとき
-                     likedWannaId.push(item.$id);//その wanna のid を保管。
-                    // console.log("find like",item.$id);
-                   }
+                 for (var i = 0; i < wannas.length; i++){
+                   var item = wannas[i];
+                   if(currentUid in item.likes){
+                    likedWannaId.push(item.$id);//その wanna のid を保管。
                    };
+                 };
 //                   $scope.wannas=data;//表示するやつをdata に同期
                    console.log("users likes",likedWannaId);
                    return likedWannaId;
