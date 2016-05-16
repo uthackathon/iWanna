@@ -8,7 +8,8 @@
 var app = angular.module('starter', [
   'ionic',
   'firebase',
-  'ngCordova'
+  'ngCordova',
+  'ngFileUpload'
 ])
 
 .service('$cordovaScreenshot', ['$q', function($q) {
@@ -96,6 +97,7 @@ var app = angular.module('starter', [
 
   // setup an abstract state for the tabs directive
   .state('tab', {
+    cache: false,
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
@@ -110,6 +112,11 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-dash.html',
         controller: 'DashCtrl',
         resolve: {
+                  auth: function(Auth){
+                    return Auth.requireAuth().catch(function(){
+                      $state.go('login');
+                    });
+                  },
 
 
                   uid: function(Auth) {
@@ -160,7 +167,13 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-home.html',
         controller: 'HomeCtrl',
         resolve: {
-           
+
+          auth: function(Auth){
+            return Auth.requireAuth().catch(function(){
+              $state.go('login');
+            });
+          },
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -201,7 +214,13 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-searchfriends.html',
         controller: 'SearchFriendsCtrl',
         resolve: {
-           
+
+          auth: function(Auth){
+            return Auth.requireAuth().catch(function(){
+              $state.go('login');
+            });
+          },
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -211,7 +230,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -223,7 +242,13 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-messages.html',
         controller: 'MessagesCtrl',
         resolve: {
-           
+
+          auth: function(Auth){
+            return Auth.requireAuth().catch(function(){
+              $state.go('login');
+            });
+          },
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -233,7 +258,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -247,7 +272,7 @@ var app = angular.module('starter', [
       }
     },
     resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -266,7 +291,13 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-friends.html',
         controller: 'FriendsCtrl',
         resolve: {
-           
+
+          auth: function(Auth){
+            return Auth.requireAuth().catch(function(){
+              $state.go('login');
+            });
+          },
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -275,7 +306,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -288,7 +319,13 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl',
         resolve: {
-           
+
+          auth: function(Auth){
+            return Auth.requireAuth().catch(function(){
+              $state.go('login');
+            });
+          },
+
 
           uid: function(Auth) {
             return Auth.requireAuth()

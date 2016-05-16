@@ -1,7 +1,14 @@
 'use strict'
 
-app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStateServiceForMessage,uid,Wannas) {
+app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStateServiceForMessage,uid,Wannas, $document) {
+
+            $scope.title = '<div class = "message-friend">{{message}}</div>';
+            
+
 				var ref = new Firebase(FURL);
+
+
+
 				$scope.allMessages = [];
 
                	console.log('entered message room');
@@ -22,16 +29,19 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
                	};
 
                	$scope.$on('$ionicView.enter', function(e){
+                     console.log("allMessage is ",$scope.allMessages);
                		$scope.allMessages = [];
                		Message.getAllMessages($scope.currentRoomId).$loaded().then(function(data) {
 					for (var i = 0; i < data.length; i++) {
 						var item = data[i];
+                  console.log(item);
 
 						$scope.allMessages.push(item.message);
 				
 					}
-					console.log("message is",$scope.data.message);
+					
 					});
+
                	});
                	
 
@@ -46,9 +56,18 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 						$scope.allMessages.push(item.message);
 				
 					}
-				    console.log("message is",$scope.data.message );
 					});
  
 				});
+   $scope.messageBy = "message-friend";
+
+   $scope.messageBy = function(mid){
+      if(uid == mid){
+         return "message-me";
+      }else{
+         return "message-friend";
+      } 
+   }
+      
 
 })

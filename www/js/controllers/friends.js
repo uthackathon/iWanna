@@ -61,8 +61,8 @@ app.controller('FriendsCtrl', function(Match, Auth, uid, $scope,$state, Follow, 
      } else {
        console.log('You are not sure');
      }
-   });
- };
+   	});
+ 	};
   };
 
 })

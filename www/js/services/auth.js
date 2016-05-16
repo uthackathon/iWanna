@@ -69,8 +69,6 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
   }
 
 
-
-
   auth.$onAuth(function(authData){
     if(authData){
 

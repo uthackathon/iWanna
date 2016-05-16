@@ -1,11 +1,18 @@
 <ion-view view-title="Message Room">
 
   <ion-content class="padding">
+
   
-  <section class="chats" ng-repeat="message in allMessages track by $index">
-   <span >
+  <section class="chats" ng-repeat="message in allMessages track by $index" ng-bind-html = "title" >
+
+    
+    
+    
+<!--    
       {{message}}
-      </span>
+    </div> -->
+  
+    
 
 <!-- 
     <span ng-repeat="message in allMessages">

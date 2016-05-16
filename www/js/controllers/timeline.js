@@ -1,12 +1,19 @@
 'use strict'
 
-app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,Match) {
+app.controller('DashCtrl', function(uid,$ionicLoading, $scope,$state,Wannas,SharedStateService,Match) {
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
 
-               var currentUid = uid;
-               var allwanna = Wannas.all(currentUid);
+              //ページ表示時に呼び出し
+              $scope.$on('$ionicView.enter', function(e){
+                  init();
+              });
+
+              function init(){
+                $scope.show();
+                var currentUid = uid;
+                var allwanna = Wannas.all(currentUid);
                 var friendidList = [];
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
@@ -28,6 +35,27 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
 
 
                 $scope.wannas = allwanna;
+
+                $scope.hide();
+
+               };
+
+               //砂時計を表示
+               $scope.show = function() {
+                $ionicLoading.show({
+                  template: '<ion-spinner icon = "bubbles"></ion-spiner>'
+
+                });
+               };
+
+               //砂時計を非表示
+               $scope.hide = function() {
+                $ionicLoading.hide();
+               };
+
+
+
+              
 
                $scope.writeWanna=function(){
                console.log("write button was clicked");
