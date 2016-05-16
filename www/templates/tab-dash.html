@@ -70,14 +70,25 @@
 
     <div class="list" ng-repeat="wanna in wannas">
 
+        <a class="list card " id="page-card21">
+            <ion-item class="item-avatar item-icon-right  " href="#" ng-Click="goContentPage(wanna)">
+                <img src={{testimage[0].images}} width="50" height="50"/>
+                <h2>{{wanna.content}}</h2>
+                <p>{{wanna.user_name}}</p>
+                <i class={{wanna.icon[0]}}></i>
+            </ion-item>
+        </a>
+
+<!--
       <a class="item item-avatar" href="#" ng-Click="goContentPage(wanna)">
         <img src={{wanna.icon[0]}}>
         <h2>{{wanna.content}}</h2>
         <p>{{wanna.user_name}}</p>
       </a>
+-->
       <div align="right">
         <!--http://heo.jp/tag/layout/center.html-->
-        <button id="likeButton" type="button" class="button icon ion-heart" ng-Click="likeWanna(wanna)"></button>
+        <button id="likeButton" type="button" class="button icon ion-heart" ng-Click="likeWanna(wanna)" width="30" height="30"></button>
       </div>
     </div>
   </ion-content>

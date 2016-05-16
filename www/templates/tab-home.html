@@ -1,11 +1,11 @@
 <ion-view view-title="Home">
 	<ion-content>
-		<div class="list">
-		  	<a class="item item-icon-left" href="#">
-		    <i class="icon ion-person"></i>
-		    {{accountInformation.name}}
-		  	</a>
-	    </div>
+        <div class="card">
+            <div class="item item-avatar">
+                <img src="{{images[0].images}}" alt="" width="50" height="50"/>
+                <h2>{{accountInformation.name}}</h2>
+            </div>
+        </div>
 
         <div>
             <h1>Image Upload</h1>
@@ -24,18 +24,17 @@
                     </fieldset>
                     <br>
                     <ul>
-                        <li ng-repeat="img in images | orderBy:'-submitDate'">
-                          <img src="{{img.images}}" alt="" width="150" height="150"/>
-                        </li>
+                        <img src="{{images[0].images}}" alt="" width="100" height="100"/>
                     </ul>
                 </form>
             </body>
         </div>
 
 	    <div>
+            <h1>Wannas List</h1>
 	        <div class="list card">
  				<a href="#" class="item item-icon-left"  ng-repeat="wanna in allWannasList">
-    				<i class="icon ion-home"></i>
+    				<i class={{wanna.icon[0]}}></i>
     				{{wanna.content}}
   				</a>
   			</div>
