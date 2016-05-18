@@ -4,6 +4,7 @@
   border-radius: 5%;
   width: 70%;
   background-color: white;
+  color: red;
 }
 
 .panelbody .loginForm {
@@ -51,9 +52,68 @@ div.nav-bar-block{
     color: #11c1f3;
   background-color: #11c1f3;
 }*/
+a.item-icon-left{
+    color: #11c1f3;
+      color: #0288d1;
+}
 
 
 div.title.title-left.header-item{
+  background-color: #11c1f3;
+  color: #ffffff;
+}
+
+div.title.title-center.header-item{
+  background-color: #11c1f3;
+  color: #ffffff;
+}
+
+
+div.item.item-divider{
+  color: #11c1f3;
+
+}
+
+/*ion-content.padding.scroll-content.ionic-scroll.overflow-scroll.has-header.has-tabs-top{
+  background-color: ;
+}*/
+
+div.item.item-button-right.ng-binding{
+  color: #0288d1;
+}
+
+i.icon.ion-person{
+  color: #11c1f3;
+}
+
+i.icon.ion-email{
+  color: #11c1f3;
+}
+
+ion-content{
+/*  background-color: #CEECF5;*/
+   background-color: #ffffff;
+}
+ion-header-bar.bar-stable.bar.bar-header{
+  background-color: #11c1f3;
+}
+
+button.button.back-button.buttons{
+    color: #ffffff;
+}
+h2{
+  color: #0288d1;
+}
+
+font.ng-binding{
+  color: #0288d1;
+}
+
+div.tab-nav.tabs i.icon{
+   color: #11c1f3;
+}
+
+div.footer-btn-wrap{
   color: #11c1f3;
 }
 
@@ -64,6 +124,7 @@ div.title.title-left.header-item{
   -o-background-size: cover;
   background-size: cover;
 }
+
 
 .facebook{
   max-width: 200px;
