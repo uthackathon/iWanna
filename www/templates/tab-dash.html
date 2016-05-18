@@ -1,20 +1,35 @@
 <ion-view view-title="Timeline">
   <ion-content class="padding">
-    <div class="row">
+
+
+      <button ng-click="writeWanna()" class="button button-full icon big ion-compose button-calm ">
+        iWanna...
+      </button>
+
+     
+
+
+<!--     <div class="row">
       <div class="col col-50">
         <h2>iWanna</h2>
       </div>
-      <!--<div class="col col-offset-67">-->
-        <!--<button ng-click="openSearch()" class="button icon ion-ios-search"></button>-->
-      <!--</div>-->
+
       <div class="col col-50">
         <div align="right">
           <button ng-click="writeWanna()" class="button icon ion-compose"></button>
         </div>
       </div>
+    </div> -->
+
+
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search big placeholder-icon"></i>
+        <input ng-change = "searchWannas(tipsToFind)" ng-model="tipsToFind" placeholder="Search">
+      </label>
     </div>
 
-    <div class="bar bar-header item-input-inset">
+<!--     <div class="bar bar-header item-input-inset">
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
         <input ng-change = "searchWannas(tipsToFind)"  ng-model="tipsToFind" placeholder="Search">
@@ -22,7 +37,7 @@
       <button class="button button-clear">
         Cancel
       </button>
-    </div>
+    </div> -->
 
 
     <!--<ion-item class="list" ng-repeat="wanna in wannas">-->
