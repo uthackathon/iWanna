@@ -2,9 +2,11 @@
 
   <ion-content class="padding">
   
-  <section class="chats" ng-repeat="message in allMessages track by $index">
+ <!--  <section class="chats" ng-repeat="message in allMessages" ng-class="(uid != message.userId)? 'self' : 'other' "> -->
+ <section class="chats" ng-repeat="message in allMessages" ng-class = "isMe(message.userId)">
    <span >
-      {{message}}
+      {{message.message}}
+      <br></br>
       </span>
 
 <!-- 

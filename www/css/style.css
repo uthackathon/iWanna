@@ -70,13 +70,22 @@ div.title.title-center.header-item{
 
 
 div.item.item-divider{
-  color: #11c1f3;
+  color: #ffffff;
+   background-color: #11c1f3;
 
 }
 
 /*ion-content.padding.scroll-content.ionic-scroll.overflow-scroll.has-header.has-tabs-top{
   background-color: ;
 }*/
+
+
+.item-avatar {
+  width:100%;
+  height:90%;
+  align-self: right;
+}
+
 
 div.item.item-button-right.ng-binding{
   color: #0288d1;
@@ -113,8 +122,21 @@ div.tab-nav.tabs i.icon{
    color: #11c1f3;
 }
 
+button.button-icon.icon.ion-ios-paperplane.footer-btn{
+  color: #11c1f3;
+}
+
 div.footer-btn-wrap{
   color: #11c1f3;
+}
+
+.chats{
+  color: #04B404;
+}
+.self{
+  text-align: right;
+  color: #0288d1;
+
 }
 
 .landing {

@@ -28,10 +28,10 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 					for (var i = 0; i < data.length; i++) {
 						var item = data[i];
 
-						$scope.allMessages.push(item.message);
+						$scope.allMessages.push(item);
+                       console.log(uid);
 				
 					}
-					console.log("message is",$scope.data.message);
 					});
                     $scope.hide();
                	});
@@ -46,15 +46,21 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 					for (var i = 0; i < data.length; i++) {
 						var item = data[i];
 
-						$scope.allMessages.push(item.message);
+						$scope.allMessages.push(item);
+            console.log(uid);
 				
 					}
-				    console.log("message is",$scope.data.message );
+				    console.log("message is",$scope.allMessages);
 					});
                     $scope.hide();
  
 				});
 
+  $scope.isMe = function(userId){
+    if(uid==userId){
+　　　　return "self";            
+    }
+  };
               //砂時計を表示
    $scope.show = function() {
     $ionicLoading.show({
