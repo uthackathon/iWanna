@@ -30,6 +30,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                   var newWanna={
                     ownerId: currentUid,
                     user_name: userName,//名前取得できるように
+                    uid: currentUid,
                     content: wanna.content,
                     description: wanna.description,
                     icon: iconArray,//アイコン取得できるように

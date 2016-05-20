@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,Match,$timeout) {
+app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray) {
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
@@ -10,6 +10,23 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                var friendidList = [];
                var likedWannaList=[];
                var likeValid=false;
+
+                var fb = new Firebase(FURL);
+
+                $scope.testimage = $firebaseArray(fb.child("users").child(currentUid).child("images"));
+
+                $scope.images = function(userid){
+                  var ref = fb.child("users").child(userid).child("images");
+                  var sync = $firebaseArray(ref);
+                  return sync[0];
+                  console.log(sync);
+                };
+
+                $scope.uicon = function(userid){
+                  var localref = fb.child("users").child(userid).child("images");
+                  return $firebaseArray(localref)[0].images;
+                };
+
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
