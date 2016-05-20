@@ -35,7 +35,8 @@
 	    <div>
 	        <div class="list card">
  				<a href="#" class="item item-avatar" style = "background-color: #FFFFFF"  ng-repeat="wanna in allWannasList">
-    				<img src  = {{wanna.icon[0]}}>
+        <!--ここをAvaterでもiconでいけるようにcssで変更してあります-->
+    				<i class = {{wanna.icon[0]}}></i>
             <font color: #FFFFFF>
     				{{wanna.content}}
             </font>
