@@ -179,7 +179,6 @@ div.footer-btn-wrap{
 
 /*-----------------wanna表示関連はここにまとめます-----------------*/
 div.wanna { /*wanna全体の入れ子*/
-  width: 340px;
   height: 95px;
   border:#ff0000;
   solid:1px;
@@ -194,13 +193,13 @@ div.datebox { /*wannaの時間のところ*/
   background-color: #ffffff;
   position: absolute;
   top: 70px;
-  left: 80px;
+  left: 90px;
 }
 
 div.like {/*wannaのlikeボタン*/
   position: absolute;
   top: 62px;
-  left: 230px;
+  right: 50px;
 }
 
 /*----------------------------------------------------------*/
