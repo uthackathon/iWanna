@@ -5,10 +5,10 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                var iconArray = [0,0,0,0,0];
 
                var icon1="icon ion-ios-football";//アイコンの画像名をwanna につけて保存
-               var icon2="icon ion-ios-wine";
-               var icon3="icon ion-ios-cart";
-               var icon4="icon ion-ios-map";
-               var icon5="icon ion-ios-musical-notes";
+               var icon2="icon ion-ios-wineglass";
+               var icon3="icon ion-bag";
+               var icon4="icon ion-map";
+               var icon5="icon ion-music-note";
                /*
                var icon1="img/soccer.png";//アイコンの画像名をwanna につけて保存
                var icon2="img/dinner.png";
