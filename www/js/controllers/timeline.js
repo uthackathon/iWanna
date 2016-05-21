@@ -27,26 +27,30 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                   return $firebaseArray(localref)[0].images;
                 };
 
-
+                var keepout = 0;
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
-                    for (var i = 0; i < data.length; i++) {
-                        var item = data[i];
-                        friendidList.push(item.$id);
-                        Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                            //console.log(friendwanna.length);
-                            for (var j = 0; j < friendwanna.length; j++) {
-                                allwanna.push(friendwanna[j]);
-                                //console.log(friendwanna[j]);
-                            }
+                        for (var i = 0; i < data.length; i++) {
+                            var item = data[i];
+                            friendidList.push(item.$id);
+                            Wannas.all(item.$id).$loaded().then(function(friendwanna) {
+                                //console.log(friendwanna.length);
+                                for (var j = 0; j < friendwanna.length; j++) {
+                                    allwanna.push(friendwanna[j]);
+                                    //console.log(friendwanna[j]);
+                                }
+                            });
+                        }
+                        allwanna.sort(function(a,b){
+                          return b.upload_time - a.upload_time;
                         });
-                    }
+
                     console.log("allwanna is",allwanna);
                     console.log("friend ids are",friendidList);
                 });
 
+                  $scope.wannas = allwanna;
 
-               $scope.wannas = allwanna;
 //               $scope.$watch("wannas",function(){
 //                var likeValid=0;
 //                console.log("scope.wannas is changed");
