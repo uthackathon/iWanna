@@ -10,30 +10,38 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
                   var newRoom={
                     users: [uid1,uid2]
                   };
+                  
+                  Auth.getUsersRooms(uid1).$loaded().then(function(data){
+                    if(_.contains(_.pluck(data,'friendId')),uid2){//message room を複数作らないための処理。roomsの下のfriendIdのみを取り出してリスト化する。その上で、uid2が含まれているかどうかを調べる。
+                      console.log('this room is already added');
 
-                  return rooms.$add(newRoom).then(function(){
-                    var roomId = rooms[rooms.length - 1].$id//新しく追加したroomIdを取得
-                    console.log('roomId is',roomId);
-                    var user1 = $firebaseArray(ref.child('users').child(uid1).child('rooms'));
-                    var user2 = $firebaseArray(ref.child('users').child(uid2).child('rooms'));
-                    
-                    var newRoom1 = {
-                      roomId: roomId,
-                      friendId: uid2, 
-                      friendName: Wannas.getUserName(uid2)
+                    }
+                    else{
+                      return rooms.$add(newRoom).then(function(){
+                        var roomId = rooms[rooms.length - 1].$id//新しく追加したroomIdを取得
+                        console.log('roomId is',roomId);
+                        var user1 = $firebaseArray(ref.child('users').child(uid1).child('rooms'));
+                        var user2 = $firebaseArray(ref.child('users').child(uid2).child('rooms'));
+                        
+                        var newRoom1 = {
+                          roomId: roomId,
+                          friendId: uid2, 
+                          friendName: Wannas.getUserName(uid2)
+
+                        };
+                        var newRoom2 = {
+                          roomId: roomId,
+                          friendId: uid1,
+                          friendName: Wannas.getUserName(uid1)
+
+                        };
+                        user1.$add(newRoom1);
+                        user2.$add(newRoom2);
+                        return true;
+                      });
 
                     };
-                    var newRoom2 = {
-                      roomId: roomId,
-                      friendId: uid1,
-                      friendName: Wannas.getUserName(uid1)
-
-                    };
-                    user1.$add(newRoom1);
-                    user2.$add(newRoom2);
-                    return true;
                   });
-   
     },
     getAllRooms: function(currentUid){
       return $firebaseArray(ref.child('users').child(currentUid).child('rooms'));
