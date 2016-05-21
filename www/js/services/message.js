@@ -12,7 +12,8 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
                   };
                   
                   Auth.getUsersRooms(uid1).$loaded().then(function(data){
-                    if(_.contains(_.pluck(data,'friendId')),uid2){//message room を複数作らないための処理。roomsの下のfriendIdのみを取り出してリスト化する。その上で、uid2が含まれているかどうかを調べる。
+                    if(_.contains(_.pluck(data,'friendId'),uid2)){//message room を複数作らないための処理。roomsの下のfriendIdのみを取り出してリスト化する。その上で、uid2が含まれているかどうかを調べる。
+                      console.log(_.contains(_.pluck(data,'friendId'),uid));
                       console.log('this room is already added');
 
                     }
