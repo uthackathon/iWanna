@@ -24,6 +24,12 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                    return name;
                 },
 
+                getObjectUserName: function(currentUid){
+                  var obj =$firebaseObject(ref.child('users').child(currentUid).child('name'));
+                  return obj;
+                },
+
+
 
        saveWanna: function(wanna,currentUid,userName,iconArray,time){
                   var wannas = $firebaseArray(ref.child('users').child(currentUid).child('wannas'));//firebase構造によって変えてみてください。

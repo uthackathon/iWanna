@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopup) {
+app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopup,$timeout) {
                var currentUid = uid;
                var iconArray = [0,0,0,0,0];
 
@@ -21,13 +21,12 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
 
 
                $scope.wannaSubmit=function(wanna){
-               console.log("user name is",userName);
                var iconNames=["img/noIcon.png"];
                var now = new Date();//日付しゅとく データ整形してない
                //date object のメソッドについては http://so-zou.jp/web-app/tech/programming/javascript/grammar/object/date.htm#no3
 
                //日本時間ではなく UTC で入れている。
-               console.log("year",typeof now.getUTCFullYear());
+//               console.log("year",typeof now.getUTCFullYear());
 
                var time = now.getUTCFullYear()*10000000000+(now.getUTCMonth()+1)*100000000+now.getUTCDate()*1000000+now.getUTCHours()*10000+now.getUTCMinutes()*100+now.getUTCSeconds();
 
@@ -52,21 +51,40 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                }
                console.log("icon names",wanna);
 
-               var userName= Wannas.getUserName(currentUid);
-               if(userName==""){
-                 var alertPopup = $ionicPopup.alert({
+               if(wanna.description==null){
+                wanna.description="[No description]";
+               }
+               var flag=1;//flag でtimeoutの処理変える
+               //ここでwanna をfirebase 上に記録。
+               $timeout(function(){
+                 console.log("timeout conducted");
+                 if(flag){
+                   flag=0;//本当はflag じゃなくて、getObjectUserName の中止コマンドがあればいいのだが...
+                   var alertPopup = $ionicPopup.alert({
+                                    title: '通信エラー',
+                   });
+                   $state.go('tab.dash');
+                 }
+               },5000);
+               console.log("start getUserName");
+
+               Wannas.getObjectUserName(currentUid).$loaded().then(function(obj){
+                   var userName=obj.$value;
+                   console.log("got userName");
+                   if(flag){
+                   flag=0;
+                   console.log("start upload");
+                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time);
+                   $state.go('tab.dash');
+                   }
+              }).catch(function(error) {
+                   console.error("Error:", error);
+                   var alertPopup = $ionicPopup.alert({
                                     title: 'エラー',
                                     template: 'ユーザー名の取得に失敗しました。'
+                   });
                  });
-               }else{
-               if(wanna.description==null){
-                wanna.description="No description";
-               }
-               //ここでwanna をfirebase 上に記録。
-               Wannas.saveWanna(wanna,currentUid,userName,iconNames,time);
-               $state.go('tab.dash');
-               }
-               };
+              };
 
 
                //sport button をデバック用に使ってます。
