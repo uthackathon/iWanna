@@ -6,7 +6,7 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
 
                var currentUid = uid;
-               var allwanna = [];
+               var allwanna = Wannas.all(currentUid);
                var friendidList = [];
                var likedWannaList=[];
                var likeValid=false;
@@ -27,18 +27,19 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                   return $firebaseArray(localref)[0].images;
                 };
 
-                var keepout = 0;
+                $scope.date = function(dayInt){
+                  var dayString = String(dayInt);
+                  var month = Number(dayString.substr(4,2));
+                  var day = Number(dayString.substr(6,2));
+                  var hour = Number(dayString.substr(8,2));
+                  var min = Number(dayString.substr(10,2));
+                  var date = month+"月"+day+"日 "+hour+"時"+min+"分";
+                  return date;
+                }
+
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
                       for (var i = 0; i < data.length; i++) {
-                          if (i==0){//自分のwanna追加
-                            Wannas.all(currentUid).$loaded().then(function(mywanna) {
-                                //console.log(friendwanna.length);
-                                for (var j = 0; j < mywanna.length; j++) {
-                                    allwanna.push(mywanna[j]);
-                                }
-                            });
-                          }
                           var item = data[i];
                           friendidList.push(item.$id);
                           Wannas.all(item.$id).$loaded().then(function(friendwanna) {
