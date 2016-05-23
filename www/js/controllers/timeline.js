@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray) {
+app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray) {
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
@@ -10,6 +10,8 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                var friendidList = [];
                var likedWannaList=[];
                var likeValid=false;
+               var nameTest=usr;
+               console.log('userName gained before html',nameTest,uid);
 
                 var fb = new Firebase(FURL);
 
