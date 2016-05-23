@@ -179,12 +179,10 @@ div.footer-btn-wrap{
 
 /*-----------------wanna表示関連はここにまとめます-----------------*/
 div.wanna { /*wanna全体の入れ子*/
-  height: 95px;
-  border:#ff0000;
-  solid:1px;
-  border-radius: 10px;        /* CSS3草案 */
-    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */
-    -moz-border-radius: 10px;   /* Firefox用 */
+  height: 100px;
+  border-bottom: 6px #ffd37d dotted;
+  background-color: rgba(0,0,0,0);
+  z-index:1
 }
 
 div.datebox { /*wannaの時間のところ*/
@@ -200,6 +198,82 @@ div.like {/*wannaのlikeボタン*/
   position: absolute;
   top: 62px;
   right: 50px;
+  z-index:0
+  width: 40px;
+  height: 10px;
+}
+
+/*----------------------------------------------------------*/
+
+
+/*-----------------wannaテスト用-----------------*/
+div.wannatest { /*wanna全体の入れ子*/
+  height: 66px;
+  width: 100%;
+  border: solid 3px #11c1f3;
+  background-color: rgba(0,0,0,0);
+}
+
+div.uimgtest {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+div.wannanametest {
+  height: 38px;
+  width:170px;
+  white-space: nowrap; /* 横幅のMAXに達しても改行しない */
+  overflow: hidden; /* ハミ出した部分を隠す */
+  text-overflow: ellipsis; /* 「…」と省略 */
+    -webkit-text-overflow: ellipsis; /* Safari */
+    -o-text-overflow: ellipsis; /* Opera */
+  position: absolute;
+  top: 12px;
+  left: 110px;
+  font-size: 20px;
+}
+
+div.unametest {
+  height: 29px;
+  width:150px;
+  white-space: nowrap; /* 横幅のMAXに達しても改行しない */
+  overflow: hidden; /* ハミ出した部分を隠す */
+  text-overflow: ellipsis; /* 「…」と省略 */
+    -webkit-text-overflow: ellipsis; /* Safari */
+    -o-text-overflow: ellipsis; /* Opera */
+  position: absolute;
+  top: 45px;
+  left: 10px;
+  font-size: 12px;
+}
+
+div.janreimgtest{
+  height: 35px;
+  width: 35px;
+  text-align: center;/*wineだけ細いのでこれで補正、iconはテキストであることに注意*/
+  position: absolute;
+  top: 12px;
+  left: 55px;
+}
+
+div.dateboxtest { /*wannaの時間のところ*/
+  width: 150px;
+  height: 20px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 40px;
+  left: 120px;
+}
+
+div.liketest {/*wannaのlikeボタン*/
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
 }
 
 /*----------------------------------------------------------*/
