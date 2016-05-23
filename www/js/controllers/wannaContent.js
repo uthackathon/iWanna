@@ -10,4 +10,5 @@ app.controller('WannaContentCtrl', function($scope,$state,SharedStateService) {
                $scope.likeNum=Object.keys($scope.clickedWanna.likes).length -1 ;//イニシャライズの分を1つ引く
                console.log("the number of likes",$scope.likeNum);
 
+
 })
