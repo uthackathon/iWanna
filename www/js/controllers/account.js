@@ -17,5 +17,12 @@ app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $fi
  	$scope.logout = function(){
 
    	Auth.logout();
- 	}
+ 	};
+
+    $scope.aboutUTH = function()
+    {
+        // Open cordova webview if the url is in the whitelist otherwise opens in app browser
+        window.open('http://ut-hackathon.strikingly.com','_blank');
+    };
+
 })
