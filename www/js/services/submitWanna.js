@@ -124,6 +124,42 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                    return likedWannaId;
                  },
 
+                 getColor:function(mot){//0 から100 の数字でカラーを返す
+//                   var colormap = require('colormap');
+//                   options = {
+//                     colormap: 'jet',   // pick a builtin colormap or add your own
+//                     nshades: 100,       // how many divisions
+//                     format: 'hex',     // "hex" or "rgb" or "rgbaString"
+//                     alpha: 1      // set an alpha value or a linear alpha mapping [start, end]
+//                   }
+//                   var cg = colormap(options);
+//                   console.log('cg',cg);
+                   //calm =~ '#27c2f1'
+                   console.log('typeof mot',typeof mot);
+                   var num=Number(mot);
+                   if(num<210){
+                       var red=39;
+                       var green=32+num;
+                       var blue=241;
+                   }else if(num<412 && num>=210){
+                       var red=39;
+                       var green=242;
+                       var blue=241-(num-210);
+                   }else if(num<616 && num>=412){
+                       var red=39+num-412;
+                       var green=242;
+                       var blue=39;
+                   }else if(num<=700 && num>=616){
+                       var red=243;
+                       var green=242-(num-616);
+                       var blue=39;
+                   }
+                   console.log('rgb',red,green,blue);
+                   var colorMap='#'+red.toString(16)+green.toString(16)+blue.toString(16);
+                   console.log('colorMap',colorMap);
+                   return colorMap;
+                 },
+
 
 
               };

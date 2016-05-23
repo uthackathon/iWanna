@@ -14,18 +14,15 @@
         <input type="text" ng-model="wanna.description" placeholder="Comments">
       </label>
     <div class="row">
-      <!--<div class="col">-->
-        <!--<button class="button icon ion-ios-football">style</button>-->
-      <!--</div>-->
       <div class="col col-20">
         <div align="center">
-            <button id="sportButton" type="button" class="button icon ion-ios-football" ng-click="wannaSport()"></button>
+          <button id="sportButton" type="button" class="button icon ion-ios-football" ng-click="wannaSport()"></button>
         </div>
       </div>
       <div class="col col-20">
-          <div align="center">
-            <button id="dinnerButton"type="button" class="button icon ion-ios-wineglass" ng-click="wannaDinner()"></button>
-          </div>
+        <div align="center">
+          <button id="dinnerButton"type="button" class="button icon ion-ios-wineglass" ng-click="wannaDinner()"></button>
+        </div>
       </div>
       <div class="col col-20">
         <div align="center">
@@ -33,35 +30,42 @@
         </div>
       </div>
       <div class="col col-20">
-          <div align="center">
-            <button id="sightseeingButton" type="button" class="button icon ion-map" ng-click="wannaSightseeing()"></button>
+        <div align="center">
+          <button id="sightseeingButton" type="button" class="button icon ion-map" ng-click="wannaSightseeing()"></button>
         </div>
       </div>
       <div class="col col-20">
-          <div align="center">
-        <button id="musicButton" type="button" class="button icon ion-music-note" ng-click="wannaMusic()"></button>
+        <div align="center">
+          <button id="musicButton" type="button" class="button icon ion-music-note" ng-click="wannaMusic()"></button>
         </div>
       </div>
     </div>
 <!--type="buttonを上記に入れたら、アイコンでsubmitされてしまう現象を回避できた-->
     <br>
+        <br>
+        <br>
+
+    <!--<p>{{motivation}}</p>-->
+    <!--<p>{{colorfulSubmit}}</p>-->
+
     <div class="row">
-      <button type = "submit" class="button button-full button-calm" ng-click="wannaSubmit()">
+      <button id="submitButton" type = "submit" class="button button-full button-calm" ng-click="wannaSubmit()">
         Submit
       </button>
     </div>
     </form>
+      <div class="row">
+          <div class="col col-80 col-offset-10">
+              <div align="center">
+                  <div class="item range range-stable" id="motBar" style="border:none">
+                      <!--<i class="icon ion-ios-sunny-outline"></i>-->
+                      <input type="range" name="volume" min="0" max="700" ng-model="motivation" ng-change="changeSlider(motivation)">
+                      <!--<i class="icon ion-ios-sunny"></i>-->
+                  </div>
+              </div>
+          </div>
+      </div>
 
-    <!--<div class="row">-->
-      <!--<div class="col col-33">.col</div>-->
-      <!--<div class="col">.col</div>-->
-      <!--<div class="col">.col</div>-->
-      <!--<div class="col">1<br>2<br>3<br>4</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-      <!--<button class="button button-block button-positive">-->
-        <!--Submit-->
-      <!--</button>-->
-    <!--</div>-->
+
   </ion-content>
 </ion-view>

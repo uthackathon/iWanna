@@ -17,7 +17,8 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                var icon5="img/music.png";
                */
                var buttonsName=['sportButton','dinnerButton','shoppingButton','sightseeingButton','musicButton'];
-
+               $scope.motivation=160;
+               $scope.motColor='#27c2f1';
 
 
                $scope.wannaSubmit=function(wanna){
@@ -102,7 +103,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                     pretarget.style.color='';
                     }
                    iconArray=[0,0,0,0,0];//当面は利用アイコンを1個に制限するため、全部をゼロに戻す。
-                   target.style.backgroundColor='#27c2f1';
+                   target.style.backgroundColor=$scope.motColor;
                    target.style.color='#ffffff';
                    iconArray[0]=1;
                }else{
@@ -125,7 +126,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                     pretarget.style.color='';
                     }
                     iconArray=[0,0,0,0,0];//当面は利用アイコンを1個に制限するため、全部をゼロに戻す。
-                    target.style.backgroundColor='#27c2f1';
+                    target.style.backgroundColor=$scope.motColor;
                     target.style.color='#ffffff';
                     iconArray[1]=1;
                }else{
@@ -149,7 +150,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                     }
                     iconArray=[0,0,0,0,0];//当面は利用アイコンを1個に制限するため、全部をゼロに戻す。
 
-                    target.style.backgroundColor='#27c2f1';
+                    target.style.backgroundColor=$scope.motColor;
                     target.style.color='#ffffff';
                     iconArray[2]=1;
                }else{
@@ -172,7 +173,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                     pretarget.style.color='';
                     }
                    iconArray=[0,0,0,0,0];//当面は利用アイコンを1個に制限するため、全部をゼロに戻す。
-                   target.style.backgroundColor='#27c2f1';
+                   target.style.backgroundColor=$scope.motColor;
                    target.style.color='#ffffff';
                    iconArray[3]=1;
                }else{
@@ -195,7 +196,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                     pretarget.style.color='';
                     }
                    iconArray=[0,0,0,0,0];//当面は利用アイコンを1個に制限するため、全部をゼロに戻す。
-                   target.style.backgroundColor='#27c2f1';
+                   target.style.backgroundColor=$scope.motColor;
                    target.style.color='#ffffff';
                    iconArray[4]=1;
                }else{
@@ -203,6 +204,22 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                    target.style.color='';
                    iconArray[4]=0;
                }
+               };
+
+
+               $scope.changeSlider=function(motivation){
+                 console.log('slider changed');
+                 var motBar=document.getElementById('motBar');
+                 var subBut=document.getElementById('submitButton');
+                 $scope.motColor=Wannas.getColor(motivation);
+                 subBut.style.backgroundColor=$scope.motColor;
+                 var pos =iconArray.indexOf(1);
+                 if(pos != -1){
+                   var pretarget = document.getElementById(buttonsName[pos]);
+                   pretarget.style.backgroundColor=$scope.motColor;
+                   }
+//                 motBar.style.backgroundColor=Wannas.getColor(motivation);
+//                 $scope.colorfulSubmit=Wannas.getColor(motivation);
                };
 
 });
