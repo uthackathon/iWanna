@@ -83,7 +83,7 @@
     <!--</div>-->
 
 
-    <div class="list" ng-repeat="wanna in wannas" ng-init="myFunction($last,wanna)">
+    <div class="list" ng-repeat="wanna in wannas()" ng-init="myFunction($last,wanna)">
     <div class="wanna" >
         <a class="list card " id="page-card21" >
           <ion-item class="item-avatar item-icon-right" style=" width:100%; height: 60%;" href="#" ng-Click="goContentPage(wanna)">
@@ -95,7 +95,7 @@
       </a>
       <div class="datebox">{{wanna.upload_time}}</div>
       <div class="like">
-        <button id={{wanna.$id}} style=" background-color: #ffffff;" type="button" class="button icon ion-heart"  ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)">{{}} </button>
+        <button id={{wanna.$id}} style=" background-color: #ffffff; width : 20px;" type="button" class="button icon ion-heart"  ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)">{{}} </button>
       </div>
       </div>
       <!--<div align="right">
