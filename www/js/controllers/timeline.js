@@ -6,7 +6,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
 
                var currentUid = uid;
-               var allwanna = Wannas.all(currentUid);
+               var allwanna = [];
                var friendidList = [];
                var likedWannaList=[];
                var likeValid=false;
@@ -32,26 +32,33 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 var keepout = 0;
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
-                        for (var i = 0; i < data.length; i++) {
-                            var item = data[i];
-                            friendidList.push(item.$id);
-                            Wannas.all(item.$id).$loaded().then(function(friendwanna) {
+                      for (var i = 0; i < data.length; i++) {
+                          if (i==0){//自分のwanna追加
+                            Wannas.all(currentUid).$loaded().then(function(mywanna) {
                                 //console.log(friendwanna.length);
-                                for (var j = 0; j < friendwanna.length; j++) {
-                                    allwanna.push(friendwanna[j]);
-                                    //console.log(friendwanna[j]);
+                                for (var j = 0; j < mywanna.length; j++) {
+                                    allwanna.push(mywanna[j]);
                                 }
                             });
-                        }
-                        allwanna.sort(function(a,b){
-                          return b.upload_time - a.upload_time;
-                        });
-
+                          }
+                          var item = data[i];
+                          friendidList.push(item.$id);
+                          Wannas.all(item.$id).$loaded().then(function(friendwanna) {
+                            for (var j = 0; j < friendwanna.length; j++) {
+                              allwanna.push(friendwanna[j]);
+                            }
+                          });
+                      }
                     console.log("allwanna is",allwanna);
                     console.log("friend ids are",friendidList);
                 });
 
-                  $scope.wannas = allwanna;
+                  $scope.wannas = function(){
+                        allwanna.sort(function(a,b){//上の動作が終わった後にしたい
+                          return b.upload_time - a.upload_time;
+                        });
+                        return allwanna;
+                      }
 
 //               $scope.$watch("wannas",function(){
 //                var likeValid=0;
