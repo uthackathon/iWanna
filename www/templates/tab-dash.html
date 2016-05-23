@@ -84,6 +84,27 @@
 
 
     <div class="list" ng-repeat="wanna in wannas()" ng-init="myFunction($last,wanna)">
+      <div class="wannatest">
+        <div class="uimgtest">
+          <img src="http://pictogram-free.com/material/001.png" width="40" height="40" >
+        </div>
+        <div class="wannanametest" " type="button" href="#" ng-Click="goContentPage(wanna)">
+        {{wanna.content}}
+        </div>
+        <div class="unametest">
+        {{wanna.user_name}}
+        </div>
+        <div class="janreimgtest">
+          <i class={{wanna.icon[0]}} style=" background-color: #ffffff; font-size: 33px; " ></i>
+        </div>
+        <div class="dateboxtest">
+        {{date(wanna.upload_time)}}
+        </div>
+        <div class="liketest">
+          <button id={{wanna.$id}} style=" background-color: #ffffff; width : 50px;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)"></button>
+        </div>
+    </div>
+    <!--
     <div class="wanna" >
         <a class="list card " id="page-card21" >
           <ion-item class="item-avatar item-icon-right" style=" width:100%; height: 60%;" href="#" ng-Click="goContentPage(wanna)">
@@ -97,7 +118,7 @@
       <div class="like">
         <button id={{wanna.$id}} style=" background-color: #ffffff; width : 20px;" type="button" class="button icon ion-heart"  ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)">{{}} </button>
       </div>
-      </div>
+      </div>-->
       <!--<div align="right">
         <button id={{wanna.$id}} type="button" class="button icon ion-heart"  ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)">{{}} </button>
       </div>-->
