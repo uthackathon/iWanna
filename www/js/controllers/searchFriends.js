@@ -2,7 +2,7 @@
 
 'use strict'
 
-app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state) {
+app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup) {
   var ref = new Firebase(FURL);
   var currentUid = uid
 
@@ -65,7 +65,8 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
                         var serchword = new RegExp(friendNameToFind);
                         for (var i = 0; i < data.length; i++){
                             var item = data[i];
-                            if ( item.name.match(serchword) && item.$id != currentUid && _.contains(_.pluck($scope.allFriendslist,'$id'),item.$id)!= true) {
+                            var test = String (item.name);
+                            if ( test.match(serchword) && item.$id != currentUid && _.contains(_.pluck($scope.allFriendslist,'$id'),item.$id)!= true) {
                                 //nameが部分一致かつ、自分自身ではない時
                                 //かつすでに友達関係にない。
                                 $scope.serchprofiles.push(item);
