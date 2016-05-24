@@ -54,6 +54,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     console.log("friend ids are",friendidList);
                 });
 
+
                   $scope.wannas = function(){
                         allwanna.sort(function(a,b){//上の動作が終わった後にしたい
                           return b.upload_time - a.upload_time;
