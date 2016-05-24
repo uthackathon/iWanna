@@ -214,6 +214,13 @@ div.wannatest { /*wanna全体の入れ子*/
   background-color: rgba(0,0,0,0);
 }
 
+div.wannacontent { /*wanna-contentにおける入れ子*/
+  height: 150px;
+  width: 100%;
+  border: solid 1px #11c1f3;
+  background-color: rgba(0,0,0,0);
+}
+
 div.uimgtest {
   height: 50px;
   width: 50px;
@@ -276,4 +283,19 @@ div.liketest {/*wannaのlikeボタン*/
   right: 30px;
 }
 
+div.description {/*wannaのlikeボタン*/
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top: 70px;
+  left: 50px;
+}
+
+div.likenum {/*wannaのlikeボタン*/
+  width: 100px;
+  height: 20px;
+  position: absolute;
+  top: 120px;
+  right: 50px;
+}
 /*----------------------------------------------------------*/
