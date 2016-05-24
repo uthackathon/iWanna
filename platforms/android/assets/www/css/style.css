@@ -4,6 +4,7 @@
   border-radius: 5%;
   width: 70%;
   background-color: white;
+  color: red;
 }
 
 .panelbody .loginForm {
@@ -51,10 +52,84 @@ div.nav-bar-block{
     color: #11c1f3;
   background-color: #11c1f3;
 }*/
+a.item-icon-left{
+    color: #11c1f3;
+      color: #0288d1;
+}
 
 
 div.title.title-left.header-item{
+  background-color: #11c1f3;
+  color: #ffffff;
+}
+
+div.title.title-center.header-item{
+  background-color: #11c1f3;
+  color: #ffffff;
+}
+
+
+div.item.item-divider{
+  color: #ffffff;
+   background-color: #11c1f3;
+
+}
+
+/*ion-content.padding.scroll-content.ionic-scroll.overflow-scroll.has-header.has-tabs-top{
+  background-color: ;
+}*/
+
+
+div.item.item-button-right.ng-binding{
+  color: #0288d1;
+}
+
+i.icon.ion-person{
   color: #11c1f3;
+}
+
+i.icon.ion-email{
+  color: #11c1f3;
+}
+
+ion-content{
+/*  background-color: #CEECF5;*/
+   background-color: #ffffff;
+}
+ion-header-bar.bar-stable.bar.bar-header{
+  background-color: #11c1f3;
+}
+
+button.button.back-button.buttons{
+    color: #ffffff;
+}
+h2{
+  color: #0288d1;
+}
+
+font.ng-binding{
+  color: #0288d1;
+}
+
+div.tab-nav.tabs i.icon{
+   color: #11c1f3;
+}
+
+button.button-icon.icon.ion-ios-paperplane.footer-btn{
+  color: #11c1f3;
+}
+
+div.footer-btn-wrap{
+  color: #11c1f3;
+}
+
+.chats{
+  color: #04B404;
+}
+.self{
+  text-align: right;
+  color: #0288d1;
+
 }
 
 .landing {
@@ -64,6 +139,7 @@ div.title.title-left.header-item{
   -o-background-size: cover;
   background-size: cover;
 }
+
 
 .facebook{
   max-width: 200px;
@@ -78,3 +154,128 @@ div.title.title-left.header-item{
 .big{
   font-size: 20px;
 }
+
+.spinner svg {
+  width: 28px;
+  height: 28px;
+  stroke: #fff;
+  fill: #fff;
+}
+
+.item-avatar i:first-child, .item-avatar .item-img {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 36px;
+    max-width: 40px;
+    max-height: 40px;
+    width: 100%;
+    border-radius: 4px;
+      width:100%;
+    height:80%;
+    align-self: right;
+  }
+
+
+/*-----------------wanna表示関連はここにまとめます-----------------*/
+div.wanna { /*wanna全体の入れ子*/
+  height: 100px;
+  border-bottom: 6px #ffd37d dotted;
+  background-color: rgba(0,0,0,0);
+  z-index:1
+}
+
+div.datebox { /*wannaの時間のところ*/
+  width: 150px;
+  height: 20px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 70px;
+  left: 90px;
+}
+
+div.like {/*wannaのlikeボタン*/
+  position: absolute;
+  top: 62px;
+  right: 50px;
+  z-index:0
+  width: 40px;
+  height: 10px;
+}
+
+/*----------------------------------------------------------*/
+
+
+/*-----------------wannaテスト用-----------------*/
+div.wannatest { /*wanna全体の入れ子*/
+  height: 66px;
+  width: 100%;
+  border: solid px #11c1f3;
+  background-color: rgba(0,0,0,0);
+}
+
+div.uimgtest {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+div.wannanametest {
+  color: #0288d1;
+  height: 38px;
+  width:170px;
+  white-space: nowrap; /* 横幅のMAXに達しても改行しない */
+  overflow: hidden; /* ハミ出した部分を隠す */
+  text-overflow: ellipsis; /* 「…」と省略 */
+    -webkit-text-overflow: ellipsis; /* Safari */
+    -o-text-overflow: ellipsis; /* Opera */
+  position: absolute;
+  top: 12px;
+  left: 110px;
+  font-size: 20px;
+}
+
+div.unametest {
+  height: 29px;
+  width:150px;
+  white-space: nowrap; /* 横幅のMAXに達しても改行しない */
+  overflow: hidden; /* ハミ出した部分を隠す */
+  text-overflow: ellipsis; /* 「…」と省略 */
+    -webkit-text-overflow: ellipsis; /* Safari */
+    -o-text-overflow: ellipsis; /* Opera */
+  position: absolute;
+  top: 45px;
+  left: 10px;
+  font-size: 12px;
+}
+
+div.janreimgtest{
+  color: #11c1f3;
+  height: 35px;
+  width: 35px;
+  text-align: center;/*wineだけ細いのでこれで補正、iconはテキストであることに注意*/
+  position: absolute;
+  top: 12px;
+  left: 55px;
+}
+
+div.dateboxtest { /*wannaの時間のところ*/
+  width: 150px;
+  height: 20px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 40px;
+  left: 120px;
+}
+
+div.liketest {/*wannaのlikeボタン*/
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+
+/*----------------------------------------------------------*/

@@ -7,11 +7,13 @@ app.factory('SocialShare', function($cordovaSocialSharing) {
 
     shareViaTwitter: function(text,img,url){
       console.log("twitter")
-      window.plugins.socialsharing.shareViaTwitter(text, img, url, null, function(errormsg){alert("Error: Cannot Share Via Twitter")});
+      fileName = "content:/" + img
+      window.plugins.socialsharing.shareViaTwitter(text, fileName, url, null, function(errormsg){alert("Error: Cannot Share Via Twitter")});
  	},
  	shareViaFacebook: function(text,img,url){
       console.log("facebook")
-      window.plugins.socialsharing.shareViaFacebook(text, img, url, null, function(errormsg){alert("Error: Cannot Share Via Facebook")});
+      fileName = "content:/" + img
+      window.plugins.socialsharing.shareViaFacebook(text, fileName, url, null, function(errormsg){alert("Error: Cannot Share Via Facebook")});
  	}
   };
   return SocialShare;

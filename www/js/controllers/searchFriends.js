@@ -2,7 +2,7 @@
 
 'use strict'
 
-app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup) {
+app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state) {
   var ref = new Firebase(FURL);
   var currentUid = uid
 
