@@ -210,7 +210,7 @@ div.like {/*wannaのlikeボタン*/
 div.wannatest { /*wanna全体の入れ子*/
   height: 66px;
   width: 100%;
-  border: solid 3px #11c1f3;
+  border: solid px #11c1f3;
   background-color: rgba(0,0,0,0);
 }
 
@@ -223,6 +223,7 @@ div.uimgtest {
 }
 
 div.wannanametest {
+  color: #0288d1;
   height: 38px;
   width:170px;
   white-space: nowrap; /* 横幅のMAXに達しても改行しない */
@@ -251,6 +252,7 @@ div.unametest {
 }
 
 div.janreimgtest{
+  color: #11c1f3;
   height: 35px;
   width: 35px;
   text-align: center;/*wineだけ細いのでこれで補正、iconはテキストであることに注意*/

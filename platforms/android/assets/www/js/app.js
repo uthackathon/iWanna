@@ -98,6 +98,7 @@ var app = angular.module('starter', [
   // setup an abstract state for the tabs directive
   .state('tab', {
     url: '/tab',
+    cache: false,
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
@@ -112,14 +113,22 @@ var app = angular.module('starter', [
         controller: 'DashCtrl',
         resolve: {
 
-
                   uid: function(Auth) {
                     return Auth.requireAuth()
                       .then(function(auth){
-                        console.log(auth);
+                        console.log('auth',auth.uid);
                         return auth.uid;
                     });
+                  },
+
+                  usr: function(uid,Wannas) {
+                        Wannas.getObjectUserName(uid)
+                          .$loaded().then(function(obj){
+                            console.log('obj',obj.$value);
+                            return obj.$value;
+                        });
                   }
+
                 }
       }
     }
