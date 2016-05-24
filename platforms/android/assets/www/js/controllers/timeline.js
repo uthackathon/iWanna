@@ -1,33 +1,70 @@
 'use strict'
 
-app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,Match) {
+app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray) {
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
 
                var currentUid = uid;
                var allwanna = Wannas.all(currentUid);
-                var friendidList = [];
+               var friendidList = [];
+               var likedWannaList=[];
+               var likeValid=false;
+               var nameTest=usr;
+               console.log('userName gained before html',nameTest,uid);
+
+                var fb = new Firebase(FURL);
+
+                $scope.testimage = $firebaseArray(fb.child("users").child(currentUid).child("images"));
+
+                $scope.images = function(userid){
+                  var ref = fb.child("users").child(userid).child("images");
+                  var sync = $firebaseArray(ref);
+                  return sync[0];
+                  console.log(sync);
+                };
+
+                $scope.uicon = function(userid){
+                  var localref = fb.child("users").child(userid).child("images");
+                  return $firebaseArray(localref)[0].images;
+                };
+
+                $scope.date = function(dayInt){
+                  var dayString = String(dayInt);
+                  var month = Number(dayString.substr(4,2));
+                  var day = Number(dayString.substr(6,2));
+                  var hour = Number(dayString.substr(8,2));
+                  var min = Number(dayString.substr(10,2));
+                  var date = month+"月"+day+"日 "+hour+"時"+min+"分";
+                  return date;
+                }
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
-                    for (var i = 0; i < data.length; i++) {
-                        var item = data[i];
-                        friendidList.push(item.$id);
-                        Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                            //console.log(friendwanna.length);
+                      for (var i = 0; i < data.length; i++) {
+                          var item = data[i];
+                          friendidList.push(item.$id);
+                          Wannas.all(item.$id).$loaded().then(function(friendwanna) {
                             for (var j = 0; j < friendwanna.length; j++) {
-                                allwanna.push(friendwanna[j]);
-                                //console.log(friendwanna[j]);
+                              allwanna.push(friendwanna[j]);
                             }
-                        });
-                    }
+                          });
+                      }
                     console.log("allwanna is",allwanna);
                     console.log("friend ids are",friendidList);
                 });
 
+                  $scope.wannas = function(){
+                        allwanna.sort(function(a,b){//上の動作が終わった後にしたい
+                          return b.upload_time - a.upload_time;
+                        });
+                        return allwanna;
+                      }
 
-                $scope.wannas = allwanna;
+//               $scope.$watch("wannas",function(){
+//                var likeValid=0;
+//                console.log("scope.wannas is changed");
+//               });
 
                $scope.writeWanna=function(){
                console.log("write button was clicked");
@@ -44,11 +81,50 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                   console.log("timeline",wanna.content);
                };
 
+
+               $scope.myFunction = function(isLast,wanna){
+                 if(isLast){//html の表示が終わった時に動く内容 （like の色付け）
+                    console.log("the end of repeat",wanna.$id);
+
+                   $timeout(function(){
+                    likedWannaList=Wannas.findUsersLikes($scope.wannas,currentUid);
+                    for(var i = 0; i < likedWannaList.length; i++){
+                        var pretarget = document.getElementById(likedWannaList[i]);
+                        pretarget.style.backgroundColor='#FFFFFF';
+                        pretarget.style.color='#FFC0CB';
+                    }
+                    likeValid=true;
+                    console.log("like valid phase");
+                   },200);
+
+                 }
+               };
+
+
                $scope.likeWanna=function(wanna){
                       console.log("like button was clicked");
-                      wanna.ownerId=currentUid;//test用の緊急処理。wanna 全てにownerId を書き込んでこの行を消すべし
-                      Wannas.addLike(wanna.ownerId,wanna.$id,currentUid);
-                      };
+                     // wanna.ownerId=currentUid;//test用の緊急処理。wanna 全てにownerId を書き込んでこの行を消すべし
+                     //<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>
+                     if(likeValid){//likeValid が1のときだけ、like ボタンが有効
+                        var likeButton = document.getElementById(wanna.$id);
+                        var buttonColor=likeButton.style.color;
+                        console.log("button color",buttonColor);
+                        if(buttonColor){//likeボタンがすでに色つきの時(like してるとき)
+                            console.log("colorful");
+                            Wannas.removeLikeFromWanna(wanna.ownerId,wanna.$id,currentUid,likeButton);
+                            Wannas.removeLikeFromUser(wanna.ownerId,wanna.$id,currentUid,likeButton);
+                        }else{//likeにまだ色がついてない時(like してないとき)
+                            Wannas.addLikeToWanna(wanna.ownerId,wanna.$id,currentUid,likeButton);
+                            Wannas.addLikeToUser(wanna.ownerId,wanna.$id,currentUid,likeButton);
+                        }
+                      }else{
+                        console.log("like button is not valid");
+                      }
+
+                      ;
+
+
+               };
 
                 //wannasの検索、とりあえずserchFriendsからコピー
                 //検索窓からの取り込み=tipsToFind
@@ -57,6 +133,7 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                     //検索窓が空欄の時は検索前に戻す(全部が当てはまるという検索の時間省略のため)
                         $scope.wannas =allwanna;
                         console.log('reset');
+                        var likeValid=false;
                     }
                     else {//検索部
                         $scope.serchwannas = [];
@@ -82,27 +159,3 @@ app.controller('DashCtrl', function(uid,$scope,$state,Wannas,SharedStateService,
                 };
 
 })
-//
-//'use strict'
-//
-//app.controller('DashCtrl', function($scope,$state,Wannas,SharedStateService) {
-//                  $scope.wannas =Wannas.all("aca73453-3cbd-4213-b1bc-b561d82a173e")
-//                  console.log('the products',$scope.products);
-//
-//
-//               $scope.writeWanna=function(){
-//               console.log("write button was clicked");
-//               $state.go('tab.submit');//state.goディレクトリ関係がわからない
-//               };
-//
-//               $scope.goContentPage=function(wanna){
-//               console.log("goContent button was clicked");
-//               $state.go('tab.wanna-content');
-//               //ダッシュページと内容ページでWanna 情報をやりとりするためにSharedStateService に入れた値を共有する。
-//               // http://whiskers.nukos.kitchen/2015/05/21/angularjs-controller-coordination.html のShared Service などを参考にした。
-//               SharedStateService.clickedWanna=wanna;
-//               $scope.clickedWanna=wanna;
-//               console.log("timeline",wanna.content);
-//               };
-//
-//})

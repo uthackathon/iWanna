@@ -12,7 +12,9 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                var likeValid=false;
                var nameTest=usr;
                var roomList = [];
+
                $scope.friendImages ={'initUid':'initImg'};
+
                console.log('userName gained before html',nameTest,uid);
                var flag =0;
 
@@ -100,6 +102,17 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
              
                 });
 
+
+                Message.getAllRooms(uid).$loaded().then(function(data) {
+                //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                      for (var i = 0; i < data.length; i++) {
+                          var item = data[i];
+                          roomList.push(item);
+                      }
+                      console.log("roomList is",roomList);
+             
+                });
+
                $scope.writeWanna=function(){
                console.log("write button was clicked");
                $state.go('tab.submit');//state.goディレクトリ関係がわからない
@@ -175,7 +188,6 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               var message = "Hi! I like your plan; " + wanna.content ;
                               Message.sendMessage(message,uid,likedRoomId);                             
                             }
-                                              
                         }
                       }else{
                         console.log("like button is not valid");

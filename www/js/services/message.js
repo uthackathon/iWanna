@@ -6,13 +6,14 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
   var Message = {
 
     createNewRoom: function(uid1,uid2){
+      if(uid1 != uid2 ){
                   var rooms = $firebaseArray(ref.child('rooms'));
                   var newRoom={
                     users: [uid1,uid2]
                   };
                   
                   Auth.getUsersRooms(uid1).$loaded().then(function(data){
-                    if(_.contains(_.pluck(data,'friendId'),uid2)){//message room を複数作らないための処理。roomsの下のfriendIdのみを取り出してリスト化する。その上で、uid2が含まれているかどうかを調べる。
+                    if(_.contains(_.pluck(data,'friendId'),uid2) ){//message room を複数作らないための処理。roomsの下のfriendIdのみを取り出してリスト化する。その上で、uid2が含まれているかどうかを調べる。
   
                       console.log('this room is already added');
 
@@ -43,7 +44,9 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
 
                     };
                   });
+                }
     },
+
     getAllRooms: function(currentUid){
       return $firebaseArray(ref.child('users').child(currentUid).child('rooms'));
     },
@@ -57,6 +60,9 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
 
                   return currentRoom.$add(newMessage);
     },
+
+
+
 
     getAllMessages: function(currentRoomId){
       return $firebaseArray(ref.child('rooms').child(currentRoomId).child('messages'));
