@@ -28,8 +28,10 @@
         <input ng-change = "searchWannas(tipsToFind)" ng-model="tipsToFind" placeholder="Search">
       </label>
     </div>
+        <!--<p>{{friendidList}}</p>-->
+        <!--<p>{{friendImages}}</p>-->
 
-<!--     <div class="bar bar-header item-input-inset">
+      <!--     <div class="bar bar-header item-input-inset">
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
         <input ng-change = "searchWannas(tipsToFind)"  ng-model="tipsToFind" placeholder="Search">
@@ -86,9 +88,10 @@
     <div class="list" ng-repeat="wanna in wannas()" ng-init="myFunction($last,wanna)">
       <div class="wannatest">
         <div class="uimgtest">
-          <img src="http://pictogram-free.com/material/001.png" width="40" height="40" >
+          <img style="height:100% ; width:100%;" data-ng-src={{friendImages[wanna.ownerId]}}>
+          <!--<img src="http://pictogram-free.com/material/001.png" width="40" height="40" >-->
         </div>
-        <div class="wannanametest" " type="button" href="#" ng-Click="goContentPage(wanna)">
+        <div class="wannanametest" type="button" href="#" ng-Click="goContentPage(wanna)">
         {{wanna.content}}
         </div>
         <div class="unametest">

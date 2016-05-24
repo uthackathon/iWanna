@@ -24,6 +24,12 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                    return name;
                 },
 
+                imageAll: function(currentUid){
+                  var images = $firebaseArray(ref.child('users').child(currentUid).child('images'));//firebase構造によって変えてみてください。
+                  return images;
+                },
+
+
                 getObjectUserName: function(currentUid){
                   var obj =$firebaseObject(ref.child('users').child(currentUid).child('name'));
                   return obj;
