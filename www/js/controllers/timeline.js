@@ -4,15 +4,19 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
-
+                              $scope.imageLog=0;
                var currentUid = uid;
-               var allwanna = Wannas.all(currentUid);
-               var friendidList = [];
+               var allwanna=Wannas.all(currentUid);
+               $scope.friendidList = [uid];
                var likedWannaList=[];
                var likeValid=false;
                var nameTest=usr;
                var roomList = [];
+
+               $scope.friendImages ={'initUid':'initImg'};
+
                console.log('userName gained before html',nameTest,uid);
+               var flag =0;
 
                 var fb = new Firebase(FURL);
 
@@ -40,11 +44,32 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                   return date;
                 }
 
+
+                $scope.getFriendsImage=function(fList,flag){
+                        Wannas.imageAll(fList[flag]).$loaded().then(function(images){
+                              console.log('images',images);
+                              console.log('flist[flag]',fList[flag]);
+                              console.log('flag',flag);
+                              if(images[0]==null){images=[{'images' :'noImage'},{'images':'noImage'}];console.log('undefined',images['images']);}
+//                              console.log('image',fList[k],images);
+                              $scope.friendImages[fList[flag]]=images[0]['images'];
+                              if(flag<fList.length-1){
+                                console.log('fList length',fList.length);
+                                flag+=1;
+                                $scope.getFriendsImage(fList,flag);
+                              }else{
+                              flag=0;
+                              }
+                        },function(error){
+                          console.log('oh no! no images file');
+                        });
+                };
+
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
                       for (var i = 0; i < data.length; i++) {
                           var item = data[i];
-                          friendidList.push(item.$id);
+                          $scope.friendidList.push(item.$id);
                           Wannas.all(item.$id).$loaded().then(function(friendwanna) {
                             for (var j = 0; j < friendwanna.length; j++) {
                               allwanna.push(friendwanna[j]);
@@ -52,20 +77,30 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           });
                       }
                     console.log("allwanna is",allwanna);
-                    console.log("friend ids are",friendidList);
+                    console.log("friend ids are",$scope.friendidList);
                 });
+
 
                   $scope.wannas = function(){
                         allwanna.sort(function(a,b){//上の動作が終わった後にしたい
                           return b.upload_time - a.upload_time;
                         });
                         return allwanna;
-                      }
+                      };
 
 //               $scope.$watch("wannas",function(){
 //                var likeValid=0;
 //                console.log("scope.wannas is changed");
 //               });
+                Message.getAllRooms(uid).$loaded().then(function(data) {
+                //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                      for (var i = 0; i < data.length; i++) {
+                          var item = data[i];
+                          roomList.push(item);
+                      }
+                      console.log("roomList is",roomList);
+             
+                });
 
 
                 Message.getAllRooms(uid).$loaded().then(function(data) {
@@ -93,10 +128,17 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                   console.log("timeline",wanna.content);
                };
 
+               $scope.$watch('friendidList',function(){
+                    console.log('friends ids changed',$scope.friendidList);
+                    flag=0;
+                    $scope.getFriendsImage($scope.friendidList,flag);
+               });
 
                $scope.myFunction = function(isLast,wanna){
                  if(isLast){//html の表示が終わった時に動く内容 （like の色付け）
                     console.log("the end of repeat",wanna.$id);
+
+                    //friend list の画像取得
 
                    $timeout(function(){
                     likedWannaList=Wannas.findUsersLikes($scope.wannas,currentUid);
@@ -107,7 +149,12 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     }
                     likeValid=true;
                     console.log("like valid phase");
+                                       flag=0;
+                                       $scope.getFriendsImage($scope.friendidList,flag);
+
                    },200);
+
+
 
                  }
                };
