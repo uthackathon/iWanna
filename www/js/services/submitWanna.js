@@ -36,7 +36,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 
 
 
-                  saveWanna: function(wanna,currentUid,userName,iconArray,time){
+                  saveWanna: function(wanna,currentUid,userName,iconArray,time,motivation){
                   var wannas = $firebaseArray(ref.child('users').child(currentUid).child('wannas'));//firebase構造によって変えてみてください。
                   var newWanna={
                     ownerId: currentUid,
@@ -47,6 +47,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                     icon: iconArray,//アイコン取得できるように
                     upload_time: time,
                     likes: {"initializeKey": "init"},
+                    color: motivation,
                   };
                   return wannas.$add(newWanna).then(function(){
                     console.log('added to the database');

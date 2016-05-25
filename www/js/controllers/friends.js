@@ -19,7 +19,7 @@ app.controller('FriendsCtrl', function(Match, Auth, uid, $scope,$state, Follow, 
 	// ボタンが押された時、選択肢がPopupする
  	$scope.showFunctionList = function(friend_uid) {
  		console.log(friend_uid);
-    
+
     $ionicActionSheet.show({
 		titleText: 'Friends name',
 		buttons: [

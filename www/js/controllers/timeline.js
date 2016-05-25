@@ -85,6 +85,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                         allwanna.sort(function(a,b){//上の動作が終わった後にしたい
                           return b.upload_time - a.upload_time;
                         });
+
                         return allwanna;
                       };
 
@@ -99,7 +100,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           roomList.push(item);
                       }
                       console.log("roomList is",roomList);
-             
+
                 });
 
 
@@ -110,7 +111,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           roomList.push(item);
                       }
                       console.log("roomList is",roomList);
-             
+
                 });
 
                $scope.writeWanna=function(){
@@ -134,14 +135,15 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     $scope.getFriendsImage($scope.friendidList,flag);
                });
 
-               $scope.myFunction = function(isLast,wanna){
-                 if(isLast){//html の表示が終わった時に動く内容 （like の色付け）
-                    console.log("the end of repeat",wanna.$id);
+               $scope.$watch('wannas',function(){
+                    console.log('wannas is changed');
+               });
 
-                    //friend list の画像取得
+               $scope.myFunction = function(wanna){
 
                    $timeout(function(){
-                    likedWannaList=Wannas.findUsersLikes($scope.wannas,currentUid);
+                    likedWannaList=Wannas.findUsersLikes($scope.wannas(),currentUid);
+                    console.log("lile",likedWannaList);
                     for(var i = 0; i < likedWannaList.length; i++){
                         var pretarget = document.getElementById(likedWannaList[i]);
                         pretarget.style.backgroundColor='#FFFFFF';
@@ -152,11 +154,9 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                                        flag=0;
                                        $scope.getFriendsImage($scope.friendidList,flag);
 
-                   },200);
+                   },10);
 
 
-
-                 }
                };
 
 
@@ -186,7 +186,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               console.log("create new messgage room")
                               Message.createNewRoom(uid,wanna.ownerId);
                               var message = "Hi! I like your plan; " + wanna.content ;
-                              Message.sendMessage(message,uid,likedRoomId);                             
+                              Message.sendMessage(message,uid,likedRoomId);
                             }
                         }
                       }else{
