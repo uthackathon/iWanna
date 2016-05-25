@@ -36,6 +36,12 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
     });
   };
 
+  $scope.removeWanna = function(index,ownerId,wannaId){
+    $scope.allWannasList.splice(index, 1);
+    Wannas.removeWanna(index, ownerId, wannaId);
+
+  };
+
   $scope.twitterShare = function(){
     console.log("write button was clicked");
     $state.go('twitter-share');//state.goディレクトリ関係がわからない
