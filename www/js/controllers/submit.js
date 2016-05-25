@@ -75,7 +75,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                    if(flag){
                    flag=0;
                    console.log("start upload");
-                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time);
+                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time,$scope.motColor);
                    $state.go('tab.dash');
                    }
               }).catch(function(error) {
