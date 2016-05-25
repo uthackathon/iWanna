@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="room in AllRooms" type="item-text-wrap" ng-click="goMessageRoom(room.roomId)">
-        <img ng-src="{{chat.face}}">
+        <img data-ng-src={{friendImages[room.friendId]}}>
         <h2>{{room.friendName}}</h2>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
