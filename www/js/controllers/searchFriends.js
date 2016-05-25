@@ -19,7 +19,6 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
   $scope.$on('$ionicView.enter', function(e){
     // $scope.show();
     var allFriends=[];
-    $scope.allFriendslist = [];
     Match.allMatchesByUser(uid).$loaded().then(function(data) {
       for (var i = 0; i < data.length; i++) {
         var item = data[i];
