@@ -6,90 +6,17 @@
             iWanna...
         </button>
 
-
-
-
-        <!--     <div class="row">
-              <div class="col col-50">
-                <h2>iWanna</h2>
-              </div>
-
-              <div class="col col-50">
-                <div align="right">
-                  <button ng-click="writeWanna()" class="button icon ion-compose"></button>
-                </div>
-              </div>
-            </div> -->
-
-
         <div class="list list-inset">
             <label class="item item-input">
                 <i class="icon ion-search big placeholder-icon"></i>
                 <input ng-change = "searchWannas(tipsToFind)" ng-model="tipsToFind" placeholder="Search">
             </label>
         </div>
-        <!--<p>{{friendidList}}</p>-->
-        <!--<p>{{friendImages}}</p>-->
 
-        <!--     <div class="bar bar-header item-input-inset">
-        <label class="item-input-wrapper">
-          <i class="icon ion-ios-search placeholder-icon"></i>
-          <input ng-change = "searchWannas(tipsToFind)"  ng-model="tipsToFind" placeholder="Search">
-        </label>
-        <button class="button button-clear">
-          Cancel
-        </button>
-      </div> -->
-
-
-        <!--<ion-item class="list" ng-repeat="wanna in wannas">-->
-
-        <!--<a type="button" class="item item-avatar" href="#" ng-Click="goContentPage(wanna)">-->
-        <!--<img src="adam.jpg" >-->
-        <!--<h2>{{wanna.content}}</h2>-->
-        <!--<p>{{wanna.user_name}}</p>-->
-        <!--<div align="right">-->
-        <!--&lt;!&ndash;http://heo.jp/tag/layout/center.html&ndash;&gt;-->
-        <!--<button id="likeButton" type="button" class="button icon ion-heart" ng-Click="likeWanna(wanna)"></button>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;Tips&ndash;&gt;-->
-
-        <!--&lt;!&ndash;kurukuru&ndash;&gt;-->
-        <!--&lt;!&ndash;http://codepen.io/ionic/pens/public/&ndash;&gt;-->
-        <!--&lt;!&ndash;<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>&ndash;&gt;-->
-
-        <!--&lt;!&ndash;get wanna id&ndash;&gt;-->
-        <!--&lt;!&ndash;<p>{{wanna.$id}}</p>&ndash;&gt;-->
-        <!--</a>-->
-        <!--</ion-item>-->
-
-        <!--<div class="card"  ng-repeat="wanna in wannas">-->
-        <!--<div class="row">-->
-        <!--<div class="col col-20">-->
-        <!--<h2> <i class="icon ion-jet"></i> </h2>-->
-        <!--</div>-->
-
-        <!--<div class="col col-80">-->
-        <!--<h4>{{wanna.content}}</h4>-->
-        <!--<p>{{wanna.user_name}}</p>-->
-        <!--</div>-->
-
-        <!--</div>-->
-
-        <!--<div class="item item-text-wrap">-->
-        <!--<div align="right">-->
-        <!--&lt;!&ndash;http://heo.jp/tag/layout/center.html&ndash;&gt;-->
-        <!--<button id="likeButton2" type="button" class="button icon ion-heart" ng-Click="likeWanna(wanna)"></button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-
-        <div class="list" ng-repeat="wanna in wannas()" ng-init="myFunction($last,wanna)">
-            <div class="wannatest">
+        <div class="list" ng-repeat="wanna in wannas()" ng-init="myFunction(wanna)">
+            <div class="wannatest" style=" border-right-color:{{wanna.color}};">
                 <div class="uimgtest">
                     <img style="height:100% ; width:100%;" data-ng-src={{friendImages[wanna.ownerId]}}>
-                    <!--<img src="http://pictogram-free.com/material/001.png" width="40" height="40" >-->
                 </div>
                 <div class="wannanametest" type="button" href="#" ng-Click="goContentPage(wanna)">
                     {{wanna.content}}
@@ -98,7 +25,7 @@
                     {{wanna.user_name}}
                 </div>
                 <div class="janreimgtest">
-                    <i class={{wanna.icon[0]}} style=" background-color: #ffffff; font-size: 33px; " ></i>
+                    <i class={{wanna.icon[0]}} style=" color:{{wanna.color}}; background-color: #ffffff; font-size: 33px; " ></i>
                 </div>
                 <div class="dateboxtest">
                     {{date(wanna.upload_time)}}
@@ -107,24 +34,6 @@
                     <button id={{wanna.$id}} style=" background-color: #ffffff; width : 50px;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)"></button>
                 </div>
             </div>
-            <!--
-            <div class="wanna" >
-                <a class="list card " id="page-card21" >
-                  <ion-item class="item-avatar item-icon-right" style=" width:100%; height: 60%;" href="#" ng-Click="goContentPage(wanna)">
-                    <img src={{testimage[0].images}} >
-                    <h2 style=" font-size: 20px;">{{wanna.content}}</h2>
-                    <p>{{wanna.user_name}}</p>
-                    <i class={{wanna.icon[0]}}></i>
-                  </ion-item>
-              </a>
-              <div class="datebox">{{wanna.upload_time}}</div>
-              <div class="like">
-                <button id={{wanna.$id}} style=" background-color: #ffffff; width : 20px;" type="button" class="button icon ion-heart"  ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)">{{}} </button>
-              </div>
-              </div>-->
-            <!--<div align="right">
-              <button id={{wanna.$id}} type="button" class="button icon ion-heart"  ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)">{{}} </button>
-            </div>-->
         </div>
     </ion-content>
 </ion-view>

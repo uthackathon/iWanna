@@ -93,7 +93,7 @@ i.icon.ion-email{
 }
 
 /*a.item.item-avatar{
-  text-align: center; 
+  text-align: center;
 }*/
 
 ion-content{
@@ -214,27 +214,21 @@ div.like {/*wannaのlikeボタン*/
 div.wannatest { /*wanna全体の入れ子*/
   height: 66px;
   width: 100%;
-  border: solid px #11c1f3;
-  background-color: rgba(0,0,0,0);
-}
-
-div.wannacontent { /*wanna-contentにおける入れ子*/
-  height: 150px;
-  width: 100%;
-  border: solid 1px #11c1f3;
+  border: solid 0.5px #e6e6fa;
+  border-right-width: 5px;
   background-color: rgba(0,0,0,0);
 }
 
 div.uimgtest {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   position: absolute;
   top: 10px;
   left: 10px;
 }
 
 div.wannanametest {
-  color: #0288d1;
+  color: #191970;
   height: 38px;
   width:170px;
   white-space: nowrap; /* 横幅のMAXに達しても改行しない */
@@ -246,6 +240,7 @@ div.wannanametest {
   top: 12px;
   left: 110px;
   font-size: 20px;
+  font-weight: bold;
 }
 
 div.unametest {
@@ -269,7 +264,7 @@ div.janreimgtest{
   text-align: center;/*wineだけ細いのでこれで補正、iconはテキストであることに注意*/
   position: absolute;
   top: 12px;
-  left: 55px;
+  left: 60px;
 }
 
 div.dateboxtest { /*wannaの時間のところ*/
@@ -289,19 +284,69 @@ div.liketest {/*wannaのlikeボタン*/
   right: 30px;
 }
 
-div.description {/*wannaのlikeボタン*/
-  width: 150px;
-  height: 50px;
-  position: absolute;
-  top: 70px;
-  left: 50px;
+
+/*----------------------------------------------------------*/
+
+/*------------------------content用-------------------------*/
+
+.test{
+  font-size: 20px;
 }
 
-div.likenum {/*wannaのlikeボタン*/
-  width: 100px;
-  height: 20px;
-  position: absolute;
-  top: 120px;
-  right: 50px;
+div.wannacontent { /*wanna-contentにおける入れ子*/
+  width: 100%;
+  height: auto;
+  /*border: solid 1px #11c1f3;*/
+  background-color: rgba(0,0,0,0);
+  overflow: hidden;
 }
-/*----------------------------------------------------------*/
+
+div.uimg_content {
+  height: 50px;
+  width: 50px;
+  float:left;
+  clear:both;
+}
+
+div.wannaname_content {
+  height:50px;
+  width: 100%;
+  color: #0288d1;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 30px;
+  padding:3px 0px 5px 0px;
+}
+
+
+div.description {
+  width: 100%;
+  padding:5px 10px 5px 10px;
+}
+
+div.like_content{
+  width: 100%;
+  height: auto;
+  background-color: rgba(0,0,0,0);
+  overflow: hidden;
+}
+
+div.likebutton {
+  height: 50px;
+  width: 50px;
+  float:right;
+  clear:both;
+}
+
+div.likenum {
+  border: solid 1px #11c1f3;
+  height:50px;
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align:center;
+  font-size: 20px;
+  padding:3px 0px 5px 0px;
+  position: absolute;
+  right: 0%;
+}
