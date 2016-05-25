@@ -2,9 +2,17 @@
 
 'use strict'
 
-app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state) {
+app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state,SharedStateService) {
   var ref = new Firebase(FURL);
   var currentUid = uid
+
+  $scope.friendImages ={'initUid':'initImg'};
+
+  $scope.$watch(function(){
+    return SharedStateService.friendImages;
+  }, function(){
+    $scope.friendImages = SharedStateService.friendImages;
+  });
 
   $scope.currentIndex = null;
   $scope.currentCardUid = null;

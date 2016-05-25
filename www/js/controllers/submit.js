@@ -22,7 +22,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
 
 
                $scope.wannaSubmit=function(wanna){
-               var iconNames=["img/noIcon.png"];
+               var iconNames=["icon ion-ios-paw"];
                var now = new Date();//日付しゅとく データ整形してない
                //date object のメソッドについては http://so-zou.jp/web-app/tech/programming/javascript/grammar/object/date.htm#no3
 

@@ -15,6 +15,12 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 
                $scope.friendImages ={'initUid':'initImg'};
 
+               $scope.$watch(function(){
+                     return SharedStateService.friendImages;
+                   }, function(){
+                     $scope.friendImages = SharedStateService.friendImages;
+               });
+
                console.log('userName gained before html',nameTest,uid);
                var flag =0;
 
@@ -50,9 +56,12 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               console.log('images',images);
                               console.log('flist[flag]',fList[flag]);
                               console.log('flag',flag);
-                              if(images[0]==null){images=[{'images' :'noImage'},{'images':'noImage'}];console.log('undefined',images['images']);}
+                              if(images[0]==null){console.log('undefined');
+                              SharedStateService.friendImages[fList[flag]]='/img/ben.png';
+                              }else{
+                              SharedStateService.friendImages[fList[flag]]=images[0]['images'];
+                              }
 //                              console.log('image',fList[k],images);
-                              $scope.friendImages[fList[flag]]=images[0]['images'];
                               if(flag<fList.length-1){
                                 console.log('fList length',fList.length);
                                 flag+=1;
