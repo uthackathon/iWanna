@@ -133,7 +133,6 @@ div.footer-btn-wrap{
 .self{
   text-align: right;
   color: #0288d1;
-
 }
 
 .landing {
@@ -142,17 +141,6 @@ div.footer-btn-wrap{
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-
-
-.facebook{
-  max-width: 200px;
-  margin: 0 auto;
-}
-
-.email-button {
-  position: absolute;
-  top: 300px;
 }
 
 .big{
