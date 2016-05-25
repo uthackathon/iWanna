@@ -43,15 +43,6 @@ div.item.item-image.choice {
   padding: 5%;
 }
 
-/*.ion-header-bar.bar-stable.bar.bar-header.has-tabs-top{
-     color: #11c1f3;
-  background-color: #11c1f3;
-
-}
-div.nav-bar-block{
-    color: #11c1f3;
-  background-color: #11c1f3;
-}*/
 a.item-icon-left{
     color: #11c1f3;
       color: #0288d1;
@@ -74,12 +65,6 @@ div.item.item-divider{
    background-color: #11c1f3;
 
 }
-
-/*ion-content.padding.scroll-content.ionic-scroll.overflow-scroll.has-header.has-tabs-top{
-  background-color: ;
-}*/
-
-
 div.item.item-button-right.ng-binding{
   color: #0288d1;
 }
@@ -92,9 +77,6 @@ i.icon.ion-email{
   color: #11c1f3;
 }
 
-/*a.item.item-avatar{
-  text-align: center;
-}*/
 
 ion-content{
 /*  background-color: #CEECF5;*/
@@ -133,7 +115,6 @@ div.footer-btn-wrap{
 .self{
   text-align: right;
   color: #0288d1;
-
 }
 
 .landing {
@@ -142,17 +123,6 @@ div.footer-btn-wrap{
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-
-
-.facebook{
-  max-width: 200px;
-  margin: 0 auto;
-}
-
-.email-button {
-  position: absolute;
-  top: 300px;
 }
 
 .big{
@@ -265,7 +235,7 @@ div.janreimgtest{
   text-align: center;/*wineだけ細いのでこれで補正、iconはテキストであることに注意*/
   position: absolute;
   top: 12px;
-  left: 60px;
+  left: 62px;
 }
 
 div.dateboxtest { /*wannaの時間のところ*/

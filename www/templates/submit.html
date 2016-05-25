@@ -2,9 +2,9 @@
     <ion-content class="padding">
         <br>
         <br>
-        <!--     <br>
-            <br>
-            <br> -->
+        <br>
+        <br>
+        <br>
         <form ng-submit="wannaSubmit(wanna)">
             <label class="item item-input">
                 <input type="text" ng-model="wanna.content" placeholder="What do you want to do?">
@@ -45,9 +45,6 @@
             <br>
             <br>
 
-            <!--<p>{{motivation}}</p>-->
-            <!--<p>{{colorfulSubmit}}</p>-->
-
             <div class="row">
                 <button id="submitButton" type = "submit" class="button button-full button-calm" ng-click="wannaSubmit()">
                     Submit
@@ -58,9 +55,9 @@
             <div class="col col-80 col-offset-10">
                 <div align="center">
                     <div class="item range range-stable" id="motBar" style="border:none">
-                        <!--<i class="icon ion-ios-sunny-outline"></i>-->
-                        <input type="range" name="volume" min="0" max="700" ng-model="motivation" ng-change="changeSlider(motivation)">
-                        <!--<i class="icon ion-ios-sunny"></i>-->
+                        <i class="ion-flame" style="font-size: 25px; color:#2720f1;"></i>
+                        <input type="range" name="volume" min="0" max="100" ng-model="motivation" ng-change="changeSlider(motivation)">
+                        <i class="ion-flame" style="font-size: 40px; color:#f39e27;"></i>
                     </div>
                 </div>
             </div>

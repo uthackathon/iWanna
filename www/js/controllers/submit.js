@@ -9,20 +9,14 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                var icon3="icon ion-bag";
                var icon4="icon ion-map";
                var icon5="icon ion-music-note";
-               /*
-               var icon1="img/soccer.png";//アイコンの画像名をwanna につけて保存
-               var icon2="img/dinner.png";
-               var icon3="img/shop.png";
-               var icon4="img/map.png";
-               var icon5="img/music.png";
-               */
+
                var buttonsName=['sportButton','dinnerButton','shoppingButton','sightseeingButton','musicButton'];
-               $scope.motivation=160;
+               $scope.motivation=33;
                $scope.motColor='#27c2f1';
 
 
                $scope.wannaSubmit=function(wanna){
-               var iconNames=["icon ion-ios-paw"];
+               var iconNames=["ion-android-bulb"];
                var now = new Date();//日付しゅとく データ整形してない
                //date object のメソッドについては http://so-zou.jp/web-app/tech/programming/javascript/grammar/object/date.htm#no3
 
@@ -75,7 +69,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                    if(flag){
                    flag=0;
                    console.log("start upload");
-                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time,$scope.motColor);
+                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time,$scope.motColor,$scope.motivation);
                    $state.go('tab.dash');
                    }
               }).catch(function(error) {

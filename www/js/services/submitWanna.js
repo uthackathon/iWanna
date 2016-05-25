@@ -36,7 +36,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 
 
 
-                  saveWanna: function(wanna,currentUid,userName,iconArray,time,motivation){
+                  saveWanna: function(wanna,currentUid,userName,iconArray,time,motColor,motNum){
                   var wannas = $firebaseArray(ref.child('users').child(currentUid).child('wannas'));//firebase構造によって変えてみてください。
                   var newWanna={
                     ownerId: currentUid,
@@ -47,7 +47,8 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                     icon: iconArray,//アイコン取得できるように
                     upload_time: time,
                     likes: {"initializeKey": "init"},
-                    color: motivation,
+                    color: motColor,
+                    motivation: motNum,
                   };
                   return wannas.$add(newWanna).then(function(){
                     console.log('added to the database');
@@ -148,7 +149,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 //                   console.log('cg',cg);
                    //calm =~ '#27c2f1'
                    console.log('typeof mot',typeof mot);
-                   var num=Number(mot);
+                   var num=Number(mot)*7;
                    if(num<210){
                        var red=39;
                        var green=32+num;
