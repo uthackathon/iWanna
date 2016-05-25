@@ -11,7 +11,7 @@ app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $fi
       return ImageUpload.uploadPic(file,ref);
     };
     $scope.image_remove = function(){
-        return ImageUpload.image_all_remove();
+        return ImageUpload.image_all_remove(ref);
     };
 
  	$scope.logout = function(){

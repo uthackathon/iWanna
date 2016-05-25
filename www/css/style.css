@@ -217,6 +217,7 @@ div.wannatest { /*wanna全体の入れ子*/
   border: solid 0.5px #e6e6fa;
   border-right-width: 5px;
   background-color: rgba(0,0,0,0);
+  box-shadow:0.5px 0.5px 3px #778899;
 }
 
 div.uimgtest {

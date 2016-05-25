@@ -203,7 +203,9 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 $scope.searchWannas = function(tipsToFind){
                     if (tipsToFind == "") {
                     //検索窓が空欄の時は検索前に戻す(全部が当てはまるという検索の時間省略のため)
-                        $scope.wannas =allwanna;
+                        $scope.wannas = function(){
+                          return allwanna;
+                        }
                         console.log('reset');
                         var likeValid=false;
                     }
@@ -220,11 +222,15 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                         }
 
                         if ($scope.serchwannas.length !== 0){//ヒットしたとき
-                            $scope.wannas = $scope.serchwannas
+                            $scope.wannas = function(){
+                              return $scope.serchwannas;
+                            }
                             console.log('searched wannas are',$scope.wannas);
                         }
                         else if ($scope.serchwannas.length == 0){//何もヒットしなかったときは表示なし
-                            $scope.wannas =　[]
+                            $scope.wannas =　function(){
+                              return [];
+                            }
                             console.log('wannas are not finded');
                         }
                     }
