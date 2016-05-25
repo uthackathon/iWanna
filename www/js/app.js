@@ -269,26 +269,7 @@ var app = angular.module('starter', [
         }
   })
 
-  .state('tab.friends', {
-    url: '/friends',
-    views: {
-      'tab-friends': {
-        templateUrl: 'templates/tab-friends.html',
-        controller: 'FriendsCtrl',
-        resolve: {
 
-
-          uid: function(Auth) {
-            return Auth.requireAuth()
-              .then(function(auth){
-                return auth.uid;
-            });
-          }
-        }
-
-      }
-    }
-  })
 
 
   .state('tab.account', {
