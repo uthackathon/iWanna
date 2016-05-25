@@ -11,7 +11,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                var icon5="icon ion-music-note";
 
                var buttonsName=['sportButton','dinnerButton','shoppingButton','sightseeingButton','musicButton'];
-               $scope.motivation=160;
+               $scope.motivation=33;
                $scope.motColor='#27c2f1';
 
 
@@ -69,7 +69,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                    if(flag){
                    flag=0;
                    console.log("start upload");
-                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time,$scope.motColor);
+                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time,$scope.motColor,$scope.motivation);
                    $state.go('tab.dash');
                    }
               }).catch(function(error) {

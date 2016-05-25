@@ -158,7 +158,16 @@ var app = angular.module('starter', [
     views: {
       'tab-dash': {
         templateUrl: 'templates/wanna-content.html',
-        controller: 'WannaContentCtrl'
+        controller: 'WannaContentCtrl',
+        resolve: {
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
       }
     }
   })
