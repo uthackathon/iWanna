@@ -1,43 +1,34 @@
 'use strict'
 
-app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas) {
+app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopup,$timeout) {
                var currentUid = uid;
                var iconArray = [0,0,0,0,0];
+
+               var icon1="icon ion-ios-football";//アイコンの画像名をwanna につけて保存
+               var icon2="icon ion-ios-wineglass";
+               var icon3="icon ion-bag";
+               var icon4="icon ion-map";
+               var icon5="icon ion-music-note";
+               /*
                var icon1="img/soccer.png";//アイコンの画像名をwanna につけて保存
                var icon2="img/dinner.png";
                var icon3="img/shop.png";
                var icon4="img/map.png";
                var icon5="img/music.png";
+               */
                var buttonsName=['sportButton','dinnerButton','shoppingButton','sightseeingButton','musicButton'];
 
-               var userName= Wannas.getUserName(currentUid);
 
 
                $scope.wannaSubmit=function(wanna){
-               console.log("user name is",userName);
                var iconNames=["img/noIcon.png"];
                var now = new Date();//日付しゅとく データ整形してない
                //date object のメソッドについては http://so-zou.jp/web-app/tech/programming/javascript/grammar/object/date.htm#no3
 
                //日本時間ではなく UTC で入れている。
-               console.log("year",typeof now.getUTCFullYear());
-//               var time={
-//                 year: now.getUTCFullYear(),
-//                 month: now.getUTCMonth()+1,//月は0から11まで
-//                 date: now.getUTCDate(),
-//                 hours: now.getUTCHours(),
-//                 minutes: now.getUTCMinutes(),
-//                 seconds: now.getUTCSeconds(),
-//               };
+//               console.log("year",typeof now.getUTCFullYear());
 
                var time = now.getUTCFullYear()*10000000000+(now.getUTCMonth()+1)*100000000+now.getUTCDate()*1000000+now.getUTCHours()*10000+now.getUTCMinutes()*100+now.getUTCSeconds();
-//               console.log("time data");
-//               console.log("year",time.year);
-//               console.log("month",time.month);
-//               console.log("date",time.date);
-//               console.log("hours",time.hours);
-//               console.log("minutes",time.minutes);
-//               console.log("seconds",time.seconds);
 
                console.log("submit button was clicked",wanna);
 
@@ -58,15 +49,42 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas) {
                if(iconArray[4]){
                 var num = iconNames.unshift(icon5);
                }
-
-
                console.log("icon names",wanna);
 
-
+               if(wanna.description==null){
+                wanna.description="[No description]";
+               }
+               var flag=1;//flag でtimeoutの処理変える
                //ここでwanna をfirebase 上に記録。
-               Wannas.saveWanna(wanna,currentUid,userName,iconNames,time);
-               $state.go('tab.dash');
-               };
+               $timeout(function(){
+                 console.log("timeout conducted");
+                 if(flag){
+                   flag=0;//本当はflag じゃなくて、getObjectUserName の中止コマンドがあればいいのだが...
+                   var alertPopup = $ionicPopup.alert({
+                                    title: '通信エラー',
+                   });
+                   $state.go('tab.dash');
+                 }
+               },5000);
+               console.log("start getUserName");
+
+               Wannas.getObjectUserName(currentUid).$loaded().then(function(obj){
+                   var userName=obj.$value;
+                   console.log("got userName");
+                   if(flag){
+                   flag=0;
+                   console.log("start upload");
+                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time);
+                   $state.go('tab.dash');
+                   }
+              }).catch(function(error) {
+                   console.error("Error:", error);
+                   var alertPopup = $ionicPopup.alert({
+                                    title: 'エラー',
+                                    template: 'ユーザー名の取得に失敗しました。'
+                   });
+                 });
+              };
 
 
                //sport button をデバック用に使ってます。

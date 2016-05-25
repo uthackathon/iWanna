@@ -92,6 +92,10 @@ i.icon.ion-email{
   color: #11c1f3;
 }
 
+/*a.item.item-avatar{
+  text-align: center; 
+}*/
+
 ion-content{
 /*  background-color: #CEECF5;*/
    background-color: #ffffff;
@@ -210,7 +214,14 @@ div.like {/*wannaのlikeボタン*/
 div.wannatest { /*wanna全体の入れ子*/
   height: 66px;
   width: 100%;
-  border: solid 3px #11c1f3;
+  border: solid px #11c1f3;
+  background-color: rgba(0,0,0,0);
+}
+
+div.wannacontent { /*wanna-contentにおける入れ子*/
+  height: 150px;
+  width: 100%;
+  border: solid 1px #11c1f3;
   background-color: rgba(0,0,0,0);
 }
 
@@ -223,6 +234,7 @@ div.uimgtest {
 }
 
 div.wannanametest {
+  color: #0288d1;
   height: 38px;
   width:170px;
   white-space: nowrap; /* 横幅のMAXに達しても改行しない */
@@ -251,6 +263,7 @@ div.unametest {
 }
 
 div.janreimgtest{
+  color: #11c1f3;
   height: 35px;
   width: 35px;
   text-align: center;/*wineだけ細いのでこれで補正、iconはテキストであることに注意*/
@@ -276,4 +289,19 @@ div.liketest {/*wannaのlikeボタン*/
   right: 30px;
 }
 
+div.description {/*wannaのlikeボタン*/
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top: 70px;
+  left: 50px;
+}
+
+div.likenum {/*wannaのlikeボタン*/
+  width: 100px;
+  height: 20px;
+  position: absolute;
+  top: 120px;
+  right: 50px;
+}
 /*----------------------------------------------------------*/

@@ -1,5 +1,5 @@
 <ion-view view-title="Home">
-	<ion-content>
+	<ion-content class="padding">
 		<div class="list">
 		  	<a class="item item-icon-left" href="#">
 		    <i class="icon ion-person"></i>
@@ -7,7 +7,7 @@
 		  	</a>
 	    </div>
 
-        <div>
+<!--        <div>
             <h1>Image Upload</h1>
             <body ng-app="fileUpload" >
                 <form name="myForm">
@@ -30,13 +30,17 @@
                     </ul>
                 </form>
             </body>
-        </div>
+        </div> -->
 
 	    <div>
 	        <div class="list card">
- 				<a href="#" class="item item-icon-left"  ng-repeat="wanna in allWannasList">
-    				<i class="icon ion-home"></i>
+ 				<a href="#" class="item item-avatar" style = "background-color: #FFFFFF"  ng-repeat="wanna in allWannasList">
+        <!--ここをAvaterでもiconでいけるようにcssで変更してあります-->
+    				<i class = {{wanna.icon[0]}}></i>
+            <font color: #FFFFFF>
     				{{wanna.content}}
+            </font>
+             <p>{{wanna.description}}</p>
   				</a>
   			</div>
 			<!-- <ion item class="list card" ng-repeat="wanna in allWannasList">

@@ -1,16 +1,16 @@
 'use strict'
 
-app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray){
+app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,AdMobService){
 
 	$scope.accountInformation = Auth.getProfile(uid);
 
   $scope.allWannasList = Wannas.all(uid);
 
-  // $scope.twitterShare=function(){
-
-  // 	console.log("twitter")
-		// SocialShare.shareViaTwitter('test',null,"test/url");
-  // }
+  $scope.$on('$ionicView.enter', function(e){
+    // $scope.show();
+    AdMobService.showBannerAd()
+    // $scope.hide();
+  });
 
     var fb = new Firebase(FURL);
     var ref = $firebaseArray(fb.child("users").child(uid).child("images"));
