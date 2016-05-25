@@ -56,6 +56,12 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                 },
 
 
+                removeWanna: function(index,wannaOwnerId,wannaId){
+                  console.log("removeWanna");
+                  ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId).remove();
+                },
+
+
 
                 addLikeToWanna: function(wannaOwnerId,wannaId,currentUid,likeButton){
                   var onComplete = function(error){
