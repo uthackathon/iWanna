@@ -193,9 +193,10 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                             }
                             else{
                               console.log("create new messgage room")
-                              Message.createNewRoom(uid,wanna.ownerId);
                               var message = "Hi! I like your plan; " + wanna.content ;
-                              Message.sendMessage(message,uid,likedRoomId);
+                              Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
+                              // var message = "Hi! I like your plan; " + wanna.content ;
+                              // Message.sendMessage(message,uid,likedRoomId);
                             }
                         }
                       }else{
