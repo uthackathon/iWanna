@@ -114,7 +114,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                                       } else {
                                           console.log('like was removed from the user-database');
                                                 likeButton.style.backgroundColor='#FFFFFF';
-                                                likeButton.style.color='';
+                                                likeButton.style.color='#bbbbbb';
                                           return 1;
                                       }
                                     };
