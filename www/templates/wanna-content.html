@@ -3,7 +3,7 @@
 
   <div class="list card">
     <a class="item item-avatar" href="#" >
-      <img src="http://pictogram-free.com/material/001.png">
+      <img data-ng-src={{friendImages[clickedWanna.ownerId]}}>
       <div class="item item-text-wrap" style="font-weight: bold; padding: 0px; border: 0px; font-size: 20px;">
           {{clickedWanna.content}}
       </div>
@@ -18,7 +18,7 @@
     </div>
     <div class="item item-button-right">
             {{likeNum}} Likes
-             <button id={{clickedWanna.$id}} style=" background-color: #ffffff; width : 50px;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(clickedWanna)" ng-Click="likeWanna(clickedWanna)"></button>
+             <button id="likeInContent" style="color:#bbbbbb; background-color: #ffffff; width : 50px;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(clickedWanna)" ng-Click="likeWannaInContent(clickedWanna)"></button>
     </div>
   </div>
   </ion-content>

@@ -4,6 +4,13 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                var currentUid = uid;
                var iconArray = [0,0,0,0,0];
 
+               var motBar=document.getElementById('motBar');
+               var subBut=document.getElementById('submitButton');
+               $scope.motivation=30;
+//               $scope.motColor='#27c2f1';
+               $scope.motColor=Wannas.getColor($scope.motivation);
+               subBut.style.backgroundColor=$scope.motColor;
+
                var icon1="icon ion-ios-football";//アイコンの画像名をwanna につけて保存
                var icon2="icon ion-ios-wineglass";
                var icon3="icon ion-bag";
@@ -11,8 +18,6 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                var icon5="icon ion-music-note";
 
                var buttonsName=['sportButton','dinnerButton','shoppingButton','sightseeingButton','musicButton'];
-               $scope.motivation=160;
-               $scope.motColor='#27c2f1';
 
 
                $scope.wannaSubmit=function(wanna){
@@ -69,7 +74,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                    if(flag){
                    flag=0;
                    console.log("start upload");
-                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time,$scope.motColor);
+                   Wannas.saveWanna(wanna,currentUid,userName,iconNames,time,$scope.motColor,$scope.motivation);
                    $state.go('tab.dash');
                    }
               }).catch(function(error) {
@@ -200,11 +205,8 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                }
                };
 
-
                $scope.changeSlider=function(motivation){
                  console.log('slider changed');
-                 var motBar=document.getElementById('motBar');
-                 var subBut=document.getElementById('submitButton');
                  $scope.motColor=Wannas.getColor(motivation);
                  subBut.style.backgroundColor=$scope.motColor;
                  var pos =iconArray.indexOf(1);

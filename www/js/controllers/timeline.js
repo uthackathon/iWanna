@@ -12,7 +12,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                var likeValid=false;
                var nameTest=usr;
                var roomList = [];
-
+               $scope.likeColor='#bbbbbb';
                $scope.friendImages ={'initUid':'initImg'};
 
                $scope.$watch(function(){
@@ -177,7 +177,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                         var likeButton = document.getElementById(wanna.$id);
                         var buttonColor=likeButton.style.color;
                         console.log("button color",buttonColor);
-                        if(buttonColor){//likeボタンがすでに色つきの時(like してるとき)
+                        if(buttonColor=='rgb(255, 192, 203)'){//likeボタンがすでに色つきの時(like してるとき)
                             console.log("colorful");
                             Wannas.removeLikeFromWanna(wanna.ownerId,wanna.$id,currentUid,likeButton);
                             Wannas.removeLikeFromUser(wanna.ownerId,wanna.$id,currentUid,likeButton);
@@ -193,9 +193,10 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                             }
                             else{
                               console.log("create new messgage room")
-                              Message.createNewRoom(uid,wanna.ownerId);
                               var message = "Hi! I like your plan; " + wanna.content ;
-                              Message.sendMessage(message,uid,likedRoomId);
+                              Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
+                              // var message = "Hi! I like your plan; " + wanna.content ;
+                              // Message.sendMessage(message,uid,likedRoomId);
                             }
                         }
                       }else{
