@@ -42,11 +42,11 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 
                 $scope.date = function(dayInt){
                   var dayString = String(dayInt);
-                  var month = Number(dayString.substr(4,2));
-                  var day = Number(dayString.substr(6,2));
-                  var hour = Number(dayString.substr(8,2));
-                  var min = Number(dayString.substr(10,2));
-                  var date = month+"月"+day+"日 "+hour+"時"+min+"分";
+                  var month = dayString.substr(4,2);
+                  var day = dayString.substr(6,2);
+                  var hour = dayString.substr(8,2);
+                  var min = dayString.substr(10,2);
+                  var date = month+"/"+day+" "+hour+":"+min;
                   return date;
                 }
 
