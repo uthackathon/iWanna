@@ -1,6 +1,6 @@
 <ion-view view-title="Friends">
   <ion-content class="padding">
-  
+
       <div class="list list-inset">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
@@ -13,11 +13,11 @@
 <!--           <div class="item item-divider">
               Search Result
           </div> -->
- 
-          <div class="item item-button-right">
+
+          <div class="item item-button-right"><!--検索用-->
           <img src="person.jpg">
       		  {{profile.name}}
-   			    <button class="button button-calm" ng-click = "follow($index, profile.$id)">
+   			    <button class="button button-calm" ng-click = "follow($index, profile.$id)" >
       			  <i class="icon ion-person-add"></i>
     		    </button>
  		      </div>
@@ -38,7 +38,7 @@
         <div class="item item-button-right">
           <img data-ng-src={{friendImages[friend.$id]}} style="height:40px ; width:40px;">
           {{friend.name}}
-        <button class="button button-calm" ng-click = "showFunctionList(friend.$id)">
+        <button class="button button-calm" ng-click = "showFunctionList(friend.$id)" style="top:20px;">
             <i class="icon ion-navicon"></i>
         </button>
     </div>

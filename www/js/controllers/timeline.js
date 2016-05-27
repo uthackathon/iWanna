@@ -57,7 +57,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               console.log('flist[flag]',fList[flag]);
                               console.log('flag',flag);
                               if(images[0]==null){console.log('undefined');
-                              SharedStateService.friendImages[fList[flag]]='/img/ben.png';
+                              SharedStateService.friendImages[fList[flag]]='img/ben.png';
                               }else{
                               SharedStateService.friendImages[fList[flag]]=images[0]['images'];
                               }
