@@ -8,7 +8,8 @@
 var app = angular.module('starter', [
   'ionic',
   'firebase',
-  'ngCordova'
+  'ngCordova',
+  'ngFileUpload'
 ])
 
 .service('$cordovaScreenshot', ['$q', function($q) {
@@ -50,7 +51,7 @@ var app = angular.module('starter', [
   });
 })
   .constant('FURL', 'https://iwanna-app.firebaseio.com/')
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$cordovaInAppBrowserProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -97,6 +98,7 @@ var app = angular.module('starter', [
   // setup an abstract state for the tabs directive
   .state('tab', {
     url: '/tab',
+    cache: false,
     abstract: true,
     templateUrl: 'templates/tabs.html'
   })
@@ -111,14 +113,22 @@ var app = angular.module('starter', [
         controller: 'DashCtrl',
         resolve: {
 
-
                   uid: function(Auth) {
                     return Auth.requireAuth()
                       .then(function(auth){
-                        console.log(auth);
+                        console.log('auth',auth.uid);
                         return auth.uid;
                     });
+                  },
+
+                  usr: function(uid,Wannas) {
+                        Wannas.getObjectUserName(uid)
+                          .$loaded().then(function(obj){
+                            console.log('obj',obj.$value);
+                            return obj.$value;
+                        });
                   }
+
                 }
       }
     }
@@ -148,7 +158,16 @@ var app = angular.module('starter', [
     views: {
       'tab-dash': {
         templateUrl: 'templates/wanna-content.html',
-        controller: 'WannaContentCtrl'
+        controller: 'WannaContentCtrl',
+        resolve: {
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
       }
     }
   })
@@ -160,7 +179,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-home.html',
         controller: 'HomeCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -201,7 +220,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-searchfriends.html',
         controller: 'SearchFriendsCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -211,7 +230,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -223,7 +242,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-messages.html',
         controller: 'MessagesCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -233,7 +252,7 @@ var app = angular.module('starter', [
             });
           }
         }
-        
+
       }
     }
   })
@@ -247,7 +266,7 @@ var app = angular.module('starter', [
       }
     },
     resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -259,26 +278,7 @@ var app = angular.module('starter', [
         }
   })
 
-  .state('tab.friends', {
-    url: '/friends',
-    views: {
-      'tab-friends': {
-        templateUrl: 'templates/tab-friends.html',
-        controller: 'FriendsCtrl',
-        resolve: {
-           
 
-          uid: function(Auth) {
-            return Auth.requireAuth()
-              .then(function(auth){
-                return auth.uid;
-            });
-          }
-        }
-        
-      }
-    }
-  })
 
 
   .state('tab.account', {
@@ -288,7 +288,7 @@ var app = angular.module('starter', [
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl',
         resolve: {
-           
+
 
           uid: function(Auth) {
             return Auth.requireAuth()
@@ -307,5 +307,17 @@ var app = angular.module('starter', [
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
+
+    var defaultOptions = {
+      location: 'no',
+      clearcache: 'no',
+      toolbar: 'no'
+    };
+
+    document.addEventListener(function () {
+
+      $cordovaInAppBrowserProvider.setDefaultOptions(options)
+
+    }, false);
 
 });

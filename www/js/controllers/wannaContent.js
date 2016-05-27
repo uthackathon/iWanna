@@ -4,6 +4,13 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
                console.log('entered content page');
                //タイムラインでクリックしたwanna 情報の読み取り(Shared Service 経由で)
                $scope.clickedWanna=SharedStateService.clickedWanna;
+               var likedUsersId=$scope.clickedWanna.likes;
+               var idArray=[];
+               for(var key in likedUsersId){
+                   idArray.push(key);
+               };
+               $scope.likedUsers=[];
+
                console.log("ContentPage",$scope.clickedWanna.content);
                $scope.friendImages ={'initUid':'initImg'};
                var currentUid=uid;
@@ -22,6 +29,35 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
                     likeButton.style.color='#FFC0CB';
                 }
                });
+
+               $scope.extract=function(idArray){
+                    if(idArray.length>1){
+                    var oneID=idArray[0];//ひとつ目のライクした人のid を取得
+                    Wannas.getObjectUserName(oneID).$loaded().then(function(obj){
+                      var name = obj.$value;
+                      console.log('name',name);
+                      if(name){
+                         console.log('Writing');
+                         $scope.likedUsers.push({'name': name,
+                         'id': oneID});
+                         idArray.shift();//ひとつめを削除
+                         console.log('idArray',idArray);
+                         $scope.extract(idArray);//減ったidArrayでまた始める
+                      }
+                    });
+                    }else{
+                        console.log('end of like users');
+                    }
+               };
+
+               $scope.showLikedUsers=function(){
+                 $scope.extract(idArray);
+                 console.log('show liked users');
+//                 var likeBoard=document.getElementById('likeBoard');
+//                 likeBoard.style.visibility="visible";
+               }
+
+
 
 
                $scope.date = function(dayInt){
