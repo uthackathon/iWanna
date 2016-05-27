@@ -12,7 +12,6 @@
 }
 
 .loginForm .loginInput{
-
   padding-left: 28px;
 }
 
@@ -119,10 +118,12 @@ div.footer-btn-wrap{
 
 .chats{
   color: #04B404;
+  vertical-align: middle;
 }
 .self{
   text-align: right;
   color: #0288d1;
+  vertical-align: middle;
 }
 
 .landing {
@@ -157,6 +158,12 @@ div.footer-btn-wrap{
     height:80%;
     align-self: right;
   }
+
+.item.item-thumbnail-left {
+  padding-top: 15px;
+  min-height: 80px;
+  padding-left: 90px;
+}
 
 
 /*-----------------wanna表示用-----------------*/
