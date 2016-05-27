@@ -1,7 +1,13 @@
 'use strict'
 
-app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,AdMobService){
-
+app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,AdMobService,SharedStateService){
+  $scope.friendImages ={'initUid':'initImg'};
+  $scope.currentUid=uid;
+  $scope.$watch(function(){
+    return SharedStateService.friendImages;
+  }, function(){
+    $scope.friendImages = SharedStateService.friendImages;
+  });
 	$scope.accountInformation = Auth.getProfile(uid);
 
   $scope.allWannasList = Wannas.all(uid);
@@ -34,6 +40,12 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
      }, function(err) {
          console.log("there was an error taking a a screenshot!");
     });
+  };
+
+  $scope.removeWanna = function(index,ownerId,wannaId){
+    $scope.allWannasList.splice(index, 1);
+    Wannas.removeWanna(index, ownerId, wannaId);
+
   };
 
   $scope.twitterShare = function(){

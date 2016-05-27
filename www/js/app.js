@@ -51,7 +51,7 @@ var app = angular.module('starter', [
   });
 })
   .constant('FURL', 'https://iwanna-app.firebaseio.com/')
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$cordovaInAppBrowserProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -307,5 +307,17 @@ var app = angular.module('starter', [
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');
+
+    var defaultOptions = {
+      location: 'no',
+      clearcache: 'no',
+      toolbar: 'no'
+    };
+
+    document.addEventListener(function () {
+
+      $cordovaInAppBrowserProvider.setDefaultOptions(options)
+
+    }, false);
 
 });

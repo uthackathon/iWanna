@@ -22,7 +22,7 @@
     		    </button>
  		      </div>
 
-        </ion item>
+        </ion>
       </div>
 
 
@@ -36,7 +36,7 @@
 
 
         <div class="item item-button-right">
-          <img src="person.jpg">
+          <img data-ng-src={{friendImages[friend.$id]}} style="height:40px ; width:40px;">
           {{friend.name}}
         <button class="button button-calm" ng-click = "showFunctionList(friend.$id)">
             <i class="icon ion-navicon"></i>

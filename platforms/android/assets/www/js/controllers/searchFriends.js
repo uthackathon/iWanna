@@ -2,9 +2,17 @@
 
 'use strict'
 
-app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state) {
+app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state,SharedStateService) {
   var ref = new Firebase(FURL);
   var currentUid = uid
+
+  $scope.friendImages ={'initUid':'initImg'};
+
+  $scope.$watch(function(){
+    return SharedStateService.friendImages;
+  }, function(){
+    $scope.friendImages = SharedStateService.friendImages;
+  });
 
   $scope.currentIndex = null;
   $scope.currentCardUid = null;
@@ -18,15 +26,16 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
 
   $scope.$on('$ionicView.enter', function(e){
     // $scope.show();
-    $scope.allFriendslist = [];
+    var allFriends=[];
     Match.allMatchesByUser(uid).$loaded().then(function(data) {
       for (var i = 0; i < data.length; i++) {
         var item = data[i];
 
         Auth.getProfile(item.$id).$loaded().then(function(profile) {
-          $scope.allFriendslist.push(profile);
+          allFriends.push(profile);
         });
       };
+      $scope.allFriendslist =allFriends;
     });
     // $scope.hide();
   });
@@ -35,15 +44,16 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
 
 
   ref.child('matches').child(currentUid).on('child_added', function(dataSnapshot){
-    $scope.allFriendslist = [];
+    var allFriends=[];
     Match.allMatchesByUser(uid).$loaded().then(function(data) {
       for (var i = 0; i < data.length; i++) {
         var item = data[i];
 
         Auth.getProfile(item.$id).$loaded().then(function(profile) {
-          $scope.allFriendslist.push(profile);
+          allFriends.push(profile);
         });
       }
+      $scope.allFriendslist =allFriends;
     });
  
   });
