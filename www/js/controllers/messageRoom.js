@@ -39,7 +39,7 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 		});
     $scope.hide();
   });
-               	
+
  	//firebaseのデーター構造に変化があった時（つまりメッセージを送信した時）に更新
  	ref.child('rooms').child($scope.currentRoomId).child('messages').on('child_added', function(dataSnapshot){
 		console.log('child added Fired!!');
