@@ -9,6 +9,7 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 	  return SharedStateService.friendImages;
 	}, function(){
 	  $scope.friendImages = SharedStateService.friendImages;
+	  $scope.friendImages[uid]='img/white.png';
 	});
 
  	console.log('entered message room');
