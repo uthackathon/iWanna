@@ -9,13 +9,19 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 	  return SharedStateService.friendImages;
 	}, function(){
 	  $scope.friendImages = SharedStateService.friendImages;
-	  $scope.friendImages[uid]='img/white.png';
 	});
-
  	console.log('entered message room');
 
  	$scope.currentRoomId=SharedStateServiceForMessage.chosenRoomId;
  	console.log("ContentPage",$scope.chosenRoomId);
+
+	$scope.getImage=function(messageUserId){
+		if(messageUserId == uid){
+			return "img/white.png";
+		}else{
+			return $scope.friendImages[messageUserId];
+		}
+	};
 
  	$scope.sendMessage = function(){
  		var user = Wannas.getUserName(uid);
