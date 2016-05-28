@@ -135,8 +135,16 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                   // http://whiskers.nukos.kitchen/2015/05/21/angularjs-controller-coordination.html のShared Service などを参考にした。
                   SharedStateService.clickedWanna=wanna;
                   $scope.clickedWanna=wanna;
-                  console.log("timeline",wanna.content);
+//                  console.log("timeline",wanna.content);
                };
+
+               $scope.goFriendHomePage=function(wanna){
+                  console.log("goFriendHome button was clicked");
+                  SharedStateService.clickedFriendId=wanna.ownerId;
+                  SharedStateService.clickedFriendName=wanna.user_name;
+                  $state.go('tab.friend-home');
+               };
+
 
                $scope.$watch('friendidList',function(){
                     console.log('friends ids changed',$scope.friendidList);

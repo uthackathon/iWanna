@@ -3,11 +3,16 @@
   <ion-content class="padding">
 
  <!--  <section class="chats" ng-repeat="message in allMessages" ng-class="(uid != message.userId)? 'self' : 'other' "> -->
+
  <section class="chats" ng-repeat="message in allMessages" ng-class = "isMe(message.userId)">
    <span >
-      <img ng-data-src={{friendImages[message.userId]}}>
+      <div class="uimgMes" style="  float: left;height: 70px;  width: 70px; padding: 5px 5px 5px 5px;">
+          <img data-ng-src={{getImage(message.userId)}} style="height:100% ; width:100%; border-radius: 200px">
+      </div>
       {{message.message}}
-      <br></br>
+      <br>
+
+       <!--</br>-->
       </span>
 
 <!--
