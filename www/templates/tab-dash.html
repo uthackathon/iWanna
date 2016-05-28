@@ -16,7 +16,7 @@
         <div class="list" ng-repeat="wanna in wannas()" ng-init="myFunction(wanna)">
             <div class="wanna" style=" border-right-color:{{wanna.color}};">
                     <div class="uimg">
-                        <img style="height:100% ; width:100%; border-radius: 200px" data-ng-src={{friendImages[wanna.ownerId]}}>
+                        <img style="height:100% ; width:100%; border-radius: 200px" data-ng-src={{friendImages[wanna.ownerId]}} ng-Click="goFriendHomePage(wanna)">
                     </div>
                     <div class="img_left" style="position: relative;">
                         <button id={{wanna.$id}} style="float:right; color:{{likeColor}}; background-color: rgba(0,0,0,0); position: absolute; right: 0; bottom: 0;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)"></button>
@@ -29,7 +29,7 @@
                                 <div class="datebox">
                                     {{date(wanna.upload_time)}}
                                 </div>
-                                <div class="uname" style="">
+                                <div class="uname" style="" ng-Click="goFriendHomePage(wanna)">
                                     {{wanna.user_name}}
                                 </div>
                     </div>
