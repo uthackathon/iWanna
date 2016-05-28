@@ -5,15 +5,8 @@
  <!--  <section class="chats" ng-repeat="message in allMessages" ng-class="(uid != message.userId)? 'self' : 'other' "> -->
 
  <section class="chats" ng-repeat="message in allMessages" ng-class = "isMe(message.userId)">
-   <span >
-      <div class="uimgMes" style="  float: left;height: 70px;  width: 70px; padding: 5px 5px 5px 5px;">
-          <img data-ng-src={{getImage(message.userId)}} style="height:100% ; width:100%; border-radius: 200px">
-      </div>
+      <img data-ng-src={{getImage(message.userId)}} style=" height:40px ; width:40px; border-radius: 200px ">
       {{message.message}}
-      <br>
-
-       <!--</br>-->
-      </span>
 
 <!--
     <span ng-repeat="message in allMessages">

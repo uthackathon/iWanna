@@ -1,4 +1,4 @@
-/* Empty. Add your own CSS if you like */
+ Empty. Add your own CSS if you like */
 
 .popup-container .popup{
   border-radius: 5%;
@@ -116,14 +116,31 @@ div.footer-btn-wrap{
   color: #11c1f3;
 }
 
+/*-----------------chatの部分のデザイン----------------*/
+
 .chats{
   color: #04B404;
-  vertical-align: middle;
+  min-height: 50px;
+  padding: 5px;
 }
 .self{
   text-align: right;
   color: #0288d1;
-  vertical-align: middle;
+  min-height: 50px;
+  padding: 5px;
+}
+
+.chats  img {
+vertical-align: middle;
+}
+.self  img {
+vertical-align: middle;
+}
+
+.uimgMes {
+  text-align: center;
+  height: 50px;
+  width: 50px;"
 }
 
 .landing {
@@ -133,6 +150,8 @@ div.footer-btn-wrap{
   -o-background-size: cover;
   background-size: cover;
 }
+
+/*--------------------------------------------*/
 
 .big{
   font-size: 20px;
@@ -175,21 +194,21 @@ div.wanna { /*wanna全体の入れ子*/
   background-color: rgba(0,0,0,0);
   box-shadow:0.5px 0.5px 3px #778899;
   overflow: hidden;
-  padding: 0px;
+  padding: 2px 0px 1px 0px;
 }
 
 div.uimg {/*col内*/
   /*border: solid 0.5px #000000;*/
   float: left;
-  height: 70px;
-  width: 70px;
-  padding: 5px 5px 5px 5px;
+  height: 73px;
+  width: 73px;
+  padding: 7px 7px 7px 7px;
 }
 
 div.img_left {
   /*border: solid 0.5px #000000;*/
   width: 100%-55px;
-  height: 70px;
+  height: 73px;
 }
 
 div.wannaname {
@@ -205,21 +224,21 @@ div.wannaname {
   vertical-align: middle;
   padding: 0px 15px 5px 5px;
   line-height: 35px;/*heightと同じ値で中央揃え*/
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 
 div.uname {
   /*border: solid 0.5px #000000;*/
-  height: 35px;
-  width: 100%-80px;
+  height: 38px;
+  width: 80px;
   white-space: nowrap; /* 横幅のMAXに達しても改行しない */
   overflow: hidden; /* ハミ出した部分を隠す */
   text-overflow: ellipsis; /* 「…」と省略 */
     -webkit-text-overflow: ellipsis; /* Safari */
     -o-text-overflow: ellipsis; /* Opera */
   font-size: 15px;
-  line-height: 30px;/*heightと同じ値で中央揃え*/
+  line-height: 38px;/*heightと同じ値で中央揃え*/
 }
 
 div.ganreimg{
@@ -235,11 +254,11 @@ div.ganreimg{
 
 div.datebox { /*wannaの時間のところ*/
   /*border: solid 0.5px #000000;*/
-  width: 80px;
-  height: 35px;
+  width: 100px;
+  height: 38px;
   background-color: #ffffff;
-  line-height: 35px;/*heightと同じ値で中央揃え*/
-  text-align: left;
+  line-height: 38px;/*heightと同じ値で中央揃え*/
+  text-align: right;
   position: absolute; right: 40px; bottom: 0;
 }
 
@@ -390,4 +409,4 @@ div.liketest {/*wannaのlikeボタン*/
   top: 10px;
   right: 30px;
 }
-/*----------------------------------------------------------*/
+/*----------------------------------------------------------
