@@ -13,11 +13,11 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
 
   $scope.allWannasList = Wannas.all(uid);
 
-  $scope.$on('$ionicView.enter', function(e){
-    // $scope.show();
-    AdMobService.showBannerAd()
-    // $scope.hide();
-  });
+  // $scope.$on('$ionicView.enter', function(e){
+  //   // $scope.show();
+  //   AdMobService.showBannerAd()
+  //   // $scope.hide();
+  // });
 
     var fb = new Firebase(FURL);
     var ref = $firebaseArray(fb.child("users").child(uid).child("images"));
@@ -46,7 +46,7 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
 
   $scope.goContentPage=function(wanna){
     console.log("goContent button was clicked");
-    $state.go('tab.wanna-content');
+    $state.go('tab.mywanna-content');
     SharedStateService.clickedWanna=wanna;
     $scope.clickedWanna=wanna;
   };
@@ -54,7 +54,6 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   $scope.removeWanna = function(index,ownerId,wannaId){
     $scope.allWannasList.splice(index, 1);
     Wannas.removeWanna(index, ownerId, wannaId);
-
   };
 
   $scope.twitterShare = function(){
