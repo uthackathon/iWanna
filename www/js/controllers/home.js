@@ -43,6 +43,14 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
     });
   };
 
+
+  $scope.goContentPage=function(wanna){
+    console.log("goContent button was clicked");
+    $state.go('tab.wanna-content');
+    SharedStateService.clickedWanna=wanna;
+    $scope.clickedWanna=wanna;
+  };
+
   $scope.removeWanna = function(index,ownerId,wannaId){
     $scope.allWannasList.splice(index, 1);
     Wannas.removeWanna(index, ownerId, wannaId);
