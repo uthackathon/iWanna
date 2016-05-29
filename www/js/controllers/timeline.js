@@ -57,7 +57,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               console.log('flist[flag]',fList[flag]);
                               console.log('flag',flag);
                               if(images[0]==null){console.log('undefined');
-                              SharedStateService.friendImages[fList[flag]]='/img/ben.png';
+                              SharedStateService.friendImages[fList[flag]]='img/ben.png';
                               }else{
                               SharedStateService.friendImages[fList[flag]]=images[0]['images'];
                               }
@@ -135,8 +135,16 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                   // http://whiskers.nukos.kitchen/2015/05/21/angularjs-controller-coordination.html のShared Service などを参考にした。
                   SharedStateService.clickedWanna=wanna;
                   $scope.clickedWanna=wanna;
-                  console.log("timeline",wanna.content);
+//                  console.log("timeline",wanna.content);
                };
+
+               $scope.goFriendHomePage=function(wanna){
+                  console.log("goFriendHome button was clicked");
+                  SharedStateService.clickedFriendId=wanna.ownerId;
+                  SharedStateService.clickedFriendName=wanna.user_name;
+                  $state.go('tab.friend-home');
+               };
+
 
                $scope.$watch('friendidList',function(){
                     console.log('friends ids changed',$scope.friendidList);
@@ -155,7 +163,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     console.log("lile",likedWannaList);
                     for(var i = 0; i < likedWannaList.length; i++){
                         var pretarget = document.getElementById(likedWannaList[i]);
-                        pretarget.style.backgroundColor='#FFFFFF';
+                        //pretarget.style.backgroundColor='#FFFFFF'; ここはもとから透明にしているので変化がいらない
                         pretarget.style.color='#FFC0CB';
                     }
                     likeValid=true;

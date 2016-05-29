@@ -1,45 +1,17 @@
-<!-- <ion-view view-title="Home">
-	<ion-content class="padding">
-		<div class="list">
-		  	<a class="item item-icon-left" href="#">
-		    <i class="icon ion-person"></i>
-		    {{accountInformation.name}}
-		  	</a>
-	    </div>
-
-
-	    <div>
-	        <div class="list card">
- 				<a href="#" class="item item-avatar" style = "background-color: #FFFFFF"  ng-repeat="wanna in allWannasList"> -->
-        <!--ここをAvaterでもiconでいけるようにcssで変更してあります-->
-<!--     				<i class = {{wanna.icon[0]}}></i>
-            <font color: #FFFFFF>
-    				{{wanna.content}}
-
-            </font>
-             <p>{{wanna.description}}</p>
-  				</a>
-
-
-  			</div>
-
-		</div> -->
-
-
-
 <ion-view view-title="Home">
   <ion-content>
       <div class="list">
         <a class="item item-avatar">
         <img data-ng-src={{friendImages[currentUid]}}>
         {{accountInformation.name}}
+        <p> all Wannas List </p>
         </a>
       </div>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="wanna in allWannasList" type="item-text-wrap" >
-        <i class = {{wanna.icon[0]}}></i>
-        <h2>{{wanna.content}}</h2>
-
+        <i class = {{wanna.icon[0]}} style=" color:{{wanna.color}};" ng-Click="goContentPage(wanna)"></i>
+        <h2 ng-Click="goContentPage(wanna)">{{wanna.content}}</h2>
+        <p ng-Click="goContentPage(wanna)">{{wanna.description}}</p>
         <ion-option-button class="button-assertive" ng-click="removeWanna($index , wanna.ownerId, wanna.$id)">
           Delete
         </ion-option-button>
@@ -48,7 +20,7 @@
   </ion-content>
 </ion-view>
 
-    
+
 
 
 	<div class="list">

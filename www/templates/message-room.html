@@ -1,15 +1,14 @@
 <ion-view view-title="Message Room">
 
   <ion-content class="padding">
-  
- <!--  <section class="chats" ng-repeat="message in allMessages" ng-class="(uid != message.userId)? 'self' : 'other' "> -->
- <section class="chats" ng-repeat="message in allMessages" ng-class = "isMe(message.userId)">
-   <span >
-      {{message.message}}
-      <br></br>
-      </span>
 
-<!-- 
+ <!--  <section class="chats" ng-repeat="message in allMessages" ng-class="(uid != message.userId)? 'self' : 'other' "> -->
+
+ <section class="chats" ng-repeat="message in allMessages" ng-class = "isMe(message.userId)">
+      <img data-ng-src={{getImage(message.userId)}} style=" height:40px ; width:40px; border-radius: 200px ">
+      {{message.message}}
+
+<!--
     <span ng-repeat="message in allMessages">
       <span ng-show="!message.notification">
         <p class="username" ng-show="!messageIsMine(message.username)">{{message.userId}}</p>
@@ -50,7 +49,7 @@
   <ion-content class="padding">
 
   <h1>Room id is {{chosenRoomId}}</h1>
-    
+
   <section class="chats">
 
     <span ng-repeat="message in messages">

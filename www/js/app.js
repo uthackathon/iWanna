@@ -172,6 +172,26 @@ var app = angular.module('starter', [
     }
   })
 
+
+  .state('tab.friend-home', {
+    url: '/dash/friend-home',//'/dash:wannaIdでは?
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/friend-home.html',
+        controller: 'FriendHomeCtrl',
+        resolve: {
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
+      }
+    }
+  })
+
   .state('tab.home', {
     url: '/home',
     views: {

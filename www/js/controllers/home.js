@@ -8,7 +8,8 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   }, function(){
     $scope.friendImages = SharedStateService.friendImages;
   });
-	$scope.accountInformation = Auth.getProfile(uid);
+  	$scope.accountInformation = Auth.getProfile(uid);//めっちゃおもいので、UserNameだけ取得にしました。
+	//$scope.accountName = Wannas.getUserName(uid);//UserNameだけ取得にしました。
 
   $scope.allWannasList = Wannas.all(uid);
 
@@ -40,6 +41,14 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
      }, function(err) {
          console.log("there was an error taking a a screenshot!");
     });
+  };
+
+
+  $scope.goContentPage=function(wanna){
+    console.log("goContent button was clicked");
+    $state.go('tab.wanna-content');
+    SharedStateService.clickedWanna=wanna;
+    $scope.clickedWanna=wanna;
   };
 
   $scope.removeWanna = function(index,ownerId,wannaId){

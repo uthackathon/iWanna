@@ -27,9 +27,9 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
 
                //日本時間ではなく UTC で入れている。
 //               console.log("year",typeof now.getUTCFullYear());
-
-               var time = now.getUTCFullYear()*10000000000+(now.getUTCMonth()+1)*100000000+now.getUTCDate()*1000000+now.getUTCHours()*10000+now.getUTCMinutes()*100+now.getUTCSeconds();
-
+//               var time = now.getUTCFullYear()*10000000000+(now.getUTCMonth()+1)*100000000+now.getUTCDate()*1000000+now.getUTCHours()*10000+now.getUTCMinutes()*100+now.getUTCSeconds();
+               var time = now.getFullYear()*10000000000+(now.getMonth()+1)*100000000+now.getDate()*1000000+now.getHours()*10000+now.getMinutes()*100+now.getSeconds();
+               console.log('time',time);
                console.log("submit button was clicked",wanna);
 
 //             各アイコンの画像名をiconNameに追加する。   配列のメソッドについては http://hakuhin.jp/js/array.html を参考にした
