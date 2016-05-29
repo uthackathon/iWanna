@@ -163,7 +163,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     console.log("lile",likedWannaList);
                     for(var i = 0; i < likedWannaList.length; i++){
                         var pretarget = document.getElementById(likedWannaList[i]);
-                        pretarget.style.backgroundColor='#FFFFFF';
+                        //pretarget.style.backgroundColor='#FFFFFF'; ここはもとから透明にしているので変化がいらない
                         pretarget.style.color='#FFC0CB';
                     }
                     likeValid=true;
