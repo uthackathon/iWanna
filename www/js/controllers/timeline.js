@@ -9,10 +9,10 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                var allwanna=Wannas.all(currentUid);
                $scope.friendidList = [uid];
                var likedWannaList=[];
-               var likeValid=false;
                var nameTest=usr;
                var roomList = [];
-               $scope.likeColor='#bbbbbb';
+               var likePink='rgb(255, 192, 203)';
+               var likeOff='#bbbbbb';
                $scope.friendImages ={'initUid':'initImg'};
 
                $scope.$watch(function(){
@@ -51,28 +51,28 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 }
 
 
-                $scope.getFriendsImage=function(fList,flag){
-                        Wannas.imageAll(fList[flag]).$loaded().then(function(images){
-                              console.log('images',images);
-                              console.log('flist[flag]',fList[flag]);
-                              console.log('flag',flag);
-                              if(images[0]==null){console.log('undefined');
-                              SharedStateService.friendImages[fList[flag]]='img/ben.png';
-                              }else{
-                              SharedStateService.friendImages[fList[flag]]=images[0]['images'];
-                              }
-//                              console.log('image',fList[k],images);
-                              if(flag<fList.length-1){
-                                console.log('fList length',fList.length);
-                                flag+=1;
-                                $scope.getFriendsImage(fList,flag);
-                              }else{
-                              flag=0;
-                              }
-                        },function(error){
-                          console.log('oh no! no images file');
-                        });
-                };
+//                $scope.getFriendsImage=function(fList,flag){
+//                        Wannas.imageAll(fList[flag]).$loaded().then(function(images){
+//                              console.log('images',images);
+//                              console.log('flist[flag]',fList[flag]);
+//                              console.log('flag',flag);
+//                              if(images[0]==null){console.log('undefined');
+//                              SharedStateService.friendImages[fList[flag]]='img/ben.png';
+//                              }else{
+//                              SharedStateService.friendImages[fList[flag]]=images[0]['images'];
+//                              }
+////                              console.log('image',fList[k],images);
+//                              if(flag<fList.length-1){
+//                                console.log('fList length',fList.length);
+//                                flag+=1;
+//                                $scope.getFriendsImage(fList,flag);
+//                              }else{
+//                              flag=0;
+//                              }
+//                        },function(error){
+//                          console.log('oh no! no images file');
+//                        });
+//                };
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
@@ -94,7 +94,13 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                         allwanna.sort(function(a,b){//上の動作が終わった後にしたい
                           return b.upload_time - a.upload_time;
                         });
-
+                        for(var i=0; i< allwanna.length; i++){
+                            if(uid in allwanna[i].likes){
+                                allwanna[i].likeInitColor=likePink;
+                            }else{
+                                allwanna[i].likeInitColor=likeOff;
+                            };
+                        };
                         return allwanna;
                       };
 
@@ -146,34 +152,51 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                };
 
 
-               $scope.$watch('friendidList',function(){
-                    console.log('friends ids changed',$scope.friendidList);
-                    flag=0;
-                    $scope.getFriendsImage($scope.friendidList,flag);
-               });
+//               $scope.$watch('friendidList',function(){
+//                    console.log('friends ids changed',$scope.friendidList);
+//                    flag=0;
+//                    $scope.getFriendsImage($scope.friendidList,flag);
+//               });
 
                $scope.$watch('wannas',function(){
                     console.log('wannas is changed');
                });
 
-               $scope.myFunction = function(wanna){
-
-                   $timeout(function(){
-                    likedWannaList=Wannas.findUsersLikes($scope.wannas(),currentUid);
-                    console.log("lile",likedWannaList);
-                    for(var i = 0; i < likedWannaList.length; i++){
-                        var pretarget = document.getElementById(likedWannaList[i]);
-                        //pretarget.style.backgroundColor='#FFFFFF'; ここはもとから透明にしているので変化がいらない
-                        pretarget.style.color='#FFC0CB';
-                    }
-                    likeValid=true;
-                    console.log("like valid phase");
-                                       flag=0;
-                                       $scope.getFriendsImage($scope.friendidList,flag);
-
-                   },10);
-
-
+//               $scope.myFunction = function(wanna){
+//
+//                   $timeout(function(){
+//                    likedWannaList=Wannas.findUsersLikes($scope.wannas(),currentUid);
+//                    console.log("lile",likedWannaList);
+//                    for(var i = 0; i < likedWannaList.length; i++){
+//                        var pretarget = document.getElementById(likedWannaList[i]);
+//                        //pretarget.style.backgroundColor='#FFFFFF'; ここはもとから透明にしているので変化がいらない
+////                        pretarget.style.color='#0000CB';
+//                    }
+//                    likeValid=true;
+//                    console.log("like valid phase");
+//                                       flag=0;
+//                                       $scope.getFriendsImage($scope.friendidList,flag);
+//
+//                   },10);
+//               };
+               $scope.referImage = function(friendUserId){
+                   if(friendUserId in $scope.friendImages){
+                        console.log('already gotten');
+                   }else{
+                        SharedStateService.friendImages[friendUserId]='img/loading.png';
+                        Wannas.imageAll(friendUserId).$loaded().then(function(images){
+                              console.log('got new image');
+                              console.log('friendId',friendUserId);
+                              if(images[0]==null){console.log('undefined');
+                              SharedStateService.friendImages[friendUserId]='img/ben.png';
+                              }else{
+                              SharedStateService.friendImages[friendUserId]=images[0]['images'];
+                              }
+//                              console.log('image',fList[k],images);
+                        },function(error){
+                          console.log('oh no! no images file');
+                        });
+                   }
                };
 
 
@@ -181,11 +204,11 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                       console.log("like button was clicked");
                      // wanna.ownerId=currentUid;//test用の緊急処理。wanna 全てにownerId を書き込んでこの行を消すべし
                      //<ion-spinner icon="lines" class="spinner-calm"></ion-spinner>
-                     if(likeValid){//likeValid が1のときだけ、like ボタンが有効
+                     if(1){//likeValid が1のときだけ、like ボタンが有効
                         var likeButton = document.getElementById(wanna.$id);
                         var buttonColor=likeButton.style.color;
                         console.log("button color",buttonColor);
-                        if(buttonColor=='rgb(255, 192, 203)'){//likeボタンがすでに色つきの時(like してるとき)
+                        if(buttonColor==likePink){//likeボタンがすでに色つきの時(like してるとき)
                             console.log("colorful");
                             Wannas.removeLikeFromWanna(wanna.ownerId,wanna.$id,currentUid,likeButton);
                             Wannas.removeLikeFromUser(wanna.ownerId,wanna.$id,currentUid,likeButton);
@@ -225,7 +248,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           return allwanna;
                         }
                         console.log('reset');
-                        var likeValid=false;
+//                        var likeValid=false;
                     }
                     else {//検索部
                         $scope.serchwannas = [];

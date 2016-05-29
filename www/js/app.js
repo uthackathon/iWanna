@@ -214,6 +214,26 @@ var app = angular.module('starter', [
     }
   })
 
+  .state('tab.mywanna-content', {
+    url: '/home/:mywannaId',//'/dash:wannaIdでは?
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/mywanna-content.html',
+        controller: 'MyWannaContentCtrl',
+        resolve: {
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
+      }
+    }
+  })
+
+
   .state('tab.twitter-share', {
     url: '/home/twitter-share',
     views: {
