@@ -36,7 +36,7 @@
 
 
         <div class="item item-button-right">
-          <img data-ng-src={{friendImages[friend.$id]}} style="height:40px ; width:40px;">
+          <img data-ng-src={{friendImages[friend.$id]}} style="height:40px ; width:40px; border-radius: 200px">
           {{friend.name}}
         <button class="button button-calm" ng-click = "showFunctionList(friend.$id)" style="top:20px;">
             <i class="icon ion-navicon"></i>
@@ -46,7 +46,7 @@
 
 
       <div class="item item-divider">
-        People You May Know
+        Friend Request
       </div>
 
       <ion item class="list card" ng-repeat="recommendedUser in recommendedUsers">
