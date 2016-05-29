@@ -36,13 +36,15 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
   $scope.$on('$ionicView.enter', function(e){
 	console.log('ionicEnter Fired!!');
     $scope.show();
-    $scope.allMessages = [];
+//    $scope.allMessages = [];
+	var initMessages=[];
     Message.getAllMessages($scope.currentRoomId).$loaded().then(function(data) {
 			for (var i = 0; i < data.length; i++) {
 				var item = data[i];
-        $scope.allMessages.push(item);
+        initMessages.push(item);
 			}
 		});
+    $scope.allMessages = initMessages;
     $scope.hide();
   });
 
