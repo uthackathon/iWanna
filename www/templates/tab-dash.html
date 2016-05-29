@@ -20,18 +20,18 @@
                     </div>
                     <div class="img_left" style="position: relative;">
                         <button id={{wanna.$id}} style="float:right; color:{{likeColor}}; background-color: rgba(0,0,0,0); position: absolute; right: 0; bottom: 0;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)"></button>
-                            <div class="ganreimg">
-                                <i class={{wanna.icon[0]}} style=" color:{{wanna.color}};" ></i>
-                            </div>
-                            <div class="wannaname" type="button" href="#" ng-Click="goContentPage(wanna)">
+                        <div class="ganreimg">
+                                <i class={{wanna.icon[0]}} style=" padding: 1px 1px 1px 1px; color:{{wanna.color}};" ></i>
+                        </div>
+                        <div class="wannaname" type="button" href="#" ng-Click="goContentPage(wanna)">
                                 {{wanna.content}}
-                            </div>
-                                <div class="datebox" ng-Click="goContentPage(wanna)">
+                        </div>
+                        <div class="datebox" ng-Click="goContentPage(wanna)">
                                     {{date(wanna.upload_time)}}
-                                </div>
-                                <div class="uname" style="" ng-Click="goFriendHomePage(wanna)">
+                        </div>
+                        <div class="uname" style="" ng-Click="goFriendHomePage(wanna)">
                                     {{wanna.user_name}}
-                                </div>
+                        </div>
                     </div>
             </div>
         </div>
