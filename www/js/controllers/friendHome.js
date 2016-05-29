@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('FriendHomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,AdMobService,SharedStateService){
+app.controller('FriendHomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,SharedStateService){
   $scope.friendImages ={'initUid':'initImg'};
   $scope.currentUid=uid;
   $scope.$watch(function(){

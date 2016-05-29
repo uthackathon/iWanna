@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,AdMobService,SharedStateService){
+app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,SharedStateService){
   $scope.friendImages ={'initUid':'initImg'};
   $scope.currentUid=uid;
   $scope.$watch(function(){
@@ -13,11 +13,11 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
 
   $scope.allWannasList = Wannas.all(uid);
 
-  $scope.$on('$ionicView.enter', function(e){
-    // $scope.show();
-    AdMobService.showBannerAd()
-    // $scope.hide();
-  });
+  // $scope.$on('$ionicView.enter', function(e){
+  //   // $scope.show();
+  //   AdMobService.showBannerAd()
+  //   // $scope.hide();
+  // });
 
     var fb = new Firebase(FURL);
     var ref = $firebaseArray(fb.child("users").child(uid).child("images"));
