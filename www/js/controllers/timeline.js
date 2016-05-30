@@ -74,6 +74,26 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 //                        });
 //                };
 
+                $scope.doReload=function(){
+                    allwanna=Wannas.all(currentUid);
+                    Match.allMatchesByUser(uid).$loaded().then(function(data) {
+                    //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                          for (var i = 0; i < data.length; i++) {
+                              var item = data[i];
+                              $scope.friendidList.push(item.$id);
+                              Wannas.all(item.$id).$loaded().then(function(friendwanna) {
+                                for (var j = 0; j < friendwanna.length; j++) {
+                                  allwanna.push(friendwanna[j]);
+                                }
+                              });
+                          }
+                        console.log("allwanna is",allwanna);
+                        console.log("friend ids are",$scope.friendidList);
+                    $scope.$broadcast('scroll.refreshComplete');
+                    });
+//                    location.reload(false);
+                };
+
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
                       for (var i = 0; i < data.length; i++) {
