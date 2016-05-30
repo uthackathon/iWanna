@@ -174,7 +174,7 @@ var app = angular.module('starter', [
 
 
   .state('tab.friend-home', {
-    url: '/:/friend-home',//'/dash:wannaIdでは?
+    url: '/dash/friend-home',//'/dash:wannaIdでは?
     views: {
       'tab-dash': {
         templateUrl: 'templates/friend-home.html',
