@@ -239,12 +239,12 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                             console.log(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId));
                             if(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId)){//すでに友達とのroomが存在するとき
                               var likedRoomId = roomList[_.indexOf(_.pluck(roomList, 'friendId'),wanna.ownerId)].roomId
-                              var message = "Hi! I like your plan; " + wanna.content ;
+                              var message = "Me Too!!! ; " + wanna.content ;
                               Message.sendMessage(message,uid,likedRoomId);
                             }
                             else{
                               console.log("create new messgage room")
-                              var message = "Hi! I like your plan; " + wanna.content ;
+                              var message = "Me Too!!! ; " + wanna.content ;
                               Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
                               // var message = "Hi! I like your plan; " + wanna.content ;
                               // Message.sendMessage(message,uid,likedRoomId);
