@@ -1,49 +1,35 @@
 <ion-view view-title="Account">
 	<ion-content class = "padding">
-		<div class="list">
 
-		  <div class="item item-divider">
-		    User Information
-		  </div>
-		  <a class="item item-icon-left" href="#">
-		    <i class="icon ion-person"></i>
-		    {{accountInformation.name}}
-		  </a>
-		   <a class="item item-icon-left" href="#">
-		    <i class="icon ion-email"></i>
-		    {{accountInformation.email}}
-		  </a>
-		 </div>
-  <!--   <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list> -->
+        <div class="list">
+            <div class="item item-divider">
+                User Information
+            </div>
+            <a class="item item-icon-left" href="#">
+            <i class="icon ion-person"></i>
+            {{accountInformation.name}}
+          </a>
+           <a class="item item-icon-left" href="#">
+            <i class="icon ion-email"></i>
+            {{accountInformation.email}}
+          </a>
+            <a class="item item-thumbnail-left" href="#">
+              <img src="{{images[0].images}}" type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" required>
+              <h2 style="font-size:14px;">← タップしてアイコン選択</h2>
+              <div class="row">
+                  <div class="col col-75" style="text-align: left;">
+                      <button style="float:right; padding:0;" class="button button-calm" ng-click="uploadPic(picFile)">変更</button>
+                      <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb" width="50" height="50" >
+                  </div>
+                  <div class="col">
+                    <button style="padding:0;" class="button button-dark" ng-click="image_remove()" >削除</button>
+                  </div>
+              </div>
+            </a>
+
+        </div>
 
     <button class="button button-block button-stable" ng-click="logout()">Logout</button>
-
-            <div>
-            <h1>Image Upload</h1>
-            <body ng-app="fileUpload" >
-                <form name="myForm">
-                  <fieldset>
-                    <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" required>
-                    <br>
-                    <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb" width="100" height="100">
-                    <button ng-click="picFile = null" ng-show="picFile">Remove</button>
-                    <br>
-                    <button class="button button-calm" ng-click="uploadPic(picFile)">Submit</button>
-                    <span ng-show="picFile.result">Upload Successful</span>
-                    <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-                    <button class="button button-dark" ng-click="image_remove()">All Delete</button>
-                    </fieldset>
-                    <br>
-                    <ul>
-                        <img src="{{images[0].images}}" alt="" width="100" height="100"/>
-                    </ul>
-                </form>
-            </body>
-        </div>
 
         <button class="button button-block button-balanced" ng-click="aboutUTH()">About UT-Hackathon</button>
 

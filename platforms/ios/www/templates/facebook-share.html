@@ -13,10 +13,13 @@
 		</div>
  -->
 		<div class="list card">
- 			<a href="#" class="item item-icon-left"  ng-repeat="wanna in allWannasList">
-    			<i class="icon ion-home"></i>
-    			{{wanna.content}}
-  			</a>
+ 				<a href="#" class="item item-avatar" style = "background-color: #FFFFFF"  ng-repeat="wanna in allWannasList">
+    				<img src  = {{wanna.icon[0]}}>
+            		<font color: #FFFFFF>
+    					{{wanna.content}}
+            		</font>
+             		<p>{{wanna.description}}</p>
+  				</a>
   		</div>
 
   	</ion-content>

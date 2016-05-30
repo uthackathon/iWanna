@@ -1,6 +1,12 @@
 <ion-view view-title="Timeline">
     <ion-content class="padding">
 
+        <ion-refresher
+                on-refresh="doReload()"
+                pulling-text="Pull to refresh...">
+                <!--refreshing-text="Refreshing!">-->
+        </ion-refresher>
+
 
         <button ng-click="writeWanna()" class="button button-full icon big ion-compose button-calm ">
             iWanna...
