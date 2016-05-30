@@ -212,10 +212,10 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 //                        { pct: 1.0, color: { r: 0xff, g: 0x66, b: 0x20 } }];//案2 パステル色相
                     var percentColors = [
                         { pct: 0.0, color: { r: 0xaa, g: 0xee, b: 0xff } },
-                        { pct: 0.3, color: { r: 0x80, g: 0xcc, b: 0xff } },
+                        { pct: 0.3, color: { r: 0x90, g: 0xdc, b: 0xff } },
                         { pct: 0.4, color: { r: 0x75, g: 0xdd, b: 0xcc } },
                         { pct: 0.45, color: { r: 0x80, g: 0xee, b: 0x80 } },
-                        { pct: 0.50, color: { r: 0xbb, g: 0xee, b: 0x15 } },
+                        { pct: 0.50, color: { r: 0xbb, g: 0xee, b: 0x40 } },
                         { pct: 0.60, color: { r: 0xee, g: 0xbb, b: 0x20 } },
                         { pct: 1.0, color: { r: 0xff, g: 0x66, b: 0x10 } }];//案3 濃淡ぷらす色相 blue多め
 //                    var percentColors = [
