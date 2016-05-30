@@ -1,6 +1,7 @@
 'use strict'
 
 app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,SharedStateService){
+   var ref =new Firebase(FURL);
   $scope.friendImages ={'initUid':'initImg'};
   $scope.currentUid=uid;
   $scope.$watch(function(){
@@ -52,9 +53,11 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   };
 
   $scope.removeWanna = function(index,ownerId,wannaId){
-    $scope.allWannasList.splice(index, 1);
-    Wannas.removeWanna(index, ownerId, wannaId);
-  };
+    return $scope.allWannasList.splice(index, 1);
+    ref.child('users').child(OwnerId).child('wannas').child(wannaId).remove();
+      //Wannas.removeWanna(index, ownerId, wannaId);
+    };
+   
 
   $scope.twitterShare = function(){
     console.log("write button was clicked");

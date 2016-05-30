@@ -164,6 +164,12 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
 		}
  	}
 
+
+  $scope.createRoom = function(friend_uid){
+    Message.createNewRoom(uid,friend_uid);
+    $state.go('tab.messages');
+  }
+
     // ボタンが押された時、選択肢がPopupする
   $scope.showFunctionList = function(friend_uid) {
     console.log(friend_uid);
