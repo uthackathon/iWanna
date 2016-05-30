@@ -219,6 +219,16 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                         { pct: 0.60, color: { r: 0xee, g: 0xbb, b: 0x20 } },
                         { pct: 1.0, color: { r: 0xff, g: 0x66, b: 0x10 } }];//案3 濃淡ぷらす色相 blue多め
 //                    var percentColors = [
+//                        { pct: 0.0, color: { r: 0x55, g: 0x55, b: 0xff } },
+//                        { pct: 0.125, color: { r: 0x55, g: 0xaa, b: 0xff } },
+//                        { pct: 0.25, color: { r: 0x72, g: 0xe2, b: 0xe2 } },//
+//                        { pct: 0.375, color: { r: 0x55, g: 0xff, b: 0xaa } },
+//                        { pct: 0.5, color: { r: 0x55, g: 0xff, b: 0x55 } },
+//                        { pct: 0.625, color: { r: 0xaa, g: 0xff, b: 0x55 } },
+//                        { pct: 0.75, color: { r: 0xe2, g: 0xe2, b: 0x72 } },//
+//                        { pct: 0.875, color: { r: 0xff, g: 0xaa, b: 0x55 } },
+//                        { pct: 1.0, color: { r: 0xff, g: 0x55, b: 0x55 } }];/レインボー普通
+//                    var percentColors = [
 //                        { pct: 0.0, color: { r: 0xbb, g: 0xee, b: 0xff } },
 //                        { pct: 0.2, color: { r: 0x99, g: 0xee, b: 0xcc } },
 //                        { pct: 0.4, color: { r: 0x99, g: 0xee, b: 0x70 } },

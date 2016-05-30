@@ -24,12 +24,18 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
           return auth.uid;
         });
     },
+
+    getUsersRooms: function(uid){
+      return $firebaseArray(ref.child('users').child(uid).child('rooms'));
+    },
         
       
 
     getProfiles: function(){
       return $firebaseArray(ref.child('users'));
     },
+
+
 
     login: function(user){
       console.log('we got to login function');

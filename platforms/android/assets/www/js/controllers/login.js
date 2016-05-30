@@ -25,6 +25,20 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading){
             $state.go('tab.dash');
             }, function(err) {
               Loading.hide();
+                  var errmessage = err;
+                  if (errmessage == "Error: The specified email address is invalid.") {
+                    errmessage = "メールアドレスが間違っています.";
+                  } else if (errmessage == "Error: Firebase.authWithPassword failed: First argument must contain the key \"email\" with type \"string\"") {
+                    errmessage = "メールアドレスを入力してください.";
+                  } else if (errmessage == "Error: Firebase.authWithPassword failed: First argument must contain the key \"password\" with type \"string\"") {
+                    errmessage = "パスワードを入力してください.";
+                  } else if (errmessage == "Error: The specified password is incorrect.") {
+                    errmessage = "パスワードが間違っています.";
+                  };
+                  var alertPopup = $ionicPopup.alert({
+                      title: "ログインエラー",
+                      template: errmessage,
+                  });
               console.log('Error...', err);
             });
           }
@@ -42,9 +56,23 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading){
             $state.go('tab.dash');
             }, function(err) {
               Loading.hide();
+                  var errmessage = err;
+                  if (errmessage == "Error: The specified email address is already in use.") {
+                    errmessage = "そのメールアドレスは既に使われています.";
+                  } else if (errmessage == "Error: Firebase.createUser failed: First argument must contain the key \"email\" with type \"string\"") {
+                    errmessage = "メールアドレスを入力してください.";
+                  } else if (errmessage == "Error: Firebase.createUser failed: First argument must contain the key \"password\" with type \"string\"") {
+                    errmessage = "パスワードを入力してください.";
+                  }　else if (errmessage == "Error: The specified email address is invalid.") {
+                    errmessage = "無効なメールアドレスです.";
+                  };
+                  var alertPopup = $ionicPopup.alert({
+                      title: "登録エラー",
+                      template: errmessage,
+                  });
               console.log('Error...', err);
             });
-            // $state.go('tab.dash')
+            // $state.go('tab.dash')Error: The specified email address is invalid.
 
           }
         }
