@@ -41,6 +41,14 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
   });
 
 
+    $scope.goFriendHomePage=function(friendProfile){
+        console.log("goFriendHome button was clicked");
+        $state.go('tab.dash');
+        SharedStateService.clickedFriendId=friendProfile.$id;
+        SharedStateService.clickedFriendName=friendProfile.name;
+        $state.go('tab.friend-home-2');
+    };
+
 
 
   ref.child('matches').child(currentUid).on('child_added', function(dataSnapshot){
