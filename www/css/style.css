@@ -188,7 +188,7 @@ vertical-align: middle;
 /*--------------------------------------------*/
 
 .big{
-  font-size: 30px;
+  font-size: 20px;
   align:left center;
 }
 
@@ -267,7 +267,7 @@ div.wannaname {
 div.uname {
   /*border: solid 0.5px #000000;*/
   height: 35px;
-  width: 80px;
+  width: 100%-100px;
   white-space: nowrap; /* 横幅のMAXに達しても改行しない */
   overflow: hidden; /* ハミ出した部分を隠す */
   text-overflow: ellipsis; /* 「…」と省略 */
