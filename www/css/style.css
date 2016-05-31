@@ -189,10 +189,10 @@ vertical-align: middle;
 div.wanna { /*wanna全体の入れ子*/
   height: auto;
   width: 100%;
-  border: solid 0.5px #e6e6fa;
+  border: solid 0.5px #d3d3d3;
   border-right-width: 5px;
   background-color: rgba(0,0,0,0);
-  box-shadow:0.5px 0.5px 3px #778899;
+  /*box-shadow:0.5px 0.5px 3px #778899;*/
   overflow: hidden;
   padding: 2px 0px 1px 0px;
 }
@@ -224,7 +224,7 @@ div.wannaname {
   vertical-align: middle;
   padding: 1px 13px 5px 5px;
   line-height: 38px;/*heightと同じ値で中央揃え*/
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -247,7 +247,7 @@ div.ganreimg{
   color: #11c1f3;
   height: 38px;
   width: 38px;
-  padding: 1px 1px 1px 1px;
+  padding: 2px 2px 2px 2px;
   text-align: center;/*wineだけ細いのでこれで補正、iconはテキストであることに注意*/
   background-color: #ffffff;
   font-size: 35px;
