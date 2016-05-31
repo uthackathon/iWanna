@@ -217,7 +217,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               console.log('got new image');
                               console.log('friendId',friendUserId);
                               if(images[0]==null){console.log('undefined');
-                              SharedStateService.friendImages[friendUserId]='img/ben.png';
+                              SharedStateService.friendImages[friendUserId]='img/iw_gray.png';
                               }else{
                               SharedStateService.friendImages[friendUserId]=images[0]['images'];
                               }
