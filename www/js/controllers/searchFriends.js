@@ -63,9 +63,30 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
                               console.log('got new image');
                               console.log('friendId',friendUserId);
                               if(images[0]==null){console.log('undefined');
-                                  $scope.recommendedImages[friendUserId]='img/white.png';
+                                  $scope.recommendedImages[friendUserId]='img/iw_gray.png';
                               }else{
                                   $scope.recommendedImages[friendUserId]=images[0]['images'];
+                              }
+//                              console.log('image',fList[k],images);
+                        },function(error){
+                          console.log('oh no! no images file');
+                        });
+                   }
+               };
+
+               $scope.referImage2 = function(friendUserId){
+                   console.log('refer image fired');
+                   if(friendUserId in $scope.friendImages){
+                        console.log('already gotten recommend');
+                   }else{
+                        $scope.friendImages[friendUserId]='img/loading.png';
+                        Wannas.imageAll(friendUserId).$loaded().then(function(images){
+                              console.log('got new image');
+                              console.log('friendId',friendUserId);
+                              if(images[0]==null){console.log('undefined');
+                                  $scope.friendImages[friendUserId]='img/iw_gray.png';
+                              }else{
+                                  $scope.friendImages[friendUserId]=images[0]['images'];
                               }
 //                              console.log('image',fList[k],images);
                         },function(error){
