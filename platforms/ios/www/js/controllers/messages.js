@@ -1,6 +1,14 @@
 'use strict'
 
-app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStateServiceForMessage){
+app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStateServiceForMessage,SharedStateService){
+  $scope.friendImages ={'initUid':'initImg'};
+
+  $scope.$watch(function(){
+    return SharedStateService.friendImages;
+  }, function(){
+    $scope.friendImages = SharedStateService.friendImages;
+  });
+
 	$scope.AllRooms = Message.getAllRooms(uid);
   $scope.friendName = function(uid){
     return Auth.getProfile(uid).name;

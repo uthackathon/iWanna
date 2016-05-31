@@ -1,49 +1,32 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
 
-      <div class="wannacontent">
-        <div class="uimgtest">
-          <img src="http://pictogram-free.com/material/001.png" width="40" height="40" >
-        </div>
-        <div class="wannanametest" " type="button" href="#" ng-Click="goContentPage(clickedWanna)">
-        {{clickedWanna.content}}
-        </div>
-        <div class="unametest">
-        {{clickedWanna.user_name}}
-        </div>
-        <div class="janreimgtest">
-          <i class={{clickedWanna.icon[0]}} style=" background-color: #ffffff; font-size: 33px; " ></i>
-        </div>
-        <div class="dateboxtest">
-        {{date(clickedWanna.upload_time)}}
-        </div>
-        <div class="liketest">
-          <button id={{clickedWanna.$id}} style=" background-color: #ffffff; width : 50px;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(clickedWanna)" ng-Click="likeWanna(clickedWanna)"></button>
-        </div>
-        <div class="description">
-          {{clickedWanna.description}}
-        </div>
-
-        <div class="likenum">
-          <a href="#" class="subdued">{{likeNum}} Likes</a>
-        </div>
-    </div>
-
-<!--
-      <div class="item item-avatar">
-        <img src={{clickedWanna.icon[0]}}>
-        <h2>{{clickedWanna.content}}</h2>
-        <p>{{clickedWanna.user_name}}</p>
+  <div class="list card">
+    <a class="item item-avatar" href="#" >
+      <img data-ng-src={{friendImages[clickedWanna.ownerId]}}>
+      <div class="item item-text-wrap" style="font-weight: bold; padding: 0px; border: 0px; font-size: 20px;">
+          {{clickedWanna.content}}
       </div>
+      <p>{{clickedWanna.user_name}}</p>
+    </a>
+    <div class="item item-text-wrap">
+      {{clickedWanna.description}}
+    </div>
+    <div class="item item-button-right" style="color: #696969;">
+            投稿日時 :  {{date(clickedWanna.upload_time)}}
+             <button style="color:{{clickedWanna.color}}; background-color: #ffffff; width : 50px;" type="button" class="button {{clickedWanna.icon[0]}}"></button>
+    </div>
+    <div class="item item-button-right" >
+        <p ng-click="showLikedUsers()" style="color: #1e90ff;">{{likeNum}} Likes</p>
+             <button id="likeInContent" style="color:#bbbbbb; background-color: #ffffff; width : 50px;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(clickedWanna)" ng-Click="likeWannaInContent(clickedWanna)"></button>
+    </div>
+  </div>
+      <div class="list" id="likeBoard" style="visibility:visible" ng-repeat="user in likedUsers">
+          <a class="item item-avatar" href="#">
+              <img data-ng-src={{friendImages[user.id]}}>
+              <p>{{user.name}}</p>
+          </a>
 
-      <div class="item item-body">
-        <p>
-            {{clickedWanna.description}}
-        </p>
-
-        <p>
-          <a href="#" class="subdued">{{likeNum}} Likes</a>
-        </p>     </div>
-        -->
+      </div>
   </ion-content>
 </ion-view>

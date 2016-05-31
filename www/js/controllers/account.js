@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $firebaseArray){
+app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $firebaseArray,$cordovaInAppBrowser){
 
 	$scope.accountInformation = Auth.getProfile(uid);
 
@@ -11,7 +11,7 @@ app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $fi
       return ImageUpload.uploadPic(file,ref);
     };
     $scope.image_remove = function(){
-        return ImageUpload.image_all_remove();
+        return ImageUpload.image_all_remove(ref);
     };
 
  	$scope.logout = function(){
@@ -21,8 +21,24 @@ app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $fi
 
     $scope.aboutUTH = function()
     {
+    var options = {
+          location: 'yes',
+          clearcache: 'yes',
+          toolbar: 'yes'
+        };
+
+        $cordovaInAppBrowser.open('http://ut-hackathon.strikingly.com', '_system',options)//ほんとうは _blank のオプションで開きたい
+            .then(function(event) {
+            // success
+        })
+            .catch(function(event) {
+            // error
+        });
+
         // Open cordova webview if the url is in the whitelist otherwise opens in app browser
-        window.open('http://ut-hackathon.strikingly.com','_blank');
+//        var ref = cordova.InAppBrowser.open('http://ut-hackathon.strikingly.com','_blank');
     };
+
+
 
 })

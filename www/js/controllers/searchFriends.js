@@ -2,9 +2,17 @@
 
 'use strict'
 
-app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state) {
+app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state,SharedStateService) {
   var ref = new Firebase(FURL);
   var currentUid = uid
+
+  $scope.friendImages ={'initUid':'initImg'};
+
+  $scope.$watch(function(){
+    return SharedStateService.friendImages;
+  }, function(){
+    $scope.friendImages = SharedStateService.friendImages;
+  });
 
   $scope.currentIndex = null;
   $scope.currentCardUid = null;
@@ -18,32 +26,42 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
 
   $scope.$on('$ionicView.enter', function(e){
     // $scope.show();
-    $scope.allFriendslist = [];
+    var allFriends=[];
     Match.allMatchesByUser(uid).$loaded().then(function(data) {
       for (var i = 0; i < data.length; i++) {
         var item = data[i];
 
         Auth.getProfile(item.$id).$loaded().then(function(profile) {
-          $scope.allFriendslist.push(profile);
+          allFriends.push(profile);
         });
       };
+      $scope.allFriendslist =allFriends;
     });
     // $scope.hide();
   });
 
 
+    $scope.goFriendHomePage=function(friendProfile){
+        console.log("goFriendHome button was clicked");
+        $state.go('tab.dash');
+        SharedStateService.clickedFriendId=friendProfile.$id;
+        SharedStateService.clickedFriendName=friendProfile.name;
+        $state.go('tab.friend-home-2');
+    };
+
 
 
   ref.child('matches').child(currentUid).on('child_added', function(dataSnapshot){
-    $scope.allFriendslist = [];
+    var allFriends=[];
     Match.allMatchesByUser(uid).$loaded().then(function(data) {
       for (var i = 0; i < data.length; i++) {
         var item = data[i];
 
         Auth.getProfile(item.$id).$loaded().then(function(profile) {
-          $scope.allFriendslist.push(profile);
+          allFriends.push(profile);
         });
       }
+      $scope.allFriendslist =allFriends;
     });
  
   });
@@ -65,7 +83,8 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
                         var serchword = new RegExp(friendNameToFind);
                         for (var i = 0; i < data.length; i++){
                             var item = data[i];
-                            if ( item.name.match(serchword) && item.$id != currentUid && _.contains(_.pluck($scope.allFriendslist,'$id'),item.$id)!= true) {
+                            var test = String (item.name);
+                            if ( test.match(serchword) && item.$id != currentUid && _.contains(_.pluck($scope.allFriendslist,'$id'),item.$id)!= true) {
                                 //nameが部分一致かつ、自分自身ではない時
                                 //かつすでに友達関係にない。
                                 $scope.serchprofiles.push(item);
@@ -144,6 +163,12 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
 			$scope.currentRecommendedCardUid = $scope.profiles[$scope.currentRecommendedIndex].$id;
 		}
  	}
+
+
+  $scope.createRoom = function(friend_uid){
+    Message.createNewRoom(uid,friend_uid);
+    $state.go('tab.messages');
+  }
 
     // ボタンが押された時、選択肢がPopupする
   $scope.showFunctionList = function(friend_uid) {
