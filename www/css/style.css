@@ -177,7 +177,8 @@ vertical-align: middle;
 }
 
 .landing {
-  background: url(../img/home.png) no-repeat center center fixed;
+  /*background: url(../img/home.png) no-repeat center center fixed;*/
+  background-color: #11c1f3;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -187,10 +188,12 @@ vertical-align: middle;
 /*--------------------------------------------*/
 
 .big{
-  font-size: 20px;
+  font-size: 30px;
+  align:left center;
 }
 
 .spinner svg {
+
   width: 28px;
   height: 28px;
   stroke: #fff;

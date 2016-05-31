@@ -2,7 +2,7 @@
 
 'use strict'
 
-app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state,SharedStateService) {
+app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state,SharedStateService,Loading) {
   var ref = new Firebase(FURL);
   var currentUid = uid
 
@@ -25,7 +25,7 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
   $scope.allFriendslist = [];
 
   $scope.$on('$ionicView.enter', function(e){
-    // $scope.show();
+    Loading.show();
     var allFriends=[];
     Match.allMatchesByUser(uid).$loaded().then(function(data) {
       for (var i = 0; i < data.length; i++) {
@@ -37,7 +37,7 @@ app.controller('SearchFriendsCtrl', function(FURL,$firebaseAuth, $ionicLoading, 
       };
       $scope.allFriendslist =allFriends;
     });
-    // $scope.hide();
+    Loading.hide();
   });
 
 
