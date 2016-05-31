@@ -227,6 +227,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                         });
                    }
                };
+               $scope.referImage(uid);
 
 
                $scope.likeWanna=function(wanna){
