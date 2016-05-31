@@ -51,9 +51,13 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
     $scope.clickedWanna=wanna;
   };
 
-  $scope.removeWanna = function(index,ownerId,wannaId){
+  $scope.removeWanna = function(index,ownerId,wannaId,likedUsers){
     $scope.allWannasList.splice(index, 1);
+    for(var k in likedUsers){
+        Wannas.removeWannaLikeFromUser(ownerId, wannaId,k);
+    }
     Wannas.removeWanna(index, ownerId, wannaId);
+
   };
 
   $scope.twitterShare = function(){
