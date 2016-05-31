@@ -1,11 +1,12 @@
 'use strict'
 
-app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService,Wannas) {
+app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService,Wannas,Message) {
                console.log('entered content page');
                //タイムラインでクリックしたwanna 情報の読み取り(Shared Service 経由で)
                $scope.clickedWanna=SharedStateService.clickedWanna;
                var likedUsersId=$scope.clickedWanna.likes;
                var idArray=[];
+               var roomList = [];
                for(var key in likedUsersId){
                    idArray.push(key);
                };
@@ -57,9 +58,6 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
 //                 likeBoard.style.visibility="visible";
                }
 
-
-
-
                $scope.date = function(dayInt){
                   var dayString = String(dayInt);
                   var month = Number(dayString.substr(4,2));
@@ -82,6 +80,22 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
                     }else{//likeにまだ色がついてない時(like してないとき)
                         Wannas.addLikeToWanna(wanna.ownerId,wanna.$id,currentUid,likeButton);
                         Wannas.addLikeToUser(wanna.ownerId,wanna.$id,currentUid,likeButton);
+
+                            //はい or いいえが欲しい
+                            console.log(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId));
+                            if(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId)){//すでに友達とのroomが存在するとき
+                              var likedRoomId = roomList[_.indexOf(_.pluck(roomList, 'friendId'),wanna.ownerId)].roomId
+                              var message = "Me Too!!! ; " + wanna.content ;
+                              Message.sendMessage(message,uid,likedRoomId);
+                            }
+                            else{
+                              console.log("create new messgage room")
+                              var message = "Me Too!!! ; " + wanna.content ;
+                              Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
+                              // var message = "Hi! I like your plan; " + wanna.content ;
+                              // Message.sendMessage(message,uid,likedRoomId);
+                            }
+
                     }
 
                };
