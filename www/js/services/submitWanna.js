@@ -121,7 +121,19 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                 },
 
 
-
+                removeWannaLikeFromUser: function(wannaOwnerId,wannaId,user_uid){
+                  var onComplete = function(error){//callback をtimeline.js に入れるのが上手くいかなかった(.then のpromise 設定が面倒)ので、ここに入れた
+                                      if (error){
+                                          console.log('[FAILED] remove from the user-database');
+                                          return 0;
+                                      } else {
+                                          console.log('like was removed from the user-database',user_uid);
+                                          return 1;
+                                      }
+                                    };
+                  var wannaPath= wannaOwnerId+"/"+wannaId;
+                  ref.child('users').child(user_uid).child('likes').child(wannaPath).remove(onComplete);
+                },
                 findUsersLikes:function(wannas,currentUid){
                  var likedWannaId=[];
                  for (var i = 0; i < wannas.length; i++){
