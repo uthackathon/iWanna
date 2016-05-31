@@ -119,14 +119,47 @@ div.footer-btn-wrap{
 /*-----------------chatの部分のデザイン----------------*/
 
 .chats{
-  color: #04B404;
-  min-height: 50px;
+  float: left;
+  clear: both;
+  margin-right: auto;
+  color: #006400;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  min-height: 40px;
+  width:auto;
+  max-width: 100%;
+  margin-bottom: 10px;
   padding: 5px;
 }
+
+div.msg {
+  height: auto;
+  background-color: rgba(0,0,0,0);
+  padding: 2px 0px 1px 0px;
+}
+
+/*div.chatimg {
+  height: auto;
+  width:  auto;
+  float: left;
+}
+
+div.imgright {
+  height: auto;
+  width:  auto;
+}*/
+
 .self{
+  clear: both;
+  float: right;
+  margin-left: auto;
   text-align: right;
-  color: #0288d1;
-  min-height: 50px;
+  color: #191970;
+  background-color: #eeeeee;
+  border-radius: 5px;
+  min-height: 30px;
+  max-width: 100%;
+  margin-bottom: 10px;
   padding: 5px;
 }
 
