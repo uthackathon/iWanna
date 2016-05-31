@@ -19,7 +19,7 @@
             </label>
         </div>
 
-        <div class="list" ng-repeat="wanna in wannas()" ng-init="referImage(wanna.ownerId)">
+        <div class="list" style=" padding-top: 0px; padding-bottom: 0px; margin-bottom: 8px;" ng-repeat="wanna in wannas()" ng-init="referImage(wanna.ownerId)">
             <div class="wanna" style=" border-right-color:{{wanna.color}};">
                     <div class="uimg">
                         <img style="height:100% ; width:100%; border-radius: 200px" data-ng-src={{friendImages[wanna.ownerId]}} ng-Click="goFriendHomePage(wanna)">

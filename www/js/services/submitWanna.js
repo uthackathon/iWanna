@@ -84,7 +84,6 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                                           return 0;
                                       } else {
                                           console.log('like added to the user-database');
-                                                likeButton.style.backgroundColor='#FFFFFF';
                                                 likeButton.style.color='#FFC0CB';
                                           return 1;
                                       }
@@ -113,7 +112,6 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                                           return 0;
                                       } else {
                                           console.log('like was removed from the user-database');
-                                                likeButton.style.backgroundColor='#FFFFFF';
                                                 likeButton.style.color='#bbbbbb';
                                           return 1;
                                       }
