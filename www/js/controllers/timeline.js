@@ -28,6 +28,15 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 
                 $scope.testimage = $firebaseArray(fb.child("users").child(currentUid).child("images"));
 
+                $scope.showSearchBox= function(){
+                    var sB=document.getElementById('searchBox');
+                    if(sB.style.display=='block'){
+                        document.getElementById('searchBox').style.display="none";
+                    }else{
+                        document.getElementById('searchBox').style.display="block";
+                    }
+                };
+
                 $scope.images = function(userid){
                   var ref = fb.child("users").child(userid).child("images");
                   var sync = $firebaseArray(ref);
