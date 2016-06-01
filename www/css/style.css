@@ -119,6 +119,7 @@ div.footer-btn-wrap{
 /*-----------------chatの部分のデザイン----------------*/
 
 .chats{
+  font-family: "-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   float: left;
   clear: both;
   margin-right: auto;
@@ -150,6 +151,7 @@ div.imgright {
 }*/
 
 .self{
+  font-family: "-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   clear: both;
   float: right;
   margin-left: auto;
@@ -223,6 +225,8 @@ vertical-align: middle;
 
 /*-----------------wanna表示用-----------------*/
 div.wanna { /*wanna全体の入れ子*/
+
+  font-family: "-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   height: auto;
   width: 100%;
   border: solid 0.5px #d3d3d3;
@@ -249,9 +253,8 @@ div.img_left {
 
 div.wannaname {
   /*border: solid 0.5px #000000;*/
-  font-family: 'fontawesome';
-  color: #191970;
-  height: 38px;
+  color: #222244;
+  height: 36px;
   width: 100%-40px;
   white-space: nowrap; /* 横幅のMAXに達しても改行しない */
   overflow: hidden; /* ハミ出した部分を隠す */
@@ -259,15 +262,15 @@ div.wannaname {
     -webkit-text-overflow: ellipsis; /* Safari */
     -o-text-overflow: ellipsis; /* Opera */
   vertical-align: middle;
-  padding: 1px 13px 5px 5px;
-  line-height: 38px;/*heightと同じ値で中央揃え*/
-  font-size: 15px;
+  padding: 1px 10px 5px 3px;
+  line-height: 42px;/*heightと同じ値で中央揃え*/
+  font-size: 18px;
   /*font-weight: bold;*/
 }
 
 div.uname {
   /*border: solid 0.5px #000000;*/
-  height: 35px;
+  height: 37px;
   width: 100%-100px;
   white-space: nowrap; /* 横幅のMAXに達しても改行しない */
   overflow: hidden; /* ハミ出した部分を隠す */
@@ -275,15 +278,16 @@ div.uname {
     -webkit-text-overflow: ellipsis; /* Safari */
     -o-text-overflow: ellipsis; /* Opera */
   font-size: 15px;
-  line-height: 35px;/*heightと同じ値で中央揃え*/
+  line-height: 37px;/*heightと同じ値で中央揃え*/
+  color: #666666;
 }
 
 div.ganreimg{
   float: left;
   /*border: solid 0.5px #000000;*/
   color: #11c1f3;
-  height: 38px;
-  width: 38px;
+  height: 36px;
+  width: 36px;
   padding: 2px 2px 2px 2px;
   text-align: center;/*wineだけ細いのでこれで補正、iconはテキストであることに注意*/
   background-color: #ffffff;
@@ -293,12 +297,13 @@ div.ganreimg{
 div.datebox { /*wannaの時間のところ*/
   /*border: solid 0.5px #000000;*/
   width: 83px;
-  height: 35px;
+  height: 37px;
   padding: 0px 5px 0px 0px;
   background-color: #ffffff;
-  line-height: 35px;/*heightと同じ値で中央揃え*/
+  line-height: 37px;/*heightと同じ値で中央揃え*/
   text-align: right;
   position: absolute; right: 40px; bottom: 0;
+  color: #666666;
 }
 
 div.like {/*wannaのlikeボタン*/

@@ -1,8 +1,10 @@
 <ion-view view-title="Friends">
     <ion-content class="padding">
-
+        <div align="right">
+            <i class="icon ion-search big placeholder-icon" ng-click="showSearchFriendsBox()"></i>
+        </div>
         <div class="list list-inset">
-            <label class="item item-input">
+            <label class="item item-input" id="searchFriendsBox" style="display:none; border: 0px;">
                 <i class="icon ion-search placeholder-icon"></i>
                 <input ng-change = "searchFriendsByName($index,friendNameToFind)"  ng-model="friendNameToFind" placeholder="Search Friends">
             </label>
