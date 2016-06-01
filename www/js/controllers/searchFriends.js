@@ -13,6 +13,14 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
   }, function(){
     $scope.friendImages = SharedStateService.friendImages;
   });
+                $scope.showSearchFriendsBox= function(){
+                    var sB=document.getElementById('searchFriendsBox');
+                    if(sB.style.display=='block'){
+                        document.getElementById('searchFriendsBox').style.display="none";
+                    }else{
+                        document.getElementById('searchFriendsBox').style.display="block";
+                    }
+                };
 
   $scope.currentIndex = null;
   $scope.currentCardUid = null;
