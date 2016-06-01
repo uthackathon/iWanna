@@ -84,7 +84,6 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                                           return 0;
                                       } else {
                                           console.log('like added to the user-database');
-                                                likeButton.style.backgroundColor='#FFFFFF';
                                                 likeButton.style.color='#FFC0CB';
                                           return 1;
                                       }
@@ -113,7 +112,6 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                                           return 0;
                                       } else {
                                           console.log('like was removed from the user-database');
-                                                likeButton.style.backgroundColor='#FFFFFF';
                                                 likeButton.style.color='#bbbbbb';
                                           return 1;
                                       }
@@ -123,7 +121,19 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                 },
 
 
-
+                removeWannaLikeFromUser: function(wannaOwnerId,wannaId,user_uid){
+                  var onComplete = function(error){//callback をtimeline.js に入れるのが上手くいかなかった(.then のpromise 設定が面倒)ので、ここに入れた
+                                      if (error){
+                                          console.log('[FAILED] remove from the user-database');
+                                          return 0;
+                                      } else {
+                                          console.log('like was removed from the user-database',user_uid);
+                                          return 1;
+                                      }
+                                    };
+                  var wannaPath= wannaOwnerId+"/"+wannaId;
+                  ref.child('users').child(user_uid).child('likes').child(wannaPath).remove(onComplete);
+                },
                 findUsersLikes:function(wannas,currentUid){
                  var likedWannaId=[];
                  for (var i = 0; i < wannas.length; i++){
@@ -212,12 +222,22 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 //                        { pct: 1.0, color: { r: 0xff, g: 0x66, b: 0x20 } }];//案2 パステル色相
                     var percentColors = [
                         { pct: 0.0, color: { r: 0xaa, g: 0xee, b: 0xff } },
-                        { pct: 0.3, color: { r: 0x80, g: 0xcc, b: 0xff } },
+                        { pct: 0.3, color: { r: 0x90, g: 0xdc, b: 0xff } },
                         { pct: 0.4, color: { r: 0x75, g: 0xdd, b: 0xcc } },
                         { pct: 0.45, color: { r: 0x80, g: 0xee, b: 0x80 } },
-                        { pct: 0.50, color: { r: 0xbb, g: 0xee, b: 0x15 } },
+                        { pct: 0.50, color: { r: 0xbb, g: 0xee, b: 0x40 } },
                         { pct: 0.60, color: { r: 0xee, g: 0xbb, b: 0x20 } },
                         { pct: 1.0, color: { r: 0xff, g: 0x66, b: 0x10 } }];//案3 濃淡ぷらす色相 blue多め
+//                    var percentColors = [
+//                        { pct: 0.0, color: { r: 0x55, g: 0x55, b: 0xff } },
+//                        { pct: 0.125, color: { r: 0x55, g: 0xaa, b: 0xff } },
+//                        { pct: 0.25, color: { r: 0x72, g: 0xe2, b: 0xe2 } },//
+//                        { pct: 0.375, color: { r: 0x55, g: 0xff, b: 0xaa } },
+//                        { pct: 0.5, color: { r: 0x55, g: 0xff, b: 0x55 } },
+//                        { pct: 0.625, color: { r: 0xaa, g: 0xff, b: 0x55 } },
+//                        { pct: 0.75, color: { r: 0xe2, g: 0xe2, b: 0x72 } },//
+//                        { pct: 0.875, color: { r: 0xff, g: 0xaa, b: 0x55 } },
+//                        { pct: 1.0, color: { r: 0xff, g: 0x55, b: 0x55 } }];/レインボー普通
 //                    var percentColors = [
 //                        { pct: 0.0, color: { r: 0xbb, g: 0xee, b: 0xff } },
 //                        { pct: 0.2, color: { r: 0x99, g: 0xee, b: 0xcc } },

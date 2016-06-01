@@ -1,25 +1,37 @@
-<ion-view view-title="Timeline">
+<ion-view view-title="iW List">
     <ion-content class="padding">
+
+        <ion-refresher
+                on-refresh="doReload()"
+                pulling-text="Pull to reload..."
+                refreshing-text="Reloading"
+                spinner="spiral">
+        </ion-refresher>
 
 
         <button ng-click="writeWanna()" class="button button-full icon big ion-compose button-calm ">
             iWanna...
         </button>
-
-        <div class="list list-inset">
-            <label class="item item-input">
-                <i class="icon ion-search big placeholder-icon"></i>
-                <input ng-change = "searchWannas(tipsToFind)" ng-model="tipsToFind" placeholder="Search">
-            </label>
+        <div align="right">
+            <i class="icon ion-search big placeholder-icon" ng-click="showSearchBox()"></i>
         </div>
 
-        <div class="list" ng-repeat="wanna in wannas()" ng-init="myFunction(wanna)">
+
+        <!--<div class="list list-inset">-->
+        <label class="item item-input" id="searchBox" style="display:none; border: 0px;">
+                <!--<i class="icon ion-search big placeholder-icon"></i>-->
+                <input ng-change = "searchWannas(tipsToFind)" ng-model="tipsToFind" placeholder="Search">
+            </label>
+        <!--</div>-->
+        <br>
+
+        <div class="list" style=" padding-top: 0px; padding-bottom: 0px; margin-bottom: 8px;" ng-repeat="wanna in wannas()" ng-init="referImage(wanna.ownerId)">
             <div class="wanna" style=" border-right-color:{{wanna.color}};">
                     <div class="uimg">
                         <img style="height:100% ; width:100%; border-radius: 200px" data-ng-src={{friendImages[wanna.ownerId]}} ng-Click="goFriendHomePage(wanna)">
                     </div>
                     <div class="img_left" style="position: relative;">
-                        <button id={{wanna.$id}} style="float:right; color:{{likeColor}}; background-color: rgba(0,0,0,0); position: absolute; right: 0; bottom: 0;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(wanna)" ng-Click="likeWanna(wanna)"></button>
+                        <button id={{wanna.$id}} style="float:right; color:{{wanna.likeInitColor}}; background-color: rgba(0,0,0,0); position: absolute; right: 0; bottom: 0;" type="button" class="button icon ion-heart" ng-Click="likeWanna(wanna)"></button>
                         <div class="ganreimg">
                                 <i class={{wanna.icon[0]}} style=" padding: 1px 1px 1px 1px; color:{{wanna.color}};" ></i>
                         </div>

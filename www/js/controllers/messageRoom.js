@@ -15,6 +15,13 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
  	$scope.currentRoomId=SharedStateServiceForMessage.chosenRoomId;
  	console.log("ContentPage",$scope.chosenRoomId);
 
+    $scope.dispToggle=function(messageUserId){
+        if(messageUserId == uid){
+            return "none";
+        }else{
+            return "inline";
+        }
+    };
 	$scope.getImage=function(messageUserId){
 		if(messageUserId == uid){
 			return "img/white.png";
@@ -26,7 +33,7 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
  	$scope.sendMessage = function(){
  		var user = Wannas.getUserName(uid);
  		console.log(Wannas.getUserName(uid));
- 		
+
  		var message = user + " : " + $scope.data.message;
  		Message.sendMessage(message,uid,$scope.currentRoomId).then(function(){
 	    $scope.data.message = "";//メッセージを消去
@@ -36,13 +43,15 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
   $scope.$on('$ionicView.enter', function(e){
 	console.log('ionicEnter Fired!!');
     $scope.show();
-    $scope.allMessages = [];
+//    $scope.allMessages = [];
+	var initMessages=[];
     Message.getAllMessages($scope.currentRoomId).$loaded().then(function(data) {
 			for (var i = 0; i < data.length; i++) {
 				var item = data[i];
-        $scope.allMessages.push(item);
+        initMessages.push(item);
 			}
 		});
+    $scope.allMessages = initMessages;
     $scope.hide();
   });
 
@@ -65,7 +74,7 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 
   $scope.isMe = function(userId){
     if(uid==userId){
-　　　　return "self";            
+　　　　return "self";
     }
   };
               //砂時計を表示

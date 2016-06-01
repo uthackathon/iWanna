@@ -51,8 +51,8 @@ var app = angular.module('starter', [
   });
 })
   .constant('FURL', 'https://iwanna-app.firebaseio.com/')
-.config(function($stateProvider, $urlRouterProvider) {
-
+.config(function($ionicConfigProvider,$stateProvider, $urlRouterProvider) {
+  $ionicConfigProvider.tabs.position('bottom'); // other values: top
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -191,6 +191,46 @@ var app = angular.module('starter', [
       }
     }
   })
+
+  .state('tab.friend-home-2', {
+    url: '/searchfriends/friend-home-2',//'/dash:wannaIdでは?
+    views: {
+      'tab-searchfriends': {
+        templateUrl: 'templates/friend-home.html',
+        controller: 'HomeInFriendsTabCtrl',
+        resolve: {
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
+      }
+    }
+  })
+
+  .state('tab.wanna-content-2', {
+    url: '/searchfriends/:wannaId',//'/dash:wannaIdでは?
+    views: {
+      'tab-searchfriends': {
+        templateUrl: 'templates/wanna-content.html',
+        controller: 'WannaContentCtrl',
+        resolve: {
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
+      }
+    }
+  })
+
+
 
   .state('tab.home', {
     url: '/home',

@@ -14,9 +14,6 @@ app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStat
     return Auth.getProfile(uid).name;
   };
 
-  $scope.testButton = function(){
-      Message.createNewRoom(uid,'1292743b-df60-4ccf-9d7d-5fb04a26cb66');
-  };
 
 	// $scope.$on('$ionicView.enter', function(e){
 	// 	Message.createNewRoom(uid,uid);

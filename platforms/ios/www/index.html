@@ -16,10 +16,14 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/underscore/underscore-min.js"></script>
 
-
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <!-- Camera Plugin -->
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+
+
+    <!--File upload-->
+    <script src="lib/ng-file-upload/dist/ng-file-upload.js"></script>
+    <script src="lib/ng-file-upload/dist/ng-file-upload-shim.js"></script>
 
     <!--Firebase-->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
@@ -27,6 +31,8 @@
     <!--AngularFire-->
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.4/angularfire.min.js"></script>
 
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
 
@@ -42,25 +48,29 @@
     <script src="js/controllers/wannaContent.js"></script>
     <script src="js/controllers/searchFriends.js"></script>
     <script src="js/controllers/login.js"></script>
-    <script src="js/controllers/friends.js"></script>
     <script src="js/controllers/home.js"></script>
     <script src="js/controllers/messages.js"></script>
     <script src="js/controllers/twitterShare.js"></script>
     <script src="js/controllers/facebookShare.js"></script>
     <script src="js/controllers/messageRoom.js"></script>
+    <script src="js/controllers/friendHome.js"></script>
+    <script src="js/controllers/mywannaContent.js"></script>
+    <script src="js/controllers/homeInFriendsTab.js"></script>
 
 
     <script src="js/services/submitWanna.js"></script>
     <script src="js/services/sharedStateService.js"></script>
     <script src="js/services/sharedStateServiceForMessage.js"></script>
 
-<!--     <script src="js/services/profiles.js"></script> -->
+    <script src="js/services/imageUpload.js"></script>
     <script src="js/services/auth.js"></script>
     <script src="js/services/follow.js"></script>
     <script src="js/services/followed.js"></script>
     <script src="js/services/match.js"></script>
     <script src="js/services/socialShare.js"></script>
     <script src="js/services/message.js"></script>
+    <script src="js/services/loading.js"></script>
+    <script src="js/services/adMobService.js"></script>
 
   </head>
   <body ng-app="starter" class="platform-ios platform-cordova platform-webview">

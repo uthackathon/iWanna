@@ -1,6 +1,6 @@
 <ion-view view-title="Friends">
   <ion-content class="padding">
-  
+
       <div class="list list-inset">
         <label class="item item-input">
           <i class="icon ion-search placeholder-icon"></i>
@@ -13,16 +13,16 @@
 <!--           <div class="item item-divider">
               Search Result
           </div> -->
- 
-          <div class="item item-button-right">
+
+          <div class="item item-button-right"><!--検索用-->
           <img src="person.jpg">
       		  {{profile.name}}
-   			    <button class="button button-calm" ng-click = "follow($index, profile.$id)">
+   			    <button class="button button-calm" ng-click = "follow($index, profile.$id)" >
       			  <i class="icon ion-person-add"></i>
     		    </button>
  		      </div>
 
-        </ion item>
+        </ion>
       </div>
 
 
@@ -36,9 +36,11 @@
 
 
         <div class="item item-button-right">
-          <img src="person.jpg">
+          <p ng-Click="goFriendHomePage(friend)">
+          <img data-ng-src={{friendImages[friend.$id]}} style="height:40px ; width:40px; border-radius: 200px">
           {{friend.name}}
-        <button class="button button-calm" ng-click = "showFunctionList(friend.$id)">
+          </p>
+        <button class="button button-calm" ng-click = "showFunctionList(friend.$id)" style="top:20px;">
             <i class="icon ion-navicon"></i>
         </button>
     </div>
@@ -46,7 +48,7 @@
 
 
       <div class="item item-divider">
-        People You May Know
+        Friend Request
       </div>
 
       <ion item class="list card" ng-repeat="recommendedUser in recommendedUsers">
