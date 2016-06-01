@@ -249,6 +249,7 @@ div.img_left {
 
 div.wannaname {
   /*border: solid 0.5px #000000;*/
+  font-family: 'fontawesome';
   color: #191970;
   height: 38px;
   width: 100%-40px;
@@ -260,8 +261,8 @@ div.wannaname {
   vertical-align: middle;
   padding: 1px 13px 5px 5px;
   line-height: 38px;/*heightと同じ値で中央揃え*/
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 15px;
+  /*font-weight: bold;*/
 }
 
 div.uname {
