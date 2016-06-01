@@ -28,6 +28,15 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 
                 $scope.testimage = $firebaseArray(fb.child("users").child(currentUid).child("images"));
 
+                $scope.showSearchBox= function(){
+                    var sB=document.getElementById('searchBox');
+                    if(sB.style.display=='block'){
+                        document.getElementById('searchBox').style.display="none";
+                    }else{
+                        document.getElementById('searchBox').style.display="block";
+                    }
+                };
+
                 $scope.images = function(userid){
                   var ref = fb.child("users").child(userid).child("images");
                   var sync = $firebaseArray(ref);
@@ -208,7 +217,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               console.log('got new image');
                               console.log('friendId',friendUserId);
                               if(images[0]==null){console.log('undefined');
-                              SharedStateService.friendImages[friendUserId]='img/ben.png';
+                              SharedStateService.friendImages[friendUserId]='img/iw_gray.png';
                               }else{
                               SharedStateService.friendImages[friendUserId]=images[0]['images'];
                               }
@@ -218,6 +227,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                         });
                    }
                };
+               $scope.referImage(uid);
 
 
                $scope.likeWanna=function(wanna){

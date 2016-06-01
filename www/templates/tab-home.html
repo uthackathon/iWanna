@@ -1,10 +1,10 @@
-<ion-view view-title="Home">
+<ion-view view-title="My List">
   <ion-content>
       <div class="list">
         <a class="item item-avatar">
         <img data-ng-src={{friendImages[currentUid]}}>
         {{accountInformation.name}}
-        <p> all Wannas List </p>
+        <p> All iW List </p>
         </a>
       </div>
     <ion-list>
@@ -12,7 +12,7 @@
         <i class = {{wanna.icon[0]}} style=" color:{{wanna.color}};" ng-Click="goContentPage(wanna)"></i>
         <h2 ng-Click="goContentPage(wanna)">{{wanna.content}}</h2>
         <p ng-Click="goContentPage(wanna)">{{wanna.description}}</p>
-        <ion-option-button class="button-assertive" ng-click="removeWanna($index , wanna.ownerId, wanna.$id)">
+        <ion-option-button class="button-assertive" ng-click="removeWanna($index , wanna.ownerId, wanna.$id,wanna.likes)">
           Delete
         </ion-option-button>
       </ion-item>

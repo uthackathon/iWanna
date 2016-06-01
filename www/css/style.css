@@ -177,7 +177,8 @@ vertical-align: middle;
 }
 
 .landing {
-  background: url(../img/home.png) no-repeat center center fixed;
+  /*background: url(../img/home.png) no-repeat center center fixed;*/
+  background-color: #11c1f3;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -188,9 +189,11 @@ vertical-align: middle;
 
 .big{
   font-size: 20px;
+  align:left center;
 }
 
 .spinner svg {
+
   width: 28px;
   height: 28px;
   stroke: #fff;
@@ -246,6 +249,7 @@ div.img_left {
 
 div.wannaname {
   /*border: solid 0.5px #000000;*/
+  font-family: 'fontawesome';
   color: #191970;
   height: 38px;
   width: 100%-40px;
@@ -257,14 +261,14 @@ div.wannaname {
   vertical-align: middle;
   padding: 1px 13px 5px 5px;
   line-height: 38px;/*heightと同じ値で中央揃え*/
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 15px;
+  /*font-weight: bold;*/
 }
 
 div.uname {
   /*border: solid 0.5px #000000;*/
   height: 35px;
-  width: 80px;
+  width: 100%-100px;
   white-space: nowrap; /* 横幅のMAXに達しても改行しない */
   overflow: hidden; /* ハミ出した部分を隠す */
   text-overflow: ellipsis; /* 「…」と省略 */

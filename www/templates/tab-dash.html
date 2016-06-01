@@ -1,4 +1,4 @@
-<ion-view view-title="Timeline">
+<ion-view view-title="iW List">
     <ion-content class="padding">
 
         <ion-refresher
@@ -12,13 +12,18 @@
         <button ng-click="writeWanna()" class="button button-full icon big ion-compose button-calm ">
             iWanna...
         </button>
+        <div align="right">
+            <i class="icon ion-search big placeholder-icon" ng-click="showSearchBox()"></i>
+        </div>
 
-        <div class="list list-inset">
-            <label class="item item-input">
-                <i class="icon ion-search big placeholder-icon"></i>
+
+        <!--<div class="list list-inset">-->
+        <label class="item item-input" id="searchBox" style="display:none; border: 0px;">
+                <!--<i class="icon ion-search big placeholder-icon"></i>-->
                 <input ng-change = "searchWannas(tipsToFind)" ng-model="tipsToFind" placeholder="Search">
             </label>
-        </div>
+        <!--</div>-->
+        <br>
 
         <div class="list" style=" padding-top: 0px; padding-bottom: 0px; margin-bottom: 8px;" ng-repeat="wanna in wannas()" ng-init="referImage(wanna.ownerId)">
             <div class="wanna" style=" border-right-color:{{wanna.color}};">
