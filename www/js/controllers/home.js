@@ -32,6 +32,8 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   };
 
   $scope.doReload=function(){
+      $scope.allWannasList = Wannas.all(uid);
+
       Auth.getProfile(uid).$loaded().then(function(obj){
         $scope.likeDir=obj['likes'];
         var reloadList=[];
@@ -43,6 +45,7 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
             console.log('likes information',key, wannaKey);
         }
       $scope.allLikeList=reloadList;
+
       $scope.$broadcast('scroll.refreshComplete');
 
   });
@@ -90,7 +93,7 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   };
 
   $scope.removeWanna = function(index,ownerId,wannaId,likedUsers){
-    $scope.allWannasList.splice(index, 1);
+//    $scope.allWannasList.splice(index, 1);
     for(var k in likedUsers){
         Wannas.removeWannaLikeFromUser(ownerId, wannaId,k);
     }
