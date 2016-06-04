@@ -131,7 +131,7 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
                     message: message,
                     userId: currentUid
                   };
-
+                  console.log('send message');
                   return currentRoom.$add(newMessage);
     },
 
