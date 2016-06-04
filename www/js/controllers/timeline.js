@@ -166,6 +166,16 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 
                 };
 
+                $scope.genreIcon = function(displayState){
+                    if(displayState==4){return "button button-icon" +" "+icon1;
+                    }else if(displayState==5){return "button button-icon" +" "+icon2;
+                    }else if(displayState==6){return "button button-icon" +" "+icon3;
+                    }else if(displayState==7){return "button button-icon" +" "+icon4;
+                    }else if(displayState==8){return "button button-icon" +" "+icon5;
+                    }else{return "button button-icon" +" icon "+icon0;
+                    }
+                };
+
                 $scope.wannas = function(displayState){
                           switch (displayState){
                           case 1://投稿時間順
