@@ -5,6 +5,13 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
                               $scope.imageLog=0;
+               var icon0="ion-android-bulb";
+               var icon1="icon ion-ios-football";//アイコンの画像名をwanna につけて保存
+               var icon2="icon ion-ios-wineglass";
+               var icon3="icon ion-bag";
+               var icon4="icon ion-map";
+               var icon5="icon ion-music-note";
+
                var currentUid = uid;
                var allwanna=Wannas.all(currentUid);
                $scope.friendidList = [uid];
@@ -14,6 +21,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                var likePink='rgb(255, 192, 203)';
                var likeOff='#bbbbbb';
                $scope.friendImages ={'initUid':'initImg'};
+               $scope.displayState=1;
 
                $scope.$watch(function(){
                      return SharedStateService.friendImages;
@@ -118,19 +126,157 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     console.log("friend ids are",$scope.friendidList);
                 });
 
+                $scope.changeState= function(num){
+                    switch(num){
+                    case 1:
+                        $scope.displayState=1;
+                        break;
+                    case 2:
+                        if($scope.displayState ==8){
+                            $scope.displayState=9;
+                            break;
+                        }else if($scope.displayState ==7){
+                            $scope.displayState=8;
+                            break;
+                        }else if($scope.displayState ==6){
+                            $scope.displayState=7;
+                            break;
+                        }else if($scope.displayState ==5){
+                            $scope.displayState=6;
+                            break;
+                        }else if($scope.displayState ==4){
+                            $scope.displayState=5;
+                            break;
+                        }else{
+                            $scope.displayState=4;
+                            break;
+                        }
+                        break;
+                    case 3:
+                        if($scope.displayState !=2){
+                            $scope.displayState=2;
+                        }else{
+                            $scope.displayState=3;
+                        }
+                        break;
+                    case 4:
+                        break;
+                    }
 
-                  $scope.wannas = function(){
-                        allwanna.sort(function(a,b){//上の動作が終わった後にしたい
-                          return b.upload_time - a.upload_time;
-                        });
-                        for(var i=0; i< allwanna.length; i++){
-                            if(uid in allwanna[i].likes){
-                                allwanna[i].likeInitColor=likePink;
-                            }else{
-                                allwanna[i].likeInitColor=likeOff;
+
+                };
+
+                $scope.wannas = function(displayState){
+                          switch (displayState){
+                          case 1://投稿時間順
+                            console.log('displayState1');
+                            allwanna.sort(function(a,b){//上の動作が終わった後にしたい
+                              return b.upload_time - a.upload_time;
+                            });
+                            for(var i=0; i< allwanna.length; i++){
+                                if(uid in allwanna[i].likes){
+                                    allwanna[i].likeInitColor=likePink;
+                                }else{
+                                    allwanna[i].likeInitColor=likeOff;
+                                };
                             };
-                        };
-                        return allwanna;
+                            return allwanna;
+                            break;
+                          case 2://モチベーション高い順
+                            console.log('displayState2');
+                            allwanna.sort(function(a,b){//上の動作が終わった後にしたい
+                              return b.motivation - a.motivation;
+                            });
+//                            for(var i=0; i< allwanna.length; i++){
+//                                if(uid in allwanna[i].likes){
+//                                    allwanna[i].likeInitColor=likePink;
+//                                }else{
+//                                    allwanna[i].likeInitColor=likeOff;
+//                                };
+//                            };
+                            return allwanna;
+                            break;
+                          case 3://モチベーション低い順
+                            console.log('displayState3');
+                            allwanna.sort(function(a,b){//上の動作が終わった後にしたい
+                              return a.motivation - b.motivation;
+                            });
+//                            for(var i=0; i< allwanna.length; i++){
+//                                if(uid in allwanna[i].likes){
+//                                    allwanna[i].likeInitColor=likePink;
+//                                }else{
+//                                    allwanna[i].likeInitColor=likeOff;
+//                                };
+//                            };
+                            return allwanna;
+                            break;
+                          case 4://サッカー
+                            console.log('displayState4');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+//                                if(uid in allwanna[i].likes){
+//                                    allwanna[i].likeInitColor=likePink;
+//                                }else{
+//                                    allwanna[i].likeInitColor=likeOff;
+//                                };
+                                if(allwanna[i]['icon']['0']==icon1){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 5://icon 2つめ
+                            console.log('displayState5');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon2){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 6://icon 3つめ
+                            console.log('displayState6');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon3){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 7://icon 4つめ
+                            console.log('displayState7');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon4){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 8://icon 5つめ
+                            console.log('displayState8');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon5){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 9://icon 6つめ
+                            console.log('displayState9');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon0){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                        }
+
                       };
 
 //               $scope.$watch("wannas",function(){
