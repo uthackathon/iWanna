@@ -207,6 +207,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
 
                $scope.changeSlider=function(motivation){
                  console.log('slider changed');
+                 $scope.motivation=motivation;
                  $scope.motColor=Wannas.getColor(motivation);
                  subBut.style.backgroundColor=$scope.motColor;
                  var pos =iconArray.indexOf(1);
