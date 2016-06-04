@@ -1,10 +1,16 @@
 'use strict'
 
 app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,FURL){
+
+  $scope.$on('$ionicView.enter', function(e){
+    $scope.userInfo={};
+  });
+
+
   $scope.emailLogin = function(){
     console.log('buttun was clicked on login');
 
-    $scope.user = {};
+    $scope.user = $scope.userInfo;
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -18,6 +24,7 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,F
           onTap: function(user) {
             Loading.show();
             user = $scope.user;
+            $scope.userInfo=$scope.user;
             console.log('the user is ', user);
             Auth.login(user).then(function(){
             Loading.hide();
