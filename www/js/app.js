@@ -50,7 +50,7 @@ var app = angular.module('starter', [
     }
   });
 })
-  .constant('FURL', 'https://iwanna-app.firebaseio.com')
+  .constant('FURL', 'https://iwanna-app.firebaseio.com/')
 .config(function($ionicConfigProvider,$stateProvider, $urlRouterProvider) {
   $ionicConfigProvider.tabs.position('bottom'); // other values: top
   // Ionic uses AngularUI Router which uses the concept of states
