@@ -1,10 +1,16 @@
 'use strict'
 
 app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,FURL){
+
+  $scope.$on('$ionicView.enter', function(e){
+    $scope.userInfo={};
+  });
+
+
   $scope.emailLogin = function(){
     console.log('buttun was clicked on login');
 
-    $scope.user = {};
+    $scope.user = $scope.userInfo;
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -18,10 +24,11 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,F
           onTap: function(user) {
             Loading.show();
             user = $scope.user;
+            $scope.userInfo=$scope.user;
             console.log('the user is ', user);
             Auth.login(user).then(function(){
             Loading.hide();
-            console.log('user was registered successfully');
+            console.log('login');
             $state.go('tab.dash');
             }, function(err) {
               Loading.hide();
@@ -55,14 +62,14 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,F
                       .then(function(auth){
                         //登録時に運営とdefaultで友達になる
                         var ref = new Firebase(FURL);
-                        var developerUid = "124797f2-5b56-47e6-aac3-3a4830f760b4"; 
+                        var developerUid = "124797f2-5b56-47e6-aac3-3a4830f760b4";
                         var uid = auth.uid;
                         ref.child('follows').child(uid).child(developerUid).set(true);
                         ref.child('follows').child(developerUid).child(uid).set(true);
                         ref.child('followeds').child(uid).child(developerUid).set(true);
                         ref.child('followeds').child(developerUid).child(uid).set(true);
                         ref.child('matches').child(uid).child(developerUid).set(true);
-                        ref.child('matches').child(developerUid).child(uid).set(true);             
+                        ref.child('matches').child(developerUid).child(uid).set(true);
                         Loading.hide();
                         });
               Loading.hide();

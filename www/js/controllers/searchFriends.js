@@ -13,6 +13,14 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
   }, function(){
     $scope.friendImages = SharedStateService.friendImages;
   });
+                $scope.showSearchFriendsBox= function(){
+                    var sB=document.getElementById('searchFriendsBox');
+                    if(sB.style.display=='block'){
+                        document.getElementById('searchFriendsBox').style.display="none";
+                    }else{
+                        document.getElementById('searchFriendsBox').style.display="block";
+                    }
+                };
 
   $scope.currentIndex = null;
   $scope.currentCardUid = null;
@@ -279,12 +287,23 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
 
 
   	$scope.follow = function(index, follow_uid) {
-  		Follow.addFollow(currentUid, follow_uid);
-  		Followed.addFollowed(follow_uid, currentUid);
-  		Match.checkMatch(currentUid, follow_uid);
-  		$scope.cardRemove(index);
+      var confirmPopup = $ionicPopup.confirm({
+         title: 'Friend',
+         template: 'Send Friend Request'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          Follow.addFollow(currentUid, follow_uid);
+          Followed.addFollowed(follow_uid, currentUid);
+          Match.checkMatch(currentUid, follow_uid);
+          $scope.cardRemove(index);
+          console.log("FOLLOW");
+        } else {
+          console.log('You are not sure');
+        }
+      });
 
-  		console.log("FOLLOW")
+  		//console.log("FOLLOW")
   	},
 
   	$scope.followRecommended = function(index, follow_uid) {
