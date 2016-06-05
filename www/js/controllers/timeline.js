@@ -109,6 +109,8 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     $scope.$broadcast('scroll.refreshComplete');
                     });
 //                    location.reload(false);
+                $scope.wannasShowing=$scope.wannas($scope.displayState);
+
                 };
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
@@ -175,6 +177,11 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     }else{return "button button-icon" +" icon "+icon0;
                     }
                 };
+                $scope.$watch('displayState',function(){
+                    console.log('state changing');
+                $scope.wannasShowing=$scope.wannas($scope.displayState);
+
+                });
 
                 $scope.wannas = function(displayState){
                           switch (displayState){
@@ -287,7 +294,9 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                             break;
                         }
 
-                      };
+                };
+
+                $scope.wannasShowing=$scope.wannas($scope.displayState);
 
 //               $scope.$watch("wannas",function(){
 //                var likeValid=0;
@@ -428,19 +437,21 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 //wannasの検索、とりあえずserchFriendsからコピー
                 //検索窓からの取り込み=tipsToFind
                 $scope.searchWannas = function(tipsToFind){
+                    var targetWannas=$scope.wannas($scope.displayState);
                     if (tipsToFind == "") {
                     //検索窓が空欄の時は検索前に戻す(全部が当てはまるという検索の時間省略のため)
-                        $scope.wannas = function(){
-                          return allwanna;
-                        }
+//                        $scope.wannas = function(){
+//                          return allwanna;
+//                        }
+                        $scope.wannasShowing=$scope.wannas($scope.displayState);
                         console.log('reset');
 //                        var likeValid=false;
                     }
                     else {//検索部
                         $scope.serchwannas = [];
                         console.log("searching...",tipsToFind);
-                        for (var i = 0; i < allwanna.length; i++){
-                            var item = allwanna[i];
+                        for (var i = 0; i < targetWannas.length; i++){
+                            var item = targetWannas[i];
                             var serchword = new RegExp(tipsToFind);
                             if ( item.content.match(serchword) || item.description.match(serchword)) {
                                 $scope.serchwannas.push(item);
@@ -449,15 +460,18 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                         }
 
                         if ($scope.serchwannas.length !== 0){//ヒットしたとき
-                            $scope.wannas = function(){
-                              return $scope.serchwannas;
-                            }
+//                            $scope.wannas = function(){
+//                              return $scope.serchwannas;
+//                            }
+                            $scope.wannasShowing=$scope.serchwannas;
                             console.log('searched wannas are',$scope.wannas);
                         }
                         else if ($scope.serchwannas.length == 0){//何もヒットしなかったときは表示なし
-                            $scope.wannas =　function(){
-                              return [];
-                            }
+//                            $scope.wannas =　function(){
+//                              return [];
+//                            }
+                            $scope.wannasShowing=[];
+
                             console.log('wannas are not finded');
                         }
                     }
