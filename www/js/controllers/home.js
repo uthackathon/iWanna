@@ -17,10 +17,11 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   Auth.getProfile(uid).$loaded().then(function(obj){
     $scope.likeDir=obj['likes'];
     for(var key in $scope.likeDir){
-        for(var wannaKey in $scope.likeDir[key]);
-        Wannas.getWanna(key, wannaKey).$loaded().then(function(wannaObj){
-            $scope.allLikeList.push(wannaObj);
-        });
+        for(var wannaKey in $scope.likeDir[key]){
+            Wannas.getWanna(key, wannaKey).$loaded().then(function(wannaObj){
+                $scope.allLikeList.push(wannaObj);
+            });
+        };
         console.log('likes information',key, wannaKey);
     }
   });
@@ -38,10 +39,11 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
         $scope.likeDir=obj['likes'];
         var reloadList=[];
         for(var key in $scope.likeDir){
-            for(var wannaKey in $scope.likeDir[key]);
+            for(var wannaKey in $scope.likeDir[key]){
             Wannas.getWanna(key, wannaKey).$loaded().then(function(wannaObj){
                 reloadList.push(wannaObj);
             });
+            };
             console.log('likes information',key, wannaKey);
         }
       $scope.allLikeList=reloadList;
