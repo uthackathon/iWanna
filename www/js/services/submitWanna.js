@@ -14,7 +14,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 
                 getWanna: function(wannaOwnerId,wannaId){
                   var obj =$firebaseObject(ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId));
-                  return obj;                
+                  return obj;
                 },
 
                 getUserName: function(currentUid){
