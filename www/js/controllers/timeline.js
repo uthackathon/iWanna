@@ -99,8 +99,12 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               var item = data[i];
                               $scope.friendidList.push(item.$id);
                               Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                                for (var j = 0; j < friendwanna.length; j++) {
+                                var len =friendwanna.length;
+                                for (var j = 0; j < len; j++) {
                                   allwanna.push(friendwanna[j]);
+//                                  if (j == len-1){
+//                                      $scope.wannasShowing=$scope.wannas($scope.displayState);
+//                                  }
                                 }
                               });
                           }
@@ -109,9 +113,13 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     $scope.$broadcast('scroll.refreshComplete');
                     });
 //                    location.reload(false);
-                $scope.wannasShowing=$scope.wannas($scope.displayState);
-
+                    $scope.wannasShowing=$scope.wannas($scope.displayState);
                 };
+
+                $scope.$on('$ionicView.enter', function(e){
+                    console.log('entering');
+                    $scope.wannasShowing=$scope.wannas($scope.displayState);
+                });
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
@@ -119,8 +127,12 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           var item = data[i];
                           $scope.friendidList.push(item.$id);
                           Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                            for (var j = 0; j < friendwanna.length; j++) {
+                            var len = friendwanna.length;
+                            for (var j = 0; j < len; j++) {
                               allwanna.push(friendwanna[j]);
+//                              if (j == len-1){
+//                                  $scope.wannasShowing=$scope.wannas($scope.displayState);
+//                              }
                             }
                           });
                       }
@@ -177,10 +189,10 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     }else{return "button button-icon" +" icon "+icon0;
                     }
                 };
+
                 $scope.$watch('displayState',function(){
                     console.log('state changing');
-                $scope.wannasShowing=$scope.wannas($scope.displayState);
-
+                    $scope.wannasShowing=$scope.wannas($scope.displayState);
                 });
 
                 $scope.wannas = function(displayState){
@@ -393,6 +405,37 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                    }
                };
                $scope.referImage(uid);
+               $scope.referImageAndLike = function(wanna,lastFlag){
+                   console.log('is Last',lastFlag);
+                   var friendUserId=wanna.ownerId;
+                   var likedUsers = wanna.likes;
+                   if (uid in likedUsers){
+                        wanna.likeInitColor=likePink;
+                   }else{
+                        wanna.likeInitColor=likeOff;
+                   }
+                   if(friendUserId in $scope.friendImages){
+                        console.log('already gotten');
+                   }else{
+                        SharedStateService.friendImages[friendUserId]='img/loading.png';
+                        Wannas.imageAll(friendUserId).$loaded().then(function(images){
+                              console.log('got new image');
+                              console.log('friendId',friendUserId);
+                              if(images[0]==null){console.log('undefined');
+                              SharedStateService.friendImages[friendUserId]='img/iw_gray.png';
+                              }else{
+                              SharedStateService.friendImages[friendUserId]=images[0]['images'];
+                              }
+//                              console.log('image',fList[k],images);
+                        },function(error){
+                          console.log('oh no! no images file');
+                        });
+                   }
+                   if(lastFlag){
+                       $scope.wannasShowing=$scope.wannas($scope.displayState);
+                   }
+
+               };
 
 
                $scope.likeWanna=function(wanna){
