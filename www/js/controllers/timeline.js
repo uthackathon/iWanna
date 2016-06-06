@@ -454,19 +454,47 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                             Wannas.addLikeToWanna(wanna.ownerId,wanna.$id,currentUid,likeButton);
                             Wannas.addLikeToUser(wanna.ownerId,wanna.$id,currentUid,likeButton);
                             //はい or いいえが欲しい
-                            console.log(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId));
-                            if(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId)){//すでに友達とのroomが存在するとき
-                              var likedRoomId = roomList[_.indexOf(_.pluck(roomList, 'friendId'),wanna.ownerId)].roomId
-                              var message = "Me Too!!! ; " + wanna.content ;
-                              Message.sendMessage(message,uid,likedRoomId);
-                            }
-                            else{
-                              console.log("create new messgage room")
-                              var message = "Me Too!!! ; " + wanna.content ;
-                              Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
-                              // var message = "Hi! I like your plan; " + wanna.content ;
-                              // Message.sendMessage(message,uid,likedRoomId);
-                            }
+                            Message.getAllRooms(uid).$loaded().then(function(data) {
+                                console.log('callback');
+                                //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                                roomList=[];
+                                for (var i = 0; i < data.length; i++) {
+                                    var item = data[i];
+                                    roomList.push(item);
+                                }
+                                console.log("roomList is",roomList);
+                                if(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId)){//すでに友達とのroomが存在するとき
+                                  var likedRoomId = roomList[_.indexOf(_.pluck(roomList, 'friendId'),wanna.ownerId)].roomId
+                                  var message = "Me Too!!! ; " + wanna.content ;
+                                  Message.sendMessage(message,uid,likedRoomId);
+                                }
+                                else{
+                                  console.log("create new messgage room")
+                                  var message = "Me Too!!! ; " + wanna.content ;
+                                  Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
+                                  // var message = "Hi! I like your plan; " + wanna.content ;
+                                  // Message.sendMessage(message,uid,likedRoomId);
+                                }
+                            },function(error){
+                                  var alertPopup = $ionicPopup.alert({
+                                      title: "通信エラー",
+                                      template: errmessage,
+                                  });
+                            });
+
+//                            console.log(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId));
+//                            if(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId)){//すでに友達とのroomが存在するとき
+//                              var likedRoomId = roomList[_.indexOf(_.pluck(roomList, 'friendId'),wanna.ownerId)].roomId
+//                              var message = "Me Too!!! ; " + wanna.content ;
+//                              Message.sendMessage(message,uid,likedRoomId);
+//                            }
+//                            else{
+//                              console.log("create new messgage room")
+//                              var message = "Me Too!!! ; " + wanna.content ;
+//                              Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
+//                              // var message = "Hi! I like your plan; " + wanna.content ;
+//                              // Message.sendMessage(message,uid,likedRoomId);
+//                            }
                         }
                       }else{
                         console.log("like button is not valid");

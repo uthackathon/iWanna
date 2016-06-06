@@ -46,6 +46,11 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,F
                       title: "ログインエラー",
                       template: errmessage,
                   });
+                  alertPopup.then(function(res) {
+                       console.log('Callbacks');
+                       $scope.emailLogin();
+                     });
+
               console.log('Error...', err);
             });
           }
@@ -92,6 +97,10 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,F
                       title: "登録エラー",
                       template: errmessage,
                   });
+                  alertPopup.then(function(res) {
+                       console.log('Callbacks');
+                       $scope.emailLogin();
+                     });
               console.log('Error...', err);
             });
             // $state.go('tab.dash')Error: The specified email address is invalid.

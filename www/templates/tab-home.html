@@ -35,9 +35,9 @@
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="wanna in allLikeList" type="item-text-wrap" >
         <i class = {{wanna.icon[0]}} style=" color:{{wanna.color}};" ng-Click="goContentPage(wanna)"></i>
         <h2 ng-Click="goContentPage(wanna)">{{wanna.content}}</h2>
-        <p ng-Click="goContentPage(wanna)">{{wanna.description}}</p>
+        <p ng-Click="goContentPage(wanna)">{{wanna.user_name}}</p>
         <ion-option-button class="button" style="background-color:rgb(255, 192, 203);color: #FFFFFF;" ng-click="removeLikeInHome( $index,wanna.ownerId, wanna.$id)">
-          Like をやめる
+          Remove
         </ion-option-button>
       </ion-item>
     </ion-list>
