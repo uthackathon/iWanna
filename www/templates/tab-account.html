@@ -5,27 +5,32 @@
             <div class="item item-divider">
                 User Information
             </div>
-            <a class="item item-icon-left" href="#">
+            <a class="item item-icon-left" style="color: #000000;" href="#">
             <i class="icon ion-person"></i>
             {{accountInformation.name}}
           </a>
-           <a class="item item-icon-left" href="#">
+           <a class="item item-icon-left" style="color: #000000;" href="#">
             <i class="icon ion-email"></i>
             {{accountInformation.email}}
           </a>
+
+          <form name="myForm">
             <a class="item item-thumbnail-left" href="#">
-              <img src="{{images[0].images}}" type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" required>
-              <h2 style="font-size:14px;">← タップしてアイコン選択</h2>
-              <div class="row">
-                  <div class="col col-75" style="text-align: left;">
-                      <button style="float:right; padding:0;" class="button button-calm" ng-click="uploadPic(picFile)">変更</button>
-                      <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb" width="50" height="50" >
-                  </div>
-                  <div class="col">
-                    <button style="padding:0;" class="button button-dark" ng-click="image_remove()">削除</button>
-                  </div>
-              </div>
+
+                <img src="{{images[0].images}}" type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" required>
+                <h2 style="font-size:14px;">← タップしてアイコン選択</h2>
+                <div class="row">
+                    <div class="col col-75" style="text-align: left;">
+                        <button style="float:right; padding:0;" class="button button-calm" ng-click="uploadPic(picFile)">変更</button>
+                        <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb" width="50" height="50" >
+                    </div>
+                    <div class="col">
+                      <button style="padding:0;" class="button button-dark" ng-click="image_remove()">削除</button>
+                    </div>
+                </div>
             </a>
+                <h4 style="font-size:10pt;" ng-show="myForm.file.$error.maxSize">ファイルが大きすぎます,2MB以下のファイルを選択してください</h4>
+          </form>
 
         </div>
 

@@ -5,6 +5,13 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
                               $scope.imageLog=0;
+               var icon0="ion-android-bulb";
+               var icon1="icon ion-ios-football";//アイコンの画像名をwanna につけて保存
+               var icon2="icon ion-ios-wineglass";
+               var icon3="icon ion-bag";
+               var icon4="icon ion-map";
+               var icon5="icon ion-music-note";
+
                var currentUid = uid;
                var allwanna=Wannas.all(currentUid);
                $scope.friendidList = [uid];
@@ -14,6 +21,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                var likePink='rgb(255, 192, 203)';
                var likeOff='#bbbbbb';
                $scope.friendImages ={'initUid':'initImg'};
+               $scope.displayState=1;
 
                $scope.$watch(function(){
                      return SharedStateService.friendImages;
@@ -91,8 +99,12 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                               var item = data[i];
                               $scope.friendidList.push(item.$id);
                               Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                                for (var j = 0; j < friendwanna.length; j++) {
+                                var len =friendwanna.length;
+                                for (var j = 0; j < len; j++) {
                                   allwanna.push(friendwanna[j]);
+//                                  if (j == len-1){
+//                                      $scope.wannasShowing=$scope.wannas($scope.displayState);
+//                                  }
                                 }
                               });
                           }
@@ -101,7 +113,13 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     $scope.$broadcast('scroll.refreshComplete');
                     });
 //                    location.reload(false);
+                    $scope.wannasShowing=$scope.wannas($scope.displayState);
                 };
+
+                $scope.$on('$ionicView.enter', function(e){
+                    console.log('entering');
+                    $scope.wannasShowing=$scope.wannas($scope.displayState);
+                });
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
@@ -109,8 +127,12 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           var item = data[i];
                           $scope.friendidList.push(item.$id);
                           Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                            for (var j = 0; j < friendwanna.length; j++) {
+                            var len = friendwanna.length;
+                            for (var j = 0; j < len; j++) {
                               allwanna.push(friendwanna[j]);
+//                              if (j == len-1){
+//                                  $scope.wannasShowing=$scope.wannas($scope.displayState);
+//                              }
                             }
                           });
                       }
@@ -118,20 +140,175 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     console.log("friend ids are",$scope.friendidList);
                 });
 
+                $scope.changeState= function(num){
+                    switch(num){
+                    case 1:
+                        $scope.displayState=1;
+                        break;
+                    case 2:
+                        if($scope.displayState ==8){
+                            $scope.displayState=9;
+                            break;
+                        }else if($scope.displayState ==7){
+                            $scope.displayState=8;
+                            break;
+                        }else if($scope.displayState ==6){
+                            $scope.displayState=7;
+                            break;
+                        }else if($scope.displayState ==5){
+                            $scope.displayState=6;
+                            break;
+                        }else if($scope.displayState ==4){
+                            $scope.displayState=5;
+                            break;
+                        }else{
+                            $scope.displayState=4;
+                            break;
+                        }
+                        break;
+                    case 3:
+                        if($scope.displayState !=2){
+                            $scope.displayState=2;
+                        }else{
+                            $scope.displayState=3;
+                        }
+                        break;
+                    case 4:
+                        break;
+                    }
 
-                  $scope.wannas = function(){
-                        allwanna.sort(function(a,b){//上の動作が終わった後にしたい
-                          return b.upload_time - a.upload_time;
-                        });
-                        for(var i=0; i< allwanna.length; i++){
-                            if(uid in allwanna[i].likes){
-                                allwanna[i].likeInitColor=likePink;
-                            }else{
-                                allwanna[i].likeInitColor=likeOff;
+
+                };
+
+                $scope.genreIcon = function(displayState){
+                    if(displayState==4){return "button button-icon" +" "+icon1;
+                    }else if(displayState==5){return "button button-icon" +" "+icon2;
+                    }else if(displayState==6){return "button button-icon" +" "+icon3;
+                    }else if(displayState==7){return "button button-icon" +" "+icon4;
+                    }else if(displayState==8){return "button button-icon" +" "+icon5;
+                    }else{return "button button-icon" +" icon "+icon0;
+                    }
+                };
+
+                $scope.$watch('displayState',function(){
+                    console.log('state changing');
+                    $scope.wannasShowing=$scope.wannas($scope.displayState);
+                });
+
+                $scope.wannas = function(displayState){
+                          switch (displayState){
+                          case 1://投稿時間順
+                            console.log('displayState1');
+                            allwanna.sort(function(a,b){//上の動作が終わった後にしたい
+                              return b.upload_time - a.upload_time;
+                            });
+                            for(var i=0; i< allwanna.length; i++){
+                                if(uid in allwanna[i].likes){
+                                    allwanna[i].likeInitColor=likePink;
+                                }else{
+                                    allwanna[i].likeInitColor=likeOff;
+                                };
                             };
-                        };
-                        return allwanna;
-                      };
+                            return allwanna;
+                            break;
+                          case 2://モチベーション高い順
+                            console.log('displayState2');
+                            allwanna.sort(function(a,b){//上の動作が終わった後にしたい
+                              return b.motivation - a.motivation;
+                            });
+//                            for(var i=0; i< allwanna.length; i++){
+//                                if(uid in allwanna[i].likes){
+//                                    allwanna[i].likeInitColor=likePink;
+//                                }else{
+//                                    allwanna[i].likeInitColor=likeOff;
+//                                };
+//                            };
+                            return allwanna;
+                            break;
+                          case 3://モチベーション低い順
+                            console.log('displayState3');
+                            allwanna.sort(function(a,b){//上の動作が終わった後にしたい
+                              return a.motivation - b.motivation;
+                            });
+//                            for(var i=0; i< allwanna.length; i++){
+//                                if(uid in allwanna[i].likes){
+//                                    allwanna[i].likeInitColor=likePink;
+//                                }else{
+//                                    allwanna[i].likeInitColor=likeOff;
+//                                };
+//                            };
+                            return allwanna;
+                            break;
+                          case 4://サッカー
+                            console.log('displayState4');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+//                                if(uid in allwanna[i].likes){
+//                                    allwanna[i].likeInitColor=likePink;
+//                                }else{
+//                                    allwanna[i].likeInitColor=likeOff;
+//                                };
+                                if(allwanna[i]['icon']['0']==icon1){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 5://icon 2つめ
+                            console.log('displayState5');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon2){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 6://icon 3つめ
+                            console.log('displayState6');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon3){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 7://icon 4つめ
+                            console.log('displayState7');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon4){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 8://icon 5つめ
+                            console.log('displayState8');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon5){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                          case 9://icon 6つめ
+                            console.log('displayState9');
+                            var partialwanna=[];
+                            for(var i=0; i< allwanna.length; i++){
+                                if(allwanna[i]['icon']['0']==icon0){
+                                    partialwanna.push(allwanna[i]);
+                                }
+                            };
+                            return partialwanna;
+                            break;
+                        }
+
+                };
+
+                $scope.wannasShowing=$scope.wannas($scope.displayState);
 
 //               $scope.$watch("wannas",function(){
 //                var likeValid=0;
@@ -228,6 +405,37 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                    }
                };
                $scope.referImage(uid);
+               $scope.referImageAndLike = function(wanna,lastFlag){
+                   console.log('is Last',lastFlag);
+                   var friendUserId=wanna.ownerId;
+                   var likedUsers = wanna.likes;
+                   if (uid in likedUsers){
+                        wanna.likeInitColor=likePink;
+                   }else{
+                        wanna.likeInitColor=likeOff;
+                   }
+                   if(friendUserId in $scope.friendImages){
+                        console.log('already gotten');
+                   }else{
+                        SharedStateService.friendImages[friendUserId]='img/loading.png';
+                        Wannas.imageAll(friendUserId).$loaded().then(function(images){
+                              console.log('got new image');
+                              console.log('friendId',friendUserId);
+                              if(images[0]==null){console.log('undefined');
+                              SharedStateService.friendImages[friendUserId]='img/iw_gray.png';
+                              }else{
+                              SharedStateService.friendImages[friendUserId]=images[0]['images'];
+                              }
+//                              console.log('image',fList[k],images);
+                        },function(error){
+                          console.log('oh no! no images file');
+                        });
+                   }
+                   if(lastFlag){
+                       $scope.wannasShowing=$scope.wannas($scope.displayState);
+                   }
+
+               };
 
 
                $scope.likeWanna=function(wanna){
@@ -272,19 +480,21 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 //wannasの検索、とりあえずserchFriendsからコピー
                 //検索窓からの取り込み=tipsToFind
                 $scope.searchWannas = function(tipsToFind){
+                    var targetWannas=$scope.wannas($scope.displayState);
                     if (tipsToFind == "") {
                     //検索窓が空欄の時は検索前に戻す(全部が当てはまるという検索の時間省略のため)
-                        $scope.wannas = function(){
-                          return allwanna;
-                        }
+//                        $scope.wannas = function(){
+//                          return allwanna;
+//                        }
+                        $scope.wannasShowing=$scope.wannas($scope.displayState);
                         console.log('reset');
 //                        var likeValid=false;
                     }
                     else {//検索部
                         $scope.serchwannas = [];
                         console.log("searching...",tipsToFind);
-                        for (var i = 0; i < allwanna.length; i++){
-                            var item = allwanna[i];
+                        for (var i = 0; i < targetWannas.length; i++){
+                            var item = targetWannas[i];
                             var serchword = new RegExp(tipsToFind);
                             if ( item.content.match(serchword) || item.description.match(serchword)) {
                                 $scope.serchwannas.push(item);
@@ -293,15 +503,18 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                         }
 
                         if ($scope.serchwannas.length !== 0){//ヒットしたとき
-                            $scope.wannas = function(){
-                              return $scope.serchwannas;
-                            }
+//                            $scope.wannas = function(){
+//                              return $scope.serchwannas;
+//                            }
+                            $scope.wannasShowing=$scope.serchwannas;
                             console.log('searched wannas are',$scope.wannas);
                         }
                         else if ($scope.serchwannas.length == 0){//何もヒットしなかったときは表示なし
-                            $scope.wannas =　function(){
-                              return [];
-                            }
+//                            $scope.wannas =　function(){
+//                              return [];
+//                            }
+                            $scope.wannasShowing=[];
+
                             console.log('wannas are not finded');
                         }
                     }
