@@ -91,6 +91,8 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 //                        });
 //                };
 
+
+
                 $scope.doReload=function(){
                     allwanna=Wannas.all(currentUid);
                     Match.allMatchesByUser(uid).$loaded().then(function(data) {
@@ -110,6 +112,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           }
                         console.log("allwanna is",allwanna);
                         console.log("friend ids are",$scope.friendidList);
+                    $scope.displayState=1;
                     $scope.$broadcast('scroll.refreshComplete');
                     });
 //                    location.reload(false);
@@ -136,6 +139,13 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                             }
                           });
                       }
+                    for(var k =0;k< $scope.friendidList.length;k++){
+                        fb.child('users').child($scope.friendidList[k]).child('wannas').on('child_changed', function(childSnapshot, prevChildKey) {
+                                                                             // code to handle child data changes.
+                        console.log('someones wanna was changed' );
+                        $scope.wannasShowing=$scope.likeChecker($scope.wannasShowing);
+                        });
+                    }
                     console.log("allwanna is",allwanna);
                     console.log("friend ids are",$scope.friendidList);
                 });
@@ -195,6 +205,16 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     $scope.wannasShowing=$scope.wannas($scope.displayState);
                 });
 
+                $scope.likeChecker =function(showingWannas){
+                    for(var i=0; i<showingWannas.length;i++){
+                        if(uid in showingWannas[i].likes){
+                            showingWannas[i].likeInitColor=likePink;
+                        }else{
+                            showingWannas[i].likeInitColor=likeOff;
+                        }
+                    }
+                    return showingWannas;
+                };
                 $scope.wannas = function(displayState){
                           switch (displayState){
                           case 1://投稿時間順
@@ -310,10 +330,9 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 
                 $scope.wannasShowing=$scope.wannas($scope.displayState);
 
-//               $scope.$watch("wannas",function(){
-//                var likeValid=0;
-//                console.log("scope.wannas is changed");
-//               });
+               $scope.$watch("wannasShowing",function(){
+                console.log("Showing Wannas are changed");
+               });
                 Message.getAllRooms(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
                       for (var i = 0; i < data.length; i++) {
