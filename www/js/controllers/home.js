@@ -11,8 +11,50 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   });
   	$scope.accountInformation = Auth.getProfile(uid);//めっちゃおもいので、UserNameだけ取得にしました。
 	//$scope.accountName = Wannas.getUserName(uid);//UserNameだけ取得にしました。
-
+  $scope.likeDir=[];
   $scope.allWannasList = Wannas.all(uid);
+  $scope.allLikeList = [];
+  Auth.getProfile(uid).$loaded().then(function(obj){
+    $scope.likeDir=obj['likes'];
+    for(var key in $scope.likeDir){
+        for(var wannaKey in $scope.likeDir[key]){
+            Wannas.getWanna(key, wannaKey).$loaded().then(function(wannaObj){
+                $scope.allLikeList.push(wannaObj);
+            });
+        };
+        console.log('likes information',key, wannaKey);
+    }
+  });
+
+  $scope.removeLikeInHome = function(index,wannaOwnerId, wannaId){
+    Wannas.removeLikeFromWanna(wannaOwnerId,wannaId,uid,0);
+    Wannas.removeWannaLikeFromUser(wannaOwnerId,wannaId,uid);
+    $scope.allLikeList.splice(index,1);
+  };
+
+  $scope.doReload=function(){
+      $scope.allWannasList = Wannas.all(uid);
+
+      Auth.getProfile(uid).$loaded().then(function(obj){
+        $scope.likeDir=obj['likes'];
+        var reloadList=[];
+        for(var key in $scope.likeDir){
+            for(var wannaKey in $scope.likeDir[key]){
+            Wannas.getWanna(key, wannaKey).$loaded().then(function(wannaObj){
+                reloadList.push(wannaObj);
+            });
+            };
+            console.log('likes information',key, wannaKey);
+        }
+      $scope.allLikeList=reloadList;
+
+      $scope.$broadcast('scroll.refreshComplete');
+
+  });
+
+
+  };
+
 
   // $scope.$on('$ionicView.enter', function(e){
   //   // $scope.show();
@@ -53,7 +95,7 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   };
 
   $scope.removeWanna = function(index,ownerId,wannaId,likedUsers){
-    $scope.allWannasList.splice(index, 1);
+//    $scope.allWannasList.splice(index, 1);
     for(var k in likedUsers){
         Wannas.removeWannaLikeFromUser(ownerId, wannaId,k);
     }

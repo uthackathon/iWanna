@@ -12,6 +12,11 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                   return wannas;
                 },
 
+                getWanna: function(wannaOwnerId,wannaId){
+                  var obj =$firebaseObject(ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId));
+                  return obj;
+                },
+
                 getUserName: function(currentUid){
                 //なまえの取得。もし名前変更に対応するならば add とかを使うかも。
                   //var name = "error";//wanna の名前が error のときは名前取得に失敗してる...
@@ -41,7 +46,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                   var newWanna={
                     ownerId: currentUid,
                     user_name: userName,//名前取得できるように
-                    uid: currentUid,
+//                    uid: currentUid,
                     content: wanna.content,
                     description: wanna.description,
                     icon: iconArray,//アイコン取得できるように
@@ -49,6 +54,8 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                     likes: {"initializeKey": "init"},
                     color: motColor,
                     motivation: motNum,
+                    complete: 0,
+                    deadline:"",
                   };
                   return wannas.$add(newWanna).then(function(){
                     console.log('added to the database');
@@ -134,6 +141,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                   var wannaPath= wannaOwnerId+"/"+wannaId;
                   ref.child('users').child(user_uid).child('likes').child(wannaPath).remove(onComplete);
                 },
+
                 findUsersLikes:function(wannas,currentUid){
                  var likedWannaId=[];
                  for (var i = 0; i < wannas.length; i++){

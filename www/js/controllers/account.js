@@ -3,13 +3,18 @@
 app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $firebaseArray,$cordovaInAppBrowser){
 
 	$scope.accountInformation = Auth.getProfile(uid);
-
     var fb = new Firebase(FURL);
     var ref = $firebaseArray(fb.child("users").child(uid).child("images"));
     $scope.images = ref;
     $scope.uploadPic = function(file){
       return ImageUpload.uploadPic(file,ref);
     };
+
+    $scope.editIntro = function(){
+        document.getElementById('into').style.display="none";
+        document.getElementById('introedit').style.display="inline";
+    }
+
     $scope.image_remove = function(){
         return ImageUpload.image_all_remove(ref);
     };

@@ -55,7 +55,8 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
       console.log('in the register');
       return auth.$createUser({ 
         email: user.email,
-        password: user.password
+        password: user.password,
+        intro: "User Information",
       }).then(function(authData){
         
         console.log('user is saving');

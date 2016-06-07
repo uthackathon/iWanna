@@ -116,6 +116,10 @@ div.footer-btn-wrap{
   color: #11c1f3;
 }
 
+.pre-line {
+    white-space: pre-line;
+}
+
 /*-----------------chatの部分のデザイン----------------*/
 
 .chats{

@@ -13,7 +13,10 @@
             iWanna...
         </button>
         <div align="right">
-            <i class="icon ion-search big placeholder-icon" ng-click="showSearchBox()"></i>
+            <a ng-class="genreIcon(displayState)" ng-click="changeState(2)"></a>
+            <a class="button button-icon icon ion-android-time" ng-click="changeState(1)"></a>
+            <a class="button button-icon icon ion-flame" ng-click="changeState(3)"></a>
+            <a class="button button-icon icon ion-search" ng-click="showSearchBox()"></a>
         </div>
 
 
@@ -25,7 +28,7 @@
         <!--</div>-->
         <br>
 
-        <div class="list" style=" padding-top: 0px; padding-bottom: 0px; margin-bottom: 8px;" ng-repeat="wanna in wannas()" ng-init="referImage(wanna.ownerId)">
+        <div class="list" style=" padding-top: 0px; padding-bottom: 0px; margin-bottom: 8px;" ng-repeat="wanna in wannasShowing" ng-init="referImageAndLike(wanna,$last)">
             <div class="wanna" style=" border-right-color:{{wanna.color}};">
                     <div class="uimg">
                         <img style="height:100% ; width:100%; border-radius: 200px" data-ng-src={{friendImages[wanna.ownerId]}} ng-Click="goFriendHomePage(wanna)">
