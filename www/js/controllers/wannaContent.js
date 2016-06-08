@@ -100,14 +100,23 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
 
                };
 
-  //オプションボタンでポップアップ
+ //オプションボタンでポップアップ ミュート解除も
   $scope.report = function(friendName,friendId) {
-
+    Report.getMyMutes(uid).$loaded().then(function(mutes){
+    var isMute='';
+    var muteToggle=false;
+    if(friendId in mutes){
+        isMute='このユーザーのミュートを解除する';
+        muteToggle=true;
+    }else{
+        isMute='このユーザーをミュートする';
+        muteToggle=false;
+    }
     $ionicActionSheet.show({
 //    titleText: 'Report',
     buttons: [
     { text: '問題を報告する' },
-    { text: 'このユーザーをミュートする'},
+    { text: isMute},
     { text: 'このユーザーをブロックする'},
     ],
 //    destructiveText: '<i class="icon ion-trash-a assertive"></i> Delete',
@@ -120,7 +129,7 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
             $scope.problemDetail(friendId);
 //          console.log('SEND MESSAGE CLICKED', index);
         }else if(index==1){
-            $scope.muteConfirm(friendName,friendId);
+            $scope.muteConfirm(friendName,friendId,muteToggle);
         }else if(index==2){
             $scope.blockConfirm(friendName,friendId);
         }
@@ -128,7 +137,9 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
           return true;
         },
     });
+   });
   };
+
 
 
     $scope.problemDetail = function(friendId) {
@@ -165,16 +176,26 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
         });
     };
 
-    $scope.muteConfirm = function(friendName,friendId) {
+    $scope.muteConfirm = function(friendName,friendId,muteToggle) {
+        var txt='';
+        if(muteToggle){
+            txt=friendName + 'さんのミュートを解除しますか？';
+        }else{
+            txt=friendName + 'さんをミュートしますか？ OKを押すと' +friendName+ 'さんの投稿がiW Listに表示されなくなります。';
+        }
         var confirmPopup = $ionicPopup.confirm({
         title: '友達のミュート',
-        template: friendName + 'さんをミュートしますか？ OKを押すと' +friendName+ 'さんの投稿がiW Listに表示されなくなります。'
+        template: txt,
         });
 
         confirmPopup.then(function(res) {
          if(res) {
            console.log(friendName,'さんをミュート UserID',friendId);
+           if(muteToggle){
+           Report.unMuteUser(uid,friendId);
+           }else{
            Report.muteUser(uid,friendId);
+           }
          } else {
            console.log('You are not sure');
          }
@@ -196,6 +217,7 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
          }
         });
     };
+
 
 
 })
