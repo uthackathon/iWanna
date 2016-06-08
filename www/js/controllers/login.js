@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,FURL){
+app.controller('LoginCtrl', function($scope, $state, $firebaseAuth, $ionicPopup, Auth,Loading,FURL,$firebaseArray){
 
   $scope.$on('$ionicView.enter', function(e){
     $scope.userInfo={};
@@ -103,7 +103,6 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,F
                      });
               console.log('Error...', err);
             });
-            // $state.go('tab.dash')Error: The specified email address is invalid.
 
           }
         }
@@ -111,16 +110,57 @@ app.controller('LoginCtrl', function($scope, $state, $ionicPopup, Auth,Loading,F
     });
   };
 
-  // //砂時計を表示
-  // $scope.show = function() {
-  //   $ionicLoading.show({
-  //   template: '<ion-spinner icon = "bubbles"></ion-spiner>'
 
-  // });
-  // };
+  var ref = new Firebase(FURL);
+  var auth = $firebaseAuth(ref);
 
-  // //砂時計を非表示
-  // $scope.hide = function() {
-  //   $ionicLoading.hide();
-  // };
+
+
+  $scope.TwitterLogin = function() {
+    console.log("TwBTNclicked");
+    auth.$authWithOAuthPopup("twitter", function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+        window.alert(authData);
+        console.log(authData.uid);
+        return authData
+      }
+    })
+    .then(function(authData){
+                        var uid = authData.uid;
+                        var imgURL = { images : authData.twitter.profileImageURL};
+                        console.log("test",$firebaseArray(ref.child('users').child(uid)));
+                        var userRegister = {
+                                name: authData.twitter.username,
+                                email: "",
+                                password: "",
+                                intro: "User Information",
+                                images : [imgURL],
+                        };
+                        $firebaseArray(ref.child('users').child(uid)).$loaded().then(function(data) {
+                            if (data.length == 0){//array==0 未登録
+                                Auth.createProfile(uid,userRegister);
+                                //運営と友達に
+                                var developerUid = "124797f2-5b56-47e6-aac3-3a4830f760b4";
+                                ref.child('follows').child(uid).child(developerUid).set(true);
+                                ref.child('follows').child(developerUid).child(uid).set(true);
+                                ref.child('followeds').child(uid).child(developerUid).set(true);
+                                ref.child('followeds').child(developerUid).child(uid).set(true);
+                                ref.child('matches').child(uid).child(developerUid).set(true);
+                                ref.child('matches').child(developerUid).child(uid).set(true);
+                                console.log("account data was created");
+                            };
+                        });
+
+                        });
+    $state.go('tab.dash');
+  };
+
+
+
+
+
+
 });
