@@ -120,7 +120,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 };
 
                 $scope.$on('$ionicView.enter', function(e){
-                    console.log('entering');
+                    // console.log('entering');
                     $scope.wannasShowing=$scope.wannas($scope.displayState);
                 });
 
@@ -201,7 +201,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 };
 
                 $scope.$watch('displayState',function(){
-                    console.log('state changing');
+                    // console.log('state changing');
                     $scope.wannasShowing=$scope.wannas($scope.displayState);
                 });
 
@@ -218,7 +218,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 $scope.wannas = function(displayState){
                           switch (displayState){
                           case 1://投稿時間順
-                            console.log('displayState1');
+                            // console.log('displayState1');
                             allwanna.sort(function(a,b){//上の動作が終わった後にしたい
                               return b.upload_time - a.upload_time;
                             });
@@ -339,7 +339,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           var item = data[i];
                           roomList.push(item);
                       }
-                      console.log("roomList is",roomList);
+                      // console.log("roomList is",roomList);
 
                 });
 
@@ -350,7 +350,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           var item = data[i];
                           roomList.push(item);
                       }
-                      console.log("roomList is",roomList);
+                      // console.log("roomList is",roomList);
 
                 });
 
