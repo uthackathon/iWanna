@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray,Message) {
+app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray,Message,Report) {
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
@@ -91,53 +91,68 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 //                        });
 //                };
 
+
+
                 $scope.doReload=function(){
                     allwanna=Wannas.all(currentUid);
                     Match.allMatchesByUser(uid).$loaded().then(function(data) {
-                    //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                      Report.getMyMutes(uid).$loaded().then(function(mutes){
                           for (var i = 0; i < data.length; i++) {
                               var item = data[i];
                               $scope.friendidList.push(item.$id);
+                              console.log('isMute',item.$id in mutes);
+                              if(item.$id in mutes){
+                              }else{
                               Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                                var len =friendwanna.length;
+                                var len = friendwanna.length;
                                 for (var j = 0; j < len; j++) {
                                   allwanna.push(friendwanna[j]);
-//                                  if (j == len-1){
-//                                      $scope.wannasShowing=$scope.wannas($scope.displayState);
-//                                  }
                                 }
                               });
+                              }
                           }
                         console.log("allwanna is",allwanna);
                         console.log("friend ids are",$scope.friendidList);
-                    $scope.$broadcast('scroll.refreshComplete');
+                        $scope.displayState=1;
+                        $scope.$broadcast('scroll.refreshComplete');
+                      });
                     });
 //                    location.reload(false);
                     $scope.wannasShowing=$scope.wannas($scope.displayState);
                 };
 
                 $scope.$on('$ionicView.enter', function(e){
-                    console.log('entering');
+                    // console.log('entering');
                     $scope.wannasShowing=$scope.wannas($scope.displayState);
                 });
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                  Report.getMyMutes(uid).$loaded().then(function(mutes){
                       for (var i = 0; i < data.length; i++) {
                           var item = data[i];
                           $scope.friendidList.push(item.$id);
+                          console.log('isMute',item.$id in mutes);
+                          if(item.$id in mutes){
+                          }else{
                           Wannas.all(item.$id).$loaded().then(function(friendwanna) {
                             var len = friendwanna.length;
                             for (var j = 0; j < len; j++) {
                               allwanna.push(friendwanna[j]);
-//                              if (j == len-1){
-//                                  $scope.wannasShowing=$scope.wannas($scope.displayState);
-//                              }
                             }
                           });
+                          }
                       }
+                    for(var k =0;k< $scope.friendidList.length;k++){
+                        fb.child('users').child($scope.friendidList[k]).child('wannas').on('child_changed', function(childSnapshot, prevChildKey) {
+                                                                             // code to handle child data changes.
+                        console.log('someones wanna was changed' );
+                        $scope.wannasShowing=$scope.likeChecker($scope.wannasShowing);
+                        });
+                    }
                     console.log("allwanna is",allwanna);
                     console.log("friend ids are",$scope.friendidList);
+                  });
                 });
 
                 $scope.changeState= function(num){
@@ -191,14 +206,24 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 };
 
                 $scope.$watch('displayState',function(){
-                    console.log('state changing');
+                    // console.log('state changing');
                     $scope.wannasShowing=$scope.wannas($scope.displayState);
                 });
 
+                $scope.likeChecker =function(showingWannas){
+                    for(var i=0; i<showingWannas.length;i++){
+                        if(uid in showingWannas[i].likes){
+                            showingWannas[i].likeInitColor=likePink;
+                        }else{
+                            showingWannas[i].likeInitColor=likeOff;
+                        }
+                    }
+                    return showingWannas;
+                };
                 $scope.wannas = function(displayState){
                           switch (displayState){
                           case 1://投稿時間順
-                            console.log('displayState1');
+                            // console.log('displayState1');
                             allwanna.sort(function(a,b){//上の動作が終わった後にしたい
                               return b.upload_time - a.upload_time;
                             });
@@ -310,17 +335,16 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 
                 $scope.wannasShowing=$scope.wannas($scope.displayState);
 
-//               $scope.$watch("wannas",function(){
-//                var likeValid=0;
-//                console.log("scope.wannas is changed");
-//               });
+               $scope.$watch("wannasShowing",function(){
+                console.log("Showing Wannas are changed");
+               });
                 Message.getAllRooms(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
                       for (var i = 0; i < data.length; i++) {
                           var item = data[i];
                           roomList.push(item);
                       }
-                      console.log("roomList is",roomList);
+                      // console.log("roomList is",roomList);
 
                 });
 
@@ -331,7 +355,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                           var item = data[i];
                           roomList.push(item);
                       }
-                      console.log("roomList is",roomList);
+                      // console.log("roomList is",roomList);
 
                 });
 
@@ -454,19 +478,47 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                             Wannas.addLikeToWanna(wanna.ownerId,wanna.$id,currentUid,likeButton);
                             Wannas.addLikeToUser(wanna.ownerId,wanna.$id,currentUid,likeButton);
                             //はい or いいえが欲しい
-                            console.log(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId));
-                            if(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId)){//すでに友達とのroomが存在するとき
-                              var likedRoomId = roomList[_.indexOf(_.pluck(roomList, 'friendId'),wanna.ownerId)].roomId
-                              var message = "Me Too!!! ; " + wanna.content ;
-                              Message.sendMessage(message,uid,likedRoomId);
-                            }
-                            else{
-                              console.log("create new messgage room")
-                              var message = "Me Too!!! ; " + wanna.content ;
-                              Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
-                              // var message = "Hi! I like your plan; " + wanna.content ;
-                              // Message.sendMessage(message,uid,likedRoomId);
-                            }
+                            Message.getAllRooms(uid).$loaded().then(function(data) {
+                                console.log('callback');
+                                //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                                roomList=[];
+                                for (var i = 0; i < data.length; i++) {
+                                    var item = data[i];
+                                    roomList.push(item);
+                                }
+                                console.log("roomList is",roomList);
+                                if(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId)){//すでに友達とのroomが存在するとき
+                                  var likedRoomId = roomList[_.indexOf(_.pluck(roomList, 'friendId'),wanna.ownerId)].roomId
+                                  var message = "Me Too!!! ; " + wanna.content ;
+                                  Message.sendMessage(message,uid,likedRoomId);
+                                }
+                                else{
+                                  console.log("create new messgage room")
+                                  var message = "Me Too!!! ; " + wanna.content ;
+                                  Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
+                                  // var message = "Hi! I like your plan; " + wanna.content ;
+                                  // Message.sendMessage(message,uid,likedRoomId);
+                                }
+                            },function(error){
+                                  var alertPopup = $ionicPopup.alert({
+                                      title: "通信エラー",
+                                      template: errmessage,
+                                  });
+                            });
+
+//                            console.log(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId));
+//                            if(_.contains(_.pluck(roomList, 'friendId'),wanna.ownerId)){//すでに友達とのroomが存在するとき
+//                              var likedRoomId = roomList[_.indexOf(_.pluck(roomList, 'friendId'),wanna.ownerId)].roomId
+//                              var message = "Me Too!!! ; " + wanna.content ;
+//                              Message.sendMessage(message,uid,likedRoomId);
+//                            }
+//                            else{
+//                              console.log("create new messgage room")
+//                              var message = "Me Too!!! ; " + wanna.content ;
+//                              Message.createNewRoomWithMessage(uid,wanna.ownerId,message);
+//                              // var message = "Hi! I like your plan; " + wanna.content ;
+//                              // Message.sendMessage(message,uid,likedRoomId);
+//                            }
                         }
                       }else{
                         console.log("like button is not valid");

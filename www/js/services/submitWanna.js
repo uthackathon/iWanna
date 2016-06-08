@@ -14,7 +14,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 
                 getWanna: function(wannaOwnerId,wannaId){
                   var obj =$firebaseObject(ref.child('users').child(wannaOwnerId).child('wannas').child(wannaId));
-                  return obj;                
+                  return obj;
                 },
 
                 getUserName: function(currentUid){
@@ -46,7 +46,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                   var newWanna={
                     ownerId: currentUid,
                     user_name: userName,//名前取得できるように
-                    uid: currentUid,
+//                    uid: currentUid,
                     content: wanna.content,
                     description: wanna.description,
                     icon: iconArray,//アイコン取得できるように
@@ -54,6 +54,8 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
                     likes: {"initializeKey": "init"},
                     color: motColor,
                     motivation: motNum,
+                    complete: 0,
+                    deadline:"",
                   };
                   return wannas.$add(newWanna).then(function(){
                     console.log('added to the database');
