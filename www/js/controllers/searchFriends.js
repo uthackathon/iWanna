@@ -4,7 +4,7 @@
 
 app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$firebaseAuth, $ionicLoading, $ionicModal,Follow, Followed, Match, Auth, uid, $scope,$ionicActionSheet,$ionicPopup,Message,$state,SharedStateService) {
   var ref = new Firebase(FURL);
-  var currentUid = uid
+  var currentUid = uid;
 
   $scope.friendImages ={'initUid':'initImg'};
 
@@ -25,6 +25,11 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
   $scope.currentIndex = null;
   $scope.currentCardUid = null;
   $scope.profiles = [];
+  $scope.relationships = [];
+  Auth.getRelationships().$loaded().then(function(data){
+    $scope.relationships=data;
+    console.log('got relationships');
+  });
 
   $scope.currentRecommendedIndex = null;
   $scope.currentRecommendedCardUid = null;
@@ -44,15 +49,26 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
     }, 3000);
   });
 
+  $scope.isBlocked=function(blocks){
+    if(blocks){
+        if(uid in blocks){
+            return {"display" :"none"}
+        }else{
+            return
+        }
+    }
+    return
+  };
+
   $scope.getUnknowns =function(flag){
             if(flag<$scope.profiles.length && $scope.timeFlag){
-                  $scope.unknownImages[$scope.profiles[flag].uid]='img/loading.png';
-                        Wannas.imageAll($scope.profiles[flag].uid).$loaded().then(function(images){
+                  $scope.unknownImages[$scope.profiles[flag].$id]='img/loading.png';
+                        Wannas.imageAll($scope.profiles[flag].$id).$loaded().then(function(images){
                               console.log('got new image');
                               if(images[0]==null){//console.log('undefined');
-                                  $scope.unknownImages[$scope.profiles[flag].uid]='img/white.png';
+                                  $scope.unknownImages[$scope.profiles[flag].$id]='img/white.png';
                               }else{
-                                  $scope.unknownImages[$scope.profiles[flag].uid]=images[0]['images'];
+                                  $scope.unknownImages[$scope.profiles[flag].$id]=images[0]['images'];
                               }
                             $scope.getUnknowns(flag+1);
                         },function(error){
@@ -152,10 +168,10 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
   });
 
     $scope.uids=['init'];
-    var ef = new Firebase(FURL);
-    ef.child('users').orderByKey().on("child_added", function(snapshot) {
-        $scope.uids.push(snapshot.key());
-    });
+//    var ef = new Firebase(FURL);
+//    ef.child('users').orderByKey().on("child_added", function(snapshot) {
+//        $scope.uids.push(snapshot.key());
+//    });
 
     $scope.nameAddress={};
 
@@ -180,18 +196,24 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
 	$scope.searchFriendsByName = function(index,friendNameToFind){
             //まずは検索窓の初期化
             $scope.cardRemove(index);
-//            console.log('in searching', $scope.uids);
-            var num = $scope.uids.length;
-            if(Object.keys($scope.nameAddress).length==num){
-                $scope.searchFriendsByNameSubRoutine(friendNameToFind);
-            }else{
-                for(var i=0; i< num; i++){
-    //                console.log('name getting loop',num);
-                    $scope.connectUidAndName($scope.uids[i],num,friendNameToFind);
-                };
-            }
+//            $scope.relationships=Auth.getRelationships();
+            $scope.searchFriendsByNameSubRoutine(friendNameToFind);
 
-            console.log('address',$scope.nameAddress);
+//            console.log('in searching', $scope.uids);
+
+            //知らないひとのuidと名前が全て出揃ってたら名前検索をfireする。
+//            var num = $scope.uids.length;
+//            if(Object.keys($scope.nameAddress).length==num){
+//                $scope.searchFriendsByNameSubRoutine(friendNameToFind);
+//            }else{//そうでなければ知らない人のuidから名前を取得し、取得が終わり次第検索実行。
+//                for(var i=0; i< num; i++){
+//                    $scope.connectUidAndName($scope.uids[i],num,friendNameToFind);
+//                };
+//            }
+
+
+
+//            console.log('address',$scope.nameAddress);
 //            $scope.searchFriendsByNameSubRoutine(friendNameToFind);
             };
 
@@ -205,15 +227,16 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
                         $scope.serchprofiles = [];
                         console.log("searching...",friendNameToFind);
                         var serchword = new RegExp(friendNameToFind);
-                        for (var i = 0; i < $scope.uids.length; i++){
-                            var itemId=$scope.uids[i];
-//                            console.log('itemId',itemId);
-                            var test = String ($scope.nameAddress[itemId]);
-//                            console.log('test',test);
+                        for (var i = 0; i < $scope.relationships.length; i++){
+//                            var itemId=$scope.uids[i];
+                            var itemId=$scope.relationships[i].$id;
+                            console.log('itemId',itemId);
+                            var test = String ($scope.relationships[i].name);
+                            console.log('test',test);
                             if ( test.match(serchword) && itemId != currentUid && _.contains(_.pluck($scope.allFriendslist,'$id'),itemId)!= true) {
                                 //nameが部分一致かつ、自分自身ではない時
                                 //かつすでに友達関係にない。
-                                $scope.serchprofiles.push({'uid':itemId, 'name':test});
+                                $scope.serchprofiles.push($scope.relationships[i]);
                             }
                         };
 

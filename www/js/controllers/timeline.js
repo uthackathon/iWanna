@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray,Message) {
+app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray,Message,Report) {
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)
@@ -96,24 +96,26 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                 $scope.doReload=function(){
                     allwanna=Wannas.all(currentUid);
                     Match.allMatchesByUser(uid).$loaded().then(function(data) {
-                    //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                      Report.getMyMutes(uid).$loaded().then(function(mutes){
                           for (var i = 0; i < data.length; i++) {
                               var item = data[i];
                               $scope.friendidList.push(item.$id);
+                              console.log('isMute',item.$id in mutes);
+                              if(item.$id in mutes){
+                              }else{
                               Wannas.all(item.$id).$loaded().then(function(friendwanna) {
-                                var len =friendwanna.length;
+                                var len = friendwanna.length;
                                 for (var j = 0; j < len; j++) {
                                   allwanna.push(friendwanna[j]);
-//                                  if (j == len-1){
-//                                      $scope.wannasShowing=$scope.wannas($scope.displayState);
-//                                  }
                                 }
                               });
+                              }
                           }
                         console.log("allwanna is",allwanna);
                         console.log("friend ids are",$scope.friendidList);
-                    $scope.displayState=1;
-                    $scope.$broadcast('scroll.refreshComplete');
+                        $scope.displayState=1;
+                        $scope.$broadcast('scroll.refreshComplete');
+                      });
                     });
 //                    location.reload(false);
                     $scope.wannasShowing=$scope.wannas($scope.displayState);
@@ -126,18 +128,20 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
 
                 Match.allMatchesByUser(uid).$loaded().then(function(data) {
                 //$loadedを使わないとlengthが正常動作しない（違うとこのlengthを参照する）
+                  Report.getMyMutes(uid).$loaded().then(function(mutes){
                       for (var i = 0; i < data.length; i++) {
                           var item = data[i];
                           $scope.friendidList.push(item.$id);
+                          console.log('isMute',item.$id in mutes);
+                          if(item.$id in mutes){
+                          }else{
                           Wannas.all(item.$id).$loaded().then(function(friendwanna) {
                             var len = friendwanna.length;
                             for (var j = 0; j < len; j++) {
                               allwanna.push(friendwanna[j]);
-//                              if (j == len-1){
-//                                  $scope.wannasShowing=$scope.wannas($scope.displayState);
-//                              }
                             }
                           });
+                          }
                       }
                     for(var k =0;k< $scope.friendidList.length;k++){
                         fb.child('users').child($scope.friendidList[k]).child('wannas').on('child_changed', function(childSnapshot, prevChildKey) {
@@ -148,6 +152,7 @@ app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateServ
                     }
                     console.log("allwanna is",allwanna);
                     console.log("friend ids are",$scope.friendidList);
+                  });
                 });
 
                 $scope.changeState= function(num){

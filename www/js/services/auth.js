@@ -9,7 +9,10 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
     user:{},
 
     createProfile: function(uid,user) {
-      return ref.child('users').child(uid).set(user);
+      var onComplete= function(err){
+          return ref.child('users').child(uid).set(user);
+      };
+      return ref.child('relationships').child(uid).child('name').set(user.name,onComplete);
       // return profiles.child(uid).$add("test");
    
     },
@@ -35,6 +38,10 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
       return $firebaseArray(ref.child('users'));
     },
 
+    getRelationships: function(){
+      return $firebaseArray(ref.child('relationships'));
+    },
+
 
 
     login: function(user){
@@ -53,12 +60,12 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
     register: function(user){
       
       console.log('in the register');
-      return auth.$createUser({ 
+      return auth.$createUser({
         email: user.email,
         password: user.password,
-        intro: "User Information",
+//        intro: "User Information",ここじゃなかった
       }).then(function(authData){
-        
+        user['intro']="User Information";
         console.log('user is saving');
         Auth.createProfile(authData.uid,user)
         return Auth.login(user);
