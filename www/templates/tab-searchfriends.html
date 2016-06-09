@@ -18,10 +18,10 @@
                           </div> -->
 
                 <div class="item item-button-right"><!--検索用-->
-                    <img data-ng-src={{unknownImages[profile.uid]}} style="height:40px ; width:40px; border-radius: 200px">
+                    <img data-ng-src={{unknownImages[profile.$id]}} style="height:40px ; width:40px; border-radius: 200px">
                     {{profile.name}}
                     <!--{{profile.uid}}-->
-                    <button class="button button-calm" ng-click = "follow($index, profile.uid)" >
+                    <button class="button button-calm" ng-click = "follow($index, profile.$id)" ng-style="isBlocked(profile.blocks)">
                         <i class="icon ion-person-add"></i>
                     </button>
                 </div>
