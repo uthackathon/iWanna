@@ -12,7 +12,7 @@
         <button ng-click="writeWanna()" class="button button-full icon big ion-compose button-calm ">
             iWanna...
         </button>
-        <div align="right">
+        <div align="right" style=" margin-bottom:10px;">
             <a ng-class="genreIcon(displayState)" ng-click="changeState(2)"></a>
             <a class="button button-icon icon ion-android-time" ng-click="changeState(1)"></a>
             <a class="button button-icon icon ion-flame" ng-click="changeState(3)"></a>
@@ -21,14 +21,13 @@
 
 
         <!--<div class="list list-inset">-->
-        <label class="item item-input" id="searchBox" style="display:none; border: 0px;">
+        <label class="item item-input" id="searchBox" style="display:none; border: 0px;  margin-bottom:10px;">
                 <!--<i class="icon ion-search big placeholder-icon"></i>-->
                 <input ng-change = "searchWannas(tipsToFind)" ng-model="tipsToFind" placeholder="Search">
             </label>
         <!--</div>-->
-        <br>
 
-        <div class="list" style=" padding-top: 0px; padding-bottom: 0px; margin-bottom: 8px;" ng-repeat="wanna in wannasShowing" ng-init="referImageAndLike(wanna,$last)">
+        <div class="list" style=" padding-top: 0px; padding-bottom: 0px; margin-bottom: 6px;" ng-repeat="wanna in wannasShowing" ng-init="referImageAndLike(wanna,$last)">
             <div class="wanna" style=" border-right-color:{{wanna.color}};">
                     <div class="uimg">
                         <img style="height:100% ; width:100%; border-radius: 200px" data-ng-src={{friendImages[wanna.ownerId]}} ng-Click="goFriendHomePage(wanna)">
