@@ -292,9 +292,9 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 
                    var num=Math.round(Number(mot)*colorArray.length/100.);
                    var pColor=getColorForPercentage(Number(mot)/100.);
-                   console.log('percentage color',getColorForPercentage(Number(mot)/100.),mot);
+                   // console.log('percentage color',getColorForPercentage(Number(mot)/100.),mot);
                    var colorMap=colorArray[num];
-                   console.log('colorMap',colorMap);
+                   // console.log('colorMap',colorMap);
                    return pColor;
                  },
 

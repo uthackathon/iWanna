@@ -29,7 +29,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
 //               console.log("year",typeof now.getUTCFullYear());
 //               var time = now.getUTCFullYear()*10000000000+(now.getUTCMonth()+1)*100000000+now.getUTCDate()*1000000+now.getUTCHours()*10000+now.getUTCMinutes()*100+now.getUTCSeconds();
                var time = now.getFullYear()*10000000000+(now.getMonth()+1)*100000000+now.getDate()*1000000+now.getHours()*10000+now.getMinutes()*100+now.getSeconds();
-               console.log('time',time);
+               // console.log('time',time);
                console.log("submit button was clicked",wanna);
 
 //             各アイコンの画像名をiconNameに追加する。   配列のメソッドについては http://hakuhin.jp/js/array.html を参考にした
@@ -49,7 +49,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                if(iconArray[4]){
                 var num = iconNames.unshift(icon5);
                }
-               console.log("icon names",wanna);
+               // console.log("icon names",wanna);
 
                if(wanna.description==null){
                 wanna.description="[No description]";
@@ -66,14 +66,14 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                    $state.go('tab.dash');
                  }
                },5000);
-               console.log("start getUserName");
+               // console.log("start getUserName");
 
                Wannas.getObjectUserName(currentUid).$loaded().then(function(obj){
                    var userName=obj.$value;
-                   console.log("got userName");
+                   // console.log("got userName");
                    if(flag){
                    flag=0;
-                   console.log("start upload");
+                   // console.log("start upload");
                    Wannas.saveWanna(wanna,currentUid,userName,iconNames,time,$scope.motColor,$scope.motivation);
                    $state.go('tab.dash');
                    }
@@ -89,9 +89,9 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
 
                //sport button をデバック用に使ってます。
                $scope.wannaSport=function(){
-               console.log(typeof now);
-               console.log("uid is", currentUid);
-               console.log("sport button was clicked");
+               // console.log(typeof now);
+               // console.log("uid is", currentUid);
+               // console.log("sport button was clicked");
                var target = document.getElementById(buttonsName[0]);
                if (iconArray[0]==0){
                     var pos =iconArray.indexOf(1);
@@ -113,7 +113,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                };
 
                $scope.wannaDinner=function(){
-               console.log("dinner button was clicked");
+               // console.log("dinner button was clicked");
                var target = document.getElementById(buttonsName[1]);
                if (iconArray[1]==0){
                     var pos =iconArray.indexOf(1);
@@ -136,7 +136,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                };
 
                $scope.wannaShopping=function(){
-               console.log("Shopping button was clicked");
+               // console.log("Shopping button was clicked");
                var target = document.getElementById(buttonsName[2]);
                if (iconArray[2]==0){
                     var pos =iconArray.indexOf(1);
@@ -160,7 +160,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                };
 
                $scope.wannaSightseeing=function(){
-               console.log("Sightseeing button was clicked");
+               // console.log("Sightseeing button was clicked");
                var target = document.getElementById(buttonsName[3]);
                if (iconArray[3]==0){
                     var pos =iconArray.indexOf(1);
@@ -183,7 +183,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                };
 
                $scope.wannaMusic=function(){
-               console.log("Music button was clicked");
+               // console.log("Music button was clicked");
                var target = document.getElementById(buttonsName[4]);
                if (iconArray[4]==0){
                     var pos =iconArray.indexOf(1);
@@ -206,7 +206,7 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                };
 
                $scope.changeSlider=function(motivation){
-                 console.log('slider changed');
+                 // console.log('slider changed');
                  $scope.motivation=motivation;
                  $scope.motColor=Wannas.getColor(motivation);
                  subBut.style.backgroundColor=$scope.motColor;
