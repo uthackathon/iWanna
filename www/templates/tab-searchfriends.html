@@ -4,7 +4,7 @@
             <a class="button button-icon icon ion-search" ng-click="showSearchFriendsBox()"></a>
             <!--<i class="icon ion-search big placeholder-icon" ng-click="showSearchFriendsBox()"></i>-->
         </div>
-        <div class="list list-inset">
+        <div class="list list-inset" style="margin-top:0px;margin-bottom:8px;">
             <label class="item item-input" id="searchFriendsBox" style="display:none; border: 0px;">
                 <input ng-change = "searchFriendsByName($index,friendNameToFind)"  ng-model="friendNameToFind" placeholder="Search Friends">
             </label>
@@ -13,9 +13,6 @@
 
         <div>
             <ion item class="list card" ng-repeat="profile in profiles">
-                <!--           <div class="item item-divider">
-                              Search Result
-                          </div> -->
 
                 <div class="item item-button-right"><!--検索用-->
                     <img data-ng-src={{unknownImages[profile.$id]}} style="height:40px ; width:40px; border-radius: 200px">
