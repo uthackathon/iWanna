@@ -48,7 +48,7 @@ app.controller('LoginCtrl', function($scope, $state, $firebaseAuth, $ionicPopup,
                   });
                   alertPopup.then(function(res) {
                        console.log('Callbacks');
-                       $scope.emailLogin();
+//キャンセルボタンないので一時的に廃止                       $scope.emailLogin();
                      });
 
               console.log('Error...', err);
@@ -99,7 +99,7 @@ app.controller('LoginCtrl', function($scope, $state, $firebaseAuth, $ionicPopup,
                   });
                   alertPopup.then(function(res) {
                        console.log('Callbacks');
-                       $scope.emailLogin();
+//キャンセルボタンないので一時的に廃止                       $scope.emailLogin();
                      });
               console.log('Error...', err);
             });
