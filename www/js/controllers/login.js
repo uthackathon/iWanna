@@ -117,14 +117,12 @@ app.controller('LoginCtrl', function($scope, $state, $firebaseAuth, $ionicPopup,
 
 
   $scope.TwitterLogin = function() {
-    console.log("TwBTNclicked");
+    console.log("twclicked");
     auth.$authWithOAuthPopup("twitter", function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);
       } else {
         console.log("Authenticated successfully with payload:", authData);
-        window.alert(authData);
-        console.log(authData.uid);
         return authData
       }
     })
@@ -138,6 +136,7 @@ app.controller('LoginCtrl', function($scope, $state, $firebaseAuth, $ionicPopup,
                                 password: "",
                                 intro: "User Information",
                                 images : [imgURL],
+                                twId : authData.twitter.id,
                         };
                         $firebaseArray(ref.child('users').child(uid)).$loaded().then(function(data) {
                             if (data.length == 0){//array==0 未登録
@@ -154,10 +153,50 @@ app.controller('LoginCtrl', function($scope, $state, $firebaseAuth, $ionicPopup,
                             };
                         });
 
-                        });
+    });
     $state.go('tab.dash');
   };
 
+    $scope.FacebookLogin = function() {
+    console.log("fbclicked");
+    auth.$authWithOAuthPopup("facebook", function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+        return authData
+      }
+    })
+    .then(function(authData){
+                        var uid = authData.uid;
+                        var imgURL = { images : authData.facebook.profileImageURL};
+                        console.log("test",$firebaseArray(ref.child('users').child(uid)));
+                        var userRegister = {
+                                name: authData.facebook.displayName,
+                                email: "",
+                                password: "",
+                                intro: "User Information",
+                                images : [imgURL],
+                                fbId : authData.facebook.id,
+                        };
+                        $firebaseArray(ref.child('users').child(uid)).$loaded().then(function(data) {
+                            if (data.length == 0){//array==0 未登録
+                                Auth.createProfile(uid,userRegister);
+                                //運営と友達に
+                                var developerUid = "124797f2-5b56-47e6-aac3-3a4830f760b4";
+                                ref.child('follows').child(uid).child(developerUid).set(true);
+                                ref.child('follows').child(developerUid).child(uid).set(true);
+                                ref.child('followeds').child(uid).child(developerUid).set(true);
+                                ref.child('followeds').child(developerUid).child(uid).set(true);
+                                ref.child('matches').child(uid).child(developerUid).set(true);
+                                ref.child('matches').child(developerUid).child(uid).set(true);
+                                console.log("account data was created");
+                            };
+                        });
+
+    });
+    $state.go('tab.dash');
+  };
 
 
 
