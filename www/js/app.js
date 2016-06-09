@@ -383,6 +383,25 @@ var app = angular.module('starter', [
     }
   })
 
+  .state('tab.terms-of-use', {
+    url: '/account/terms-of-use',
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/terms-of-use.html',
+        controller: 'TermsOfUseCtrl',
+        resolve: {
+                  uid: function(Auth) {
+                    return Auth.requireAuth()
+                      .then(function(auth){
+                        console.log(auth);
+                        return auth.uid;
+                    });
+                  }
+                }
+      }
+    }
+  })
+
 
 
   // if none of the above states are matched, use this as the fallback

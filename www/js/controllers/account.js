@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $firebaseArray,$cordovaInAppBrowser){
+app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $firebaseArray,$cordovaInAppBrowser,$state){
 
 	$scope.accountInformation = Auth.getProfile(uid);
     var fb = new Firebase(FURL);
@@ -23,6 +23,10 @@ app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $fi
 
    	Auth.logout();
  	};
+
+    $scope.termsOfUse = function(){
+    $state.go('tab.terms-of-use');
+    };
 
     $scope.aboutUTH = function()
     {
