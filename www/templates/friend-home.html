@@ -3,15 +3,23 @@
     <a class="button button-icon icon ion-more" ng-click="report(clickedFriendName,clickedFriendId)" style="color:#ffffff"></a>
   </ion-nav-buttons>
   <ion-content>
-      <div class="list">
-        <a class="item item-avatar">
+      <!--<div class="list">-->
+        <a class="item item-avatar" ng-click="defaultWanna()">
         <img data-ng-src={{friendImages[clickedFriendId]}}>
         {{clickedFriendName}}
         <p> all Wannas List </p>
         </a>
-      </div>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="wanna in allWannasList" type="item-text-wrap" >
+      <!--</div>-->
+    <div class="button-bar">
+      <a class="button" ng-click="showCompletes()"><i class="icon ion-ios-star"></i></a>
+      <a class="button" ng-click="showFriends()"><i class="icon ion-person-stalker"></i></a>
+      <a class="button" ng-click="messagePopup()"><i class="icon ion-paper-airplane"></i></a>
+    </div>
+
+
+    <!--wannaの表示用-->
+    <ion-list id="wannaList" style="display:block">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="wanna in showingWannasList" type="item-text-wrap" >
         <i class = {{wanna.icon[0]}} style=" color:{{wanna.color}};"></i>
         <h2 ng-Click="goContentPage(wanna)">{{wanna.content}}</h2>
         <p ng-Click="goContentPage(wanna)">{{wanna.description}}</p>
@@ -20,9 +28,24 @@
         <!--</ion-option-button>-->
       </ion-item>
     </ion-list>
-  </ion-content>
-</ion-view>
 
+    <div id="friendList" style="display:none">
+      <div class="list card" ng-repeat="profile in profiles" ng-init="referImage(profile)">
+
+        <div class="item item-button-right">
+          <img data-ng-src={{recommendedImages[profile.$id]}} style="height:40px ; width:40px; border-radius: 200px">
+          {{profile.name}}
+          <!--{{profile.uid}}-->
+          <button class="button button-calm" ng-click = "followOrSendMessage(profile)" ng-style="profile.disp">
+            <i class="{{profile.icon}}"></i>
+          </button>
+        </div>
+
+      </div>
+      <button id="moreButton" class="button button-block button-stable" ng-click = "moreFriend()">
+        Watch More
+      </button>
+    </div>
 
 
   </ion-content>

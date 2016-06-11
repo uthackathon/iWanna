@@ -24,26 +24,29 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
                         console.log('roomId is',roomId);
                         var user1 = $firebaseArray(ref.child('users').child(uid1).child('rooms'));
                         var user2 = $firebaseArray(ref.child('users').child(uid2).child('rooms'));
-                        
-                        var newRoom1 = {
-                          roomId: roomId,
-                          friendId: uid2, 
-                          friendName: Wannas.getUserName(uid2)
 
-                        };
+                        Wannas.getObjectUserName(uid2).$loaded().then(function(obj2){
+                            var userName2=obj2.$value;
+                            var newRoom1 = {
+                              roomId: roomId,
+                              friendId: uid2,
+                              friendName: userName2,
+                            };
 
 
-                        return user1.$add(newRoom1).then(function(){
-                          var newRoom2 = {
-                          roomId: roomId,
-                          friendId: uid1,
-                          friendName: Wannas.getUserName(uid1)
-
-                        };
-                          return user2.$add(newRoom2);
-
+                            return user1.$add(newRoom1).then(function(){
+                              Wannas.getObjectUserName(uid1).$loaded().then(function(obj1){
+                                var userName1=obj1.$value;
+                                var newRoom2 = {
+                                roomId: roomId,
+                                friendId: uid1,
+                                friendName: userName1,
+                                };
+                                return user2.$add(newRoom2);
+                              });
+                            });
                         });
-                        
+
                         
 
                       });
