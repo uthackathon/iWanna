@@ -97,7 +97,7 @@ app.controller('SearchFriendsCtrl', function($timeout,Wannas,Loading,FURL,$fireb
                         });
                    }
                };
-
+                //上のreferはリコメンド用、以下はフレンドの画像取得用
                $scope.referImage2 = function(friendUserId){
                    console.log('refer image fired');
                    if(friendUserId in $scope.friendImages){

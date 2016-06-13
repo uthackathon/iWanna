@@ -1,4 +1,4 @@
-<ion-view view-title="Dashboard">
+<ion-view view-title="Contents">
     <ion-nav-buttons side="right">
         <a class="button button-icon icon ion-more" ng-click="report(clickedWanna.user_name,clickedWanna.ownerId)" style="color:#ffffff"></a>
     </ion-nav-buttons>
@@ -23,12 +23,23 @@
              <button id="likeInContent" style="color:#bbbbbb; background-color: #ffffff; width : 50px;" type="button" class="button icon ion-heart" ng-init="colorTheLikes(clickedWanna)" ng-Click="likeWannaInContent(clickedWanna)"></button>
     </div>
   </div>
-      <div class="list" id="likeBoard" style="visibility:visible" ng-repeat="user in likedUsers">
-          <a class="item item-avatar" href="#">
-              <img data-ng-src={{friendImages[user.id]}}>
-              <p>{{user.name}}</p>
-          </a>
-
+        <!--<p>{{likedUsers}}</p>-->
+      <div id="likeBoard" style="display:none">
+          <div class="item item-divider">
+              {{likeNum}} Users Liked
+          </div>
+          <br>
+            <!--ng-repeatの表示、非表示をやるときは、ひとつ上のdivなどでdisplay:none block を切り替えなければならない。じゃないと、repeatの一つだけしかコントロールできない-->
+          <div class="list" ng-repeat="user in likedUsers" ng-init="getName(user)">
+              <div class="item item-avatar">
+                  <img data-ng-src={{unknownImages[user.$id]}}>
+                  <p>{{user.name}}</p>
+              </div>
+          </div>
       </div>
+      <button id="moreLikeButton" style="display:none" class="button button-block button-stable" ng-click = "moreFriend()">
+          Watch More
+      </button>
+
   </ion-content>
 </ion-view>

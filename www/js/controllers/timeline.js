@@ -1,6 +1,30 @@
 'use strict'
 
 app.controller('DashCtrl', function(uid,usr,$scope,$state,Wannas,SharedStateService,Match,$timeout,FURL, $firebaseArray,Message,Report) {
+//ローカルストレージから情報を取り出す。もしローカルが利用できない場合やまだ情報がない場合はFirebaseから情報を落として保管。
+// localStorageが使用出来るかチェック
+if (!window.localStorage) {
+    console.log("no LocalStorage");
+}else{
+    console.log("Use LocalStorage");
+};
+
+// localStorageに値を保存
+function setItem(key, val) {
+    window.localStorage.setItem(key, val);
+};
+setItem(uid,true);
+// localStorageから値を取得
+function getItem(key) {
+    return window.localStorage.getItem(key);
+};
+var storage= getItem(uid);
+console.log(storage);
+//ローカルストレージのイニシャライズ終わり
+//これらをserviceファイル にしよう。
+//参考http://qiita.com/ichikawa_0829/items/85413fedc59822ccef75
+
+
                //ログインする前に uid を参照しようとするとエラーとなるので注意。
                //エラー処理については http://uhyohyo.net/javascript/9_8.html
                //ログインする前にuid は使えないので、エラー処理を入れた。(結局、抜いた)

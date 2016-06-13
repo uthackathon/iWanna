@@ -22,6 +22,7 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
                       return rooms.$add(newRoom).then(function(){
                         var roomId = rooms[rooms.length - 1].$id//新しく追加したroomIdを取得
                         console.log('roomId is',roomId);
+
                         var user1 = ref.child('users').child(uid1).child('rooms');
                         var user2 = ref.child('users').child(uid2).child('rooms');
 
