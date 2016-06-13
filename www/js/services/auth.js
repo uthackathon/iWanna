@@ -42,6 +42,10 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebaseObject, $state, $fire
       return $firebaseArray(ref.child('relationships'));
     },
 
+    getUserRelation: function(friendUid){
+      return $firebaseObject(ref.child('relationships').child(friendUid));
+    },
+
 
 
     login: function(user){

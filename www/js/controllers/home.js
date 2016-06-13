@@ -51,10 +51,12 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
       $scope.$broadcast('scroll.refreshComplete');
 
   });
-
-
   };
 
+
+  $scope.alertComplete=function(wanna){
+    Wannas.completePopup(wanna);
+  };
 
   // $scope.$on('$ionicView.enter', function(e){
   //   // $scope.show();
