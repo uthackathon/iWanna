@@ -1,4 +1,4 @@
-<ion-view view-title="Dashboard">
+<ion-view view-title="Contents">
     <ion-nav-buttons side="right">
         <a class="button button-icon icon ion-more" ng-click="report(clickedWanna.user_name,clickedWanna.ownerId)" style="color:#ffffff"></a>
     </ion-nav-buttons>
@@ -36,9 +36,10 @@
                   <p>{{user.name}}</p>
               </div>
           </div>
-          <button id="moreButton" class="button button-block button-stable" ng-click = "moreFriend()">
-              Watch More
-          </button>
       </div>
+      <button id="moreLikeButton" style="display:none" class="button button-block button-stable" ng-click = "moreFriend()">
+          Watch More
+      </button>
+
   </ion-content>
 </ion-view>
