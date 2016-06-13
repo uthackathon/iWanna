@@ -16,8 +16,6 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
 
                if(idArray.length<friendNumFlag){//制限個数より少ない時
                  friendNumFlag=idArray.length;//制限個数を配列個数に縮小
-                 //ボタンの非表示
-                 document.getElementById('moreButton').style.display="none";
                }
                $scope.likedUsers=idArray.slice(0,friendNumFlag);//表示個数制限
 
@@ -46,32 +44,11 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
                         friendNumFlag =friendNumFlag+10;//さらに表示する個数をたす。
                         if(friendNumFlag>idArray.length){
                             friendNumFlag=idArray.length;
-                            document.getElementById('moreButton').style.display="none";
+                            document.getElementById('moreLikeButton').style.display="none";
                         }
                         $scope.likedUsers=idArray.slice(0,friendNumFlag);//表示個数制限
                };
 
-
-//               $scope.extract=function(idArray){
-//                    if(idArray.length>1){
-//                    var oneID=idArray[0];//ひとつ目のライクした人のid を取得
-//                    Wannas.getObjectUserName(oneID).$loaded().then(function(obj){
-//                      var name = obj.$value;
-//                      console.log('name',name);
-//                      if(name){
-//                         console.log('Writing');
-//                         $scope.likedUsers.push({'name': name,
-//                         'id': oneID});
-//                         idArray.shift();//ひとつめを削除
-//                         console.log('idArray',idArray);
-//                         $scope.extract(idArray);//減ったidArrayでまた始める
-//                      }
-//                    });
-//                    }else{
-//                        console.log('end of like users');
-//                    }
-//               };
-//               $scope.extract(idArray);
                $scope.getName=function(user){
                     console.log('get name fired');
                     Wannas.getObjectUserName(user.$id).$loaded().then(function(obj){
@@ -98,8 +75,14 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
                  if(document.getElementById('likeBoard').style.display=='none'){
                      console.log('show liked users');
                      document.getElementById('likeBoard').style.display='block';
+                     console.log('idArray',idArray.length);
+                     console.log('friendNum',friendNumFlag);
+                     if(idArray.length>friendNumFlag){//制限個数より多い
+                         document.getElementById('moreLikeButton').style.display="block";
+                     }//moreButtonでやってたら、friendHomeのボタンと名前がかぶってこちらのボタンの反応がなくなった。(stateは移動前のタブとのボタンIDなどが被らないように注意)
                  }else{
                      document.getElementById('likeBoard').style.display='none';
+                     document.getElementById('moreLikeButton').style.display="none";
                  }
                }
 
