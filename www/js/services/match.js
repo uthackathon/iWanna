@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('Match', function(FURL, $firebaseArray) {
+app.factory('Match', function(FURL, $firebaseArray,$firebaseObject) {
 	var ref = new Firebase(FURL);
 
 	var Match = {
@@ -9,7 +9,13 @@ app.factory('Match', function(FURL, $firebaseArray) {
 
 			return $firebaseArray(ref.child('matches').child(uid));
 		},
-		
+
+		allMatchesByUserObject: function(uid) {//オブジェクト版も追加した
+
+			return $firebaseObject(ref.child('matches').child(uid));
+		},
+
+
 		checkMatch: function(uid1,uid2) {
 			var check = ref.child('follows').child(uid2).child(uid1);
 

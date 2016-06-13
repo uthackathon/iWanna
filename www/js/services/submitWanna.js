@@ -1,6 +1,6 @@
 'use strict'
 
-app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
+app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray,$ionicPopup) {
 
               var ref =new Firebase(FURL);
 //              var wannas = $firebaseArray(ref.child('facebookuser').child('wannas'));//firebase構造によって変えてみてください。
@@ -153,6 +153,43 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray) {
 //                   $scope.wannas=data;//表示するやつをdata に同期
                    console.log("users likes",likedWannaId);
                    return likedWannaId;
+                 },
+
+                 completePopup:function(wanna){
+                      var myPopup = $ionicPopup.show({
+                        template: '<p style="color:#777777 ">このWannaを達成しましたか？</p>',
+                        title: 'Complete',
+//                        subTitle: 'Please use normal things',
+                        buttons: [
+                          { text: 'Cancel' },
+                          {
+                            text: '<b>達成した！</b>',
+                            type: 'button-energized',
+                            onTap: function(e) {
+                                ref.child('users').child(wanna.ownerId).child('wannas').child(wanna.$id).child('complete').set(1);
+                                ref.child('users').child(wanna.ownerId).child('wannas').child(wanna.$id).child('icon').child(0).set('ion-android-star-outline');//('ion-ribbon-b');//('ion-ios-star-outline');
+                                  var congratulation = $ionicPopup.show({
+                                    template: '<p style="color:#777777 ">あなたのWannaは達成されました。</p>',//<p style="color:#777777 ">このWannaが素敵な思い出となり、あなたの未来をより豊かにしてくれますことを願っています。</p>',
+                                    title: 'おめでとうございます',
+            //                        subTitle: 'Please use normal things',
+                                    buttons: [
+                                      {
+                                        text: 'OK',
+                                        type: 'button-energized',
+                                      }
+                                    ]
+                                  });
+                            }
+                          }
+                        ]
+                      });
+
+                      myPopup.then(function(res) {
+                        console.log('Tapped!', res);
+                      });
+//                      $timeout(function() {
+//                         myPopup.close(); //close the popup after 3 seconds for some reason
+//                      }, 3000);
                  },
 
                  getColor:function(mot){//0 から100 の数字でカラーを返す

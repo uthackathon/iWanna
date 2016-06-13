@@ -7,11 +7,19 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
                var likedUsersId=$scope.clickedWanna.likes;
                var idArray=[];
                var roomList = [];
+               var friendNumFlag=5;//likeした人の初期表示数。
                for(var key in likedUsersId){
-                   idArray.push(key);
+                   console.log('liked User',key);
+                   idArray.push({'$id':key});
                };
-               $scope.likedUsers=[];
+               idArray.pop();//initial valueの消去。popの返り値は削除した値になるので注意。idArrayは一つ削られた配列に変化する。
 
+               if(idArray.length<friendNumFlag){//制限個数より少ない時
+                 friendNumFlag=idArray.length;//制限個数を配列個数に縮小
+               }
+               $scope.likedUsers=idArray.slice(0,friendNumFlag);//表示個数制限
+
+               $scope.unknownImages={};
                console.log("ContentPage",$scope.clickedWanna.content);
                $scope.friendImages ={'initUid':'initImg'};
                var currentUid=uid;
@@ -31,31 +39,51 @@ app.controller('WannaContentCtrl', function(uid,$scope,$state,SharedStateService
                 }
                });
 
-               $scope.extract=function(idArray){
-                    if(idArray.length>1){
-                    var oneID=idArray[0];//ひとつ目のライクした人のid を取得
-                    Wannas.getObjectUserName(oneID).$loaded().then(function(obj){
-                      var name = obj.$value;
-                      console.log('name',name);
-                      if(name){
-                         console.log('Writing');
-                         $scope.likedUsers.push({'name': name,
-                         'id': oneID});
-                         idArray.shift();//ひとつめを削除
-                         console.log('idArray',idArray);
-                         $scope.extract(idArray);//減ったidArrayでまた始める
-                      }
+
+               $scope.moreFriend=function(){
+                        friendNumFlag =friendNumFlag+10;//さらに表示する個数をたす。
+                        if(friendNumFlag>idArray.length){
+                            friendNumFlag=idArray.length;
+                            document.getElementById('moreLikeButton').style.display="none";
+                        }
+                        $scope.likedUsers=idArray.slice(0,friendNumFlag);//表示個数制限
+               };
+
+               $scope.getName=function(user){
+                    console.log('get name fired');
+                    Wannas.getObjectUserName(user.$id).$loaded().then(function(obj){
+                      user['name'] = obj.$value;
                     });
-                    }else{
-                        console.log('end of like users');
-                    }
+                      if(user.id in $scope.unknownImages){
+                      console.log('already gotten recommend');
+                      }else{
+                      $scope.unknownImages[user.$id]='img/loading.png';
+                      Wannas.imageAll(user.$id).$loaded().then(function(images){
+                          console.log('got new image');
+                          if(images[0]==null){console.log('undefined');
+                              $scope.unknownImages[user.$id]='img/iw_gray.png';
+                          }else{
+                              $scope.unknownImages[user.$id]=images[0]['images'];
+                          }
+                      },function(error){
+                      console.log('oh no! no images file');
+                      });
+                      }
                };
 
                $scope.showLikedUsers=function(){
-                 $scope.extract(idArray);
-                 console.log('show liked users');
-//                 var likeBoard=document.getElementById('likeBoard');
-//                 likeBoard.style.visibility="visible";
+                 if(document.getElementById('likeBoard').style.display=='none'){
+                     console.log('show liked users');
+                     document.getElementById('likeBoard').style.display='block';
+                     console.log('idArray',idArray.length);
+                     console.log('friendNum',friendNumFlag);
+                     if(idArray.length>friendNumFlag){//制限個数より多い
+                         document.getElementById('moreLikeButton').style.display="block";
+                     }//moreButtonでやってたら、friendHomeのボタンと名前がかぶってこちらのボタンの反応がなくなった。(stateは移動前のタブとのボタンIDなどが被らないように注意)
+                 }else{
+                     document.getElementById('likeBoard').style.display='none';
+                     document.getElementById('moreLikeButton').style.display="none";
+                 }
                }
 
                $scope.date = function(dayInt){
