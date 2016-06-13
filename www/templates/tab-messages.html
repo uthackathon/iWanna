@@ -1,14 +1,16 @@
 <ion-view view-title="Message Rooms">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="room in AllRooms" type="item-text-wrap" ng-click="goMessageRoom(room.roomId)">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="room in AllRooms" type="item-text-wrap" ng-click="goMessageRoom(room.roomId,room.friendName)" >
         <img data-ng-src={{friendImages[room.friendId]}}>
         <h2>{{room.friendName}}</h2>
+        <p style="color:{{room.color}};">{{room.lastMessage}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(room.roomId)">
+        <ion-option-button class="button-assertive" ng-click="removeMessageRoom(room.roomId)">
           Delete
         </ion-option-button>
+
       </ion-item>
     </ion-list>
   </ion-content>

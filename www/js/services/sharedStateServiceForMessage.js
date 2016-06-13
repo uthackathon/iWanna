@@ -2,6 +2,7 @@
 
 app.factory("SharedStateServiceForMessage", function() {
                     return {
-                        chosenRoomId: 'SharedStateServiceForMessage'
+                        chosenRoomId: 'SharedStateServiceForMessage',
+                        chosenUserName: 'SharedStateServiceForMessage'
                     };
             });

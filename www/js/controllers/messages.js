@@ -1,7 +1,9 @@
 'use strict'
 
-app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStateServiceForMessage,SharedStateService){
+app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStateServiceForMessage,SharedStateService, $firebaseArray,FURL,$firebaseObject){
   $scope.friendImages ={'initUid':'initImg'};
+
+  var ref = new Firebase(FURL);
 
   $scope.$watch(function(){
     return SharedStateService.friendImages;
@@ -10,24 +12,24 @@ app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStat
   });
 
 	$scope.AllRooms = Message.getAllRooms(uid);
+
   $scope.friendName = function(uid){
     return Auth.getProfile(uid).name;
   };
 
-
-	// $scope.$on('$ionicView.enter', function(e){
-	// 	Message.createNewRoom(uid,uid);
-	// });
-
-
-
-  $scope.goMessageRoom=function(roomId){
+  $scope.goMessageRoom=function(roomId,friendName){
                   console.log("goMessageDetailPage button was clicked");
                   $state.go('tab.message-room');
                   //timeline.jsを参考にした
                   SharedStateServiceForMessage.chosenRoomId= roomId;
+                  SharedStateServiceForMessage.chosenUserName= friendName;
                   $scope.chosenRoomId = roomId;
-               };
+  };
+
+  $scope.removeMessageRoom = function(roomId){
+    return Message.removeMessages(roomId);
+  }
+
 });
 
  	// $scope.goContentPage=function(wanna){

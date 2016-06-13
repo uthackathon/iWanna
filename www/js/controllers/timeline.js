@@ -454,7 +454,7 @@ console.log(storage);
                };
                $scope.referImage(uid);
                $scope.referImageAndLike = function(wanna,lastFlag){
-                   console.log('is Last',lastFlag);
+                   //console.log('is Last',lastFlag);一時的に見やすくすため消しました（N）
                    var friendUserId=wanna.ownerId;
                    var likedUsers = wanna.likes;
                    if (uid in likedUsers){
@@ -463,7 +463,7 @@ console.log(storage);
                         wanna.likeInitColor=likeOff;
                    }
                    if(friendUserId in $scope.friendImages){
-                        console.log('already gotten');
+                        //console.log('already gotten');一時的に見やすくすため消しました（N）
                    }else{
                         SharedStateService.friendImages[friendUserId]='img/loading.png';
                         Wannas.imageAll(friendUserId).$loaded().then(function(images){
