@@ -28,13 +28,13 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
     }else if(profile.icon == 'ion-person-add'){//フレンドリクエストアイコンの場合
         $scope.follow(profile.$id);
     }
-
   };
 
   $scope.createRoom = function(friend_uid){
     Message.createNewRoom(uid,friend_uid);
     $state.go('tab.messages');
   }
+
   $scope.follow = function(follow_uid) {
       var confirmPopup = $ionicPopup.confirm({
          title: 'Friend',
@@ -66,7 +66,7 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
   };
 
   $scope.referImage = function(profile){
-      console.log('ids',profile.$id);
+      //console.log('ids',profile.$id);
       if(profile.blocks){}else{profile.blocks={};}
       if(uid in profile.blocks){
         profile.disp={'display':'none'};
@@ -80,14 +80,14 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
         profile.icon=  'ion-person-add';
       }
       var friendUserId=profile.$id;
-      console.log('refer image fired');
+      //console.log('refer image fired');
       if(friendUserId in $scope.recommendedImages){
       console.log('already gotten recommend');
       }else{
       $scope.recommendedImages[friendUserId]='img/loading.png';
       Wannas.imageAll(friendUserId).$loaded().then(function(images){
       console.log('got new image');
-      console.log('friendId',friendUserId);
+      //console.log('friendId',friendUserId);
       if(images[0]==null){console.log('undefined');
       $scope.recommendedImages[friendUserId]='img/iw_gray.png';
       }else{
@@ -112,7 +112,7 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
                 document.getElementById('moreButton').style.display="none";
             }
             for (var i = 0; i < friendNumFlag; i++) {
-                console.log('is',i);
+                //console.log('is',i);
                 var item = data[i];
                 Auth.getUserRelation(item.$id).$loaded().then(function(profile) {
                 allFriends.push(profile);

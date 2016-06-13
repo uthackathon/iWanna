@@ -50,6 +50,16 @@ var app = angular.module('starter', [
     }
   });
 })
+
+.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+  });
+  // androidの戻るキーを無効化
+  $ionicPlatform.registerBackButtonAction(function(event){
+    // 何もしない
+    }, 100);
+})
+
   .constant('FURL', 'https://iwanna-app.firebaseio.com/')
 .config(function($ionicConfigProvider,$stateProvider, $urlRouterProvider) {
   $ionicConfigProvider.tabs.position('bottom'); // other values: top
