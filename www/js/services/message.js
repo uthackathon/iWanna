@@ -158,12 +158,12 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
 
 
     getAllMessages: function(currentRoomId,currentUid){
-      var alreadyReed = function(){
+      return $firebaseArray(ref.child('rooms').child(currentRoomId).child('messages'));
+    },
+
+    alreadyRead: function(currentRoomId,currentUid){
         ref.child('users').child(currentUid).child('rooms').child(currentRoomId).child("color").set("#000000");//既読の色に設定
         console.log("already read");
-      };
-      setTimeout(alreadyReed, 1000);
-      return $firebaseArray(ref.child('rooms').child(currentRoomId).child('messages'));
     },
 
     removeMessages: function(currentRoomId){

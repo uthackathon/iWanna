@@ -41,6 +41,12 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 	  });
  	};
 
+  $scope.readFlag=function(lastFlag){
+    if(lastFlag){
+    Message.alreadyRead($scope.currentRoomId,uid);
+    }
+  };
+
   $scope.$on('$ionicView.enter', function(e){
 	console.log('ionicEnter Fired!!');
     $scope.show();
