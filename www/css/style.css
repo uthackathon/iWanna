@@ -126,6 +126,29 @@ div.footer-btn-wrap{
 
 /*----------------スクロールに対して固定-----------------*/
 
+.submit-fixed {
+  position:fixed;
+  top: 44px;
+  left: 0;
+  width:100%;
+  border-bottom: solid 0.5px;
+}
+
+.icons-fixed {
+  position:fixed;
+  top: 150px;
+  left: 0;
+  width:100%;
+}
+
+.wannas-fixed {
+  position:fixed;
+  top: 170px;
+  left: 0;
+  width:100%;
+  border-top: solid 0.5px #d3d3d3;
+}
+
 .card-fixed {
   position:fixed;
   top: 44px;
