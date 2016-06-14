@@ -8,9 +8,9 @@
         </a>
 
       <div class="button-bar button-fixed">
-        <a class="button button-fixed-in" ng-click="" ><i class="icon ion-navicon-round"></i></a>
-        <a class="button button-fixed-in" ng-click="" ><i class="icon ion-ios-star"></i></a>
-        <a class="button button-fixed-in" ng-click="" ><i class="icon icon ion-heart"></i></a>
+        <a class="button button-fixed-in" id="listButton" ng-click="defaultWanna()" ><i class="icon ion-navicon-round"></i></a>
+        <a class="button button-fixed-in" id="starButton" ng-click="showCompletes()" ><i class="icon ion-ios-star"></i></a>
+        <a class="button button-fixed-in" id="heartButton" ng-click="showLikes()" ><i class="icon icon ion-heart"></i></a>
       </div>
 
   <ion-content class="content-fixed">
@@ -22,10 +22,10 @@
     </ion-refresher>
 
 
-    <div class="item item-divider">
-      My iWs
-    </div>
-    <ion-list>
+    <!--<div class="item item-divider">-->
+      <!--My iWs-->
+    <!--</div>-->
+    <ion-list id="myWannas" style="display:block">
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="wanna in allWannasList" type="item-text-wrap" >
         <i class = {{wanna.icon[0]}} style=" color:{{wanna.color}};" ng-Click="goContentPage(wanna)" on-hold="alertComplete(wanna)"></i>
         <h2 ng-Click="goContentPage(wanna)">{{wanna.content}}</h2>
@@ -36,10 +36,7 @@
       </ion-item>
     </ion-list>
 
-    <div class="item item-divider" style="background-color:rgb(255, 192, 203)">
-      My Likes
-    </div>
-    <ion-list>
+    <ion-list id="myLikes" style="display:none">
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="wanna in allLikeList" type="item-text-wrap" >
         <i class = {{wanna.icon[0]}} style=" color:{{wanna.color}};" ng-Click="goContentPage(wanna)"></i>
         <h2 ng-Click="goContentPage(wanna)">{{wanna.content}}</h2>
