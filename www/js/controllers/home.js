@@ -12,8 +12,14 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   	$scope.accountInformation = Auth.getProfile(uid);//めっちゃおもいので、UserNameだけ取得にしました。
 	//$scope.accountName = Wannas.getUserName(uid);//UserNameだけ取得にしました。
   $scope.likeDir=[];
-  $scope.allWannasList = Wannas.all(uid);
+  Wannas.all(uid).$loaded().then(function(data){
+    $scope.allWannasList=data;
+    $scope.allWannasList.reverse();
+    $scope.showingWannasList=$scope.allLikeList;
+  });
   $scope.allLikeList = [];
+
+
   Auth.getProfile(uid).$loaded().then(function(obj){
     $scope.likeDir=obj['likes'];
     for(var key in $scope.likeDir){
@@ -33,8 +39,11 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   };
 
   $scope.doReload=function(){
-      $scope.allWannasList = Wannas.all(uid);
-
+      Wannas.all(uid).$loaded().then(function(data){
+          $scope.allWannasList=data;
+          $scope.allWannasList.reverse();
+          $scope.showingWannasList=$scope.allLikeList;
+      });
       Auth.getProfile(uid).$loaded().then(function(obj){
         $scope.likeDir=obj['likes'];
         var reloadList=[];
@@ -53,6 +62,31 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   });
   };
 
+//ボタンによるスイッチング
+  $scope.defaultWanna= function(){
+      document.getElementById('myWannas').style.display="block";
+      document.getElementById('myLikes').style.display="none";
+      $scope.showingWannasList=$scope.allWannasList;
+  };
+
+  $scope.showCompletes= function(){
+      document.getElementById('myWannas').style.display="block";
+      document.getElementById('myLikes').style.display="none";
+      var initList=[];
+      for(var i =0;i<$scope.allWannasList.length;i++){
+        if($scope.allWannasList[i].complete==1){
+          initList.push($scope.allWannasList[i]);
+        }
+      }
+      $scope.showingWannasList=initList;
+  };
+
+  $scope.showLikes= function(){
+      document.getElementById('myWannas').style.display="none";
+      document.getElementById('myLikes').style.display="block";
+      $scope.showingWannasList=$scope.allLikeList;
+  };
+//以上、ボタンによるスイッチング
 
   $scope.alertComplete=function(wanna){
     Wannas.completePopup(wanna);

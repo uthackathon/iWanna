@@ -4,7 +4,7 @@
 
  <!--  <section class="chats" ng-repeat="message in allMessages" ng-class="(uid != message.userId)? 'self' : 'other' "> -->
 
-  <section class="msglist" ng-repeat="message in allMessages">
+  <section class="msglist" ng-repeat="message in allMessages" ng-init="readFlag($last)">
     <div class="chats" ng-class = "isMe(message.userId)">
                 <img data-ng-src={{getImage(message.userId)}} style=" height:40px ; width:40px; border-radius: 200px; display:{{dispToggle(message.userId)}}">
                   {{message.message}}
