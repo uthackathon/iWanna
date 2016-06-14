@@ -1,5 +1,19 @@
 <ion-view view-title="My List">
-  <ion-content>
+
+
+        <a class="item item-avatar card-fixed">
+          <img data-ng-src={{friendImages[currentUid]}}>
+          {{accountInformation.name}}
+          <p> All iW List </p>
+        </a>
+
+      <div class="button-bar button-fixed">
+        <a class="button button-fixed-in" ng-click="" ><i class="icon ion-navicon-round"></i></a>
+        <a class="button button-fixed-in" ng-click="" ><i class="icon ion-ios-star"></i></a>
+        <a class="button button-fixed-in" ng-click="" ><i class="icon icon ion-heart"></i></a>
+      </div>
+
+  <ion-content class="content-fixed">
     <ion-refresher
             on-refresh="doReload()"
             pulling-text="Pull to reload..."
@@ -7,13 +21,7 @@
             spinner="spiral">
     </ion-refresher>
 
-    <div class="list">
-        <a class="item item-avatar">
-        <img data-ng-src={{friendImages[currentUid]}}>
-        {{accountInformation.name}}
-        <p> All iW List </p>
-        </a>
-      </div>
+
     <div class="item item-divider">
       My iWs
     </div>

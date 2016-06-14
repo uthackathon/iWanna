@@ -120,6 +120,37 @@ div.footer-btn-wrap{
     white-space: pre-line;
 }
 
+.vartical-aline img {
+  vertical-align: middle;
+}
+
+/*----------------スクロールに対して固定-----------------*/
+
+.card-fixed {
+  position:fixed;
+  top: 44px;
+  left: 0;
+  width:100%;
+}
+
+.button-fixed {
+  position:fixed;
+  top: 116px;
+  left: 0;
+  width:100%;
+  margin-bottom: 0px;
+}
+
+.content-fixed {
+   position:fixed;
+   top: 166px;
+   left: 0;
+}
+
+.button-fixed-in {
+ border:solid 0.5px #d3d3d3;
+}
+
 /*-----------------chatの部分のデザイン----------------*/
 
 .chats{
