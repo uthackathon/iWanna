@@ -254,8 +254,8 @@ vertical-align: middle;
 
 .spinner svg {
 
-  width: 28px;
-  height: 28px;
+  width: 40px;/*サイズ変更 以前のサイズ28px*/
+  height: 40px;/*サイズ変更 以前のサイズ28px*/
   stroke: #fff;
   fill: #fff;
 }
@@ -532,6 +532,10 @@ a.item.item-avatar.card-fixed button.button.button-calm i.icon.ion-paper-airplan
   position: absolute; left: 4px; top: 2px;
 }
 
+
+.loading-container .loading {
+    background-color: rgba(0,0,0,0);
+}
 /*---------------------------------------------------------*/
 
 
