@@ -8,8 +8,12 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
   $scope.friendDataStore=0;
   $scope.clickedFriendId=SharedStateService.clickedFriendId;//SharedStateService からクリックした友人のID を取得
   $scope.clickedFriendName=SharedStateService.clickedFriendName;//SharedStateService からクリックした友人のID を取得
-  $scope.allWannasList = Wannas.all($scope.clickedFriendId);
-  $scope.showingWannasList = $scope.allWannasList;
+  Wannas.all($scope.clickedFriendId).$loaded().then(function(data){
+    $scope.allWannasList = data;
+    $scope.allWannasList.reverse();
+    $scope.showingWannasList = $scope.allWannasList;
+  });
+
 
 
   var friendNumFlag=20;//フレンドの初期表示人数
@@ -75,7 +79,9 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
         profile.disp={'display':'none'};
         profile.icon=  'ion-android-alert';
       }else if(profile.$id in $scope.myFriendsId){
-        profile.icon= 'ion-paper-airplane';
+        profile.disp={'display':'none'};
+        profile.icon=  'ion-android-alert';
+//send massageいらないかも        profile.icon= 'ion-paper-airplane';
       }else{
         profile.icon=  'ion-person-add';
       }
@@ -99,10 +105,18 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
       }
   };
 
+  $scope.completeToggle=function(complete){//コンプリートマークの有無を返す
+    if(complete){
+        return {'display':'block'}
+    }else{
+        return {'display':'none'}
+    }
+  };
+
   $scope.showFriends=function(){
       document.getElementById('wannaList').style.display="none";
       document.getElementById('friendList').style.display="block";
-      Match.allMatchesByUserObject(uid).$loaded().then(function(mydata) {//自分の友人を取得
+      Match.allMatchesByUserObject(uid).$loaded().then(function(mydata) {//自分の友人を取得(すでに友達の友達が自分のfriendsに入っているか判定するため)
           $scope.myFriendsId =mydata;
           Match.allMatchesByUser($scope.clickedFriendId).$loaded().then(function(data) {
             $scope.friendDataStore=data;//moreで増やすように一時保管
@@ -124,7 +138,7 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
       });
   };
 
-  $scope.moreFriend=function(){
+  $scope.moreFriend=function(){//フレンドをさらに表示するときのボタン
             friendNumFlag =friendNumFlag+10;//さらに表示する個数をたす。
             if(friendNumFlag>$scope.friendDataStore.length){
                 friendNumFlag=$scope.friendDataStore.length;
