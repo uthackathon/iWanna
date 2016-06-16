@@ -8,8 +8,11 @@ app.controller('HomeInFriendsTabCtrl', function($scope, Auth, $state, uid, $cord
   $scope.friendDataStore=0;
   $scope.clickedFriendId=SharedStateService.clickedFriendId;//SharedStateService からクリックした友人のID を取得
   $scope.clickedFriendName=SharedStateService.clickedFriendName;//SharedStateService からクリックした友人のID を取得
-  $scope.allWannasList = Wannas.all($scope.clickedFriendId);
-  $scope.showingWannasList = $scope.allWannasList;
+  Wannas.all($scope.clickedFriendId).$loaded().then(function(data){
+    $scope.allWannasList = data;
+    $scope.allWannasList.reverse();
+    $scope.showingWannasList = $scope.allWannasList;
+  });
 
 
   var friendNumFlag=20;//フレンドの初期表示人数
@@ -98,6 +101,16 @@ app.controller('HomeInFriendsTabCtrl', function($scope, Auth, $state, uid, $cord
       });
       }
   };
+
+
+  $scope.completeToggle=function(complete){//コンプリートマークの有無を返す
+    if(complete){
+        return {'display':'block'}
+    }else{
+        return {'display':'none'}
+    }
+  };
+
 
   $scope.showFriends=function(){
       document.getElementById('wannaList').style.display="none";

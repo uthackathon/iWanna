@@ -515,8 +515,8 @@ div.liketest {/*wannaのlikeボタン*/
 
 /*----------------------達成アイコンなど---------------------------------*/
 
-div.complete{/*自分のhomeの達成アイコンのボックス位置 (右に隠れボタンがあるため絶対位置が特殊です)*/
-  position: absolute; right: 60px; top: 5px;
+div.complete{/*達成アイコンのボックス位置*/
+  position: absolute; right: 50px; top: 5px;
 }
 
 div.complete i.icon{/*達成アイコン*/
