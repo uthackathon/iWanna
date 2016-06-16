@@ -6,6 +6,9 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
   $scope.recommendedImages={};
   $scope.myFriendsId={};
   $scope.friendDataStore=0;
+  $scope.colorList='#11c1f3';//タブの色
+  $scope.colorStar='';//タブの色
+  $scope.colorFriend='';//タブの色
   $scope.clickedFriendId=SharedStateService.clickedFriendId;//SharedStateService からクリックした友人のID を取得
   $scope.clickedFriendName=SharedStateService.clickedFriendName;//SharedStateService からクリックした友人のID を取得
   Wannas.all($scope.clickedFriendId).$loaded().then(function(data){
@@ -113,7 +116,10 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
     }
   };
 
-  $scope.showFriends=function(){
+  $scope.showFriends=function(){//フレンドのタブ
+      $scope.colorList='';//タブの色
+      $scope.colorStar='';//タブの色
+      $scope.colorFriend='#11c1f3';//タブの色
       document.getElementById('wannaList').style.display="none";
       document.getElementById('friendList').style.display="block";
       Match.allMatchesByUserObject(uid).$loaded().then(function(mydata) {//自分の友人を取得(すでに友達の友達が自分のfriendsに入っているか判定するため)
@@ -154,12 +160,18 @@ app.controller('FriendHomeCtrl', function(Message,Match,$scope,Report, Auth, $st
   };
 
   $scope.defaultWanna= function(){
+      $scope.colorList='#11c1f3';//タブの色
+      $scope.colorStar='';//タブの色
+      $scope.colorFriend='';//タブの色
       document.getElementById('wannaList').style.display="block";
       document.getElementById('friendList').style.display="none";
       $scope.showingWannasList=$scope.allWannasList;
   };
 
   $scope.showCompletes= function(){
+      $scope.colorList='';//タブの色
+      $scope.colorStar='#ffc900';//タブの色
+      $scope.colorFriend='';//タブの色
       document.getElementById('wannaList').style.display="block";
       document.getElementById('friendList').style.display="none";
       var initList=[];

@@ -6,7 +6,7 @@ app.factory('Loading', function($ionicLoading) {
   var Loading = {
     show: function(){
       $ionicLoading.show({
-        template: '<ion-spinner icon = "bubbles"></ion-spiner>'
+        template: '<ion-spinner icon = "bubbles"></ion-spinner>'
 
       });
     },
