@@ -7,13 +7,15 @@
         <img data-ng-src={{friendImages[clickedFriendId]}}>
         {{clickedFriendName}}
         <p> all Wannas List </p>
+        <button class="button button-calm" ng-click = "messagePopup()">
+            <i class="icon ion-paper-airplane"></i>
+        </button>
         </a>
 
       <div class="button-bar button-fixed">
         <a class="button button-fixed-in" ng-click="defaultWanna()" ><i class="icon ion-navicon-round"></i></a>
         <a class="button button-fixed-in" ng-click="showCompletes()" ><i class="icon ion-ios-star"></i></a>
         <a class="button button-fixed-in" ng-click="showFriends()" ><i class="icon ion-person-stalker"></i></a>
-        <a class="button button-fixed-in" ng-click="messagePopup()" ><i class="icon ion-paper-airplane"></i></a>
       </div>
 
   <ion-content class="content-fixed">
