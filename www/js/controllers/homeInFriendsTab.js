@@ -6,6 +6,9 @@ app.controller('HomeInFriendsTabCtrl', function($scope, Auth, $state, uid, $cord
   $scope.recommendedImages={};
   $scope.myFriendsId={};
   $scope.friendDataStore=0;
+  $scope.colorList='#11c1f3';//タブの色
+  $scope.colorStar='';//タブの色
+  $scope.colorFriend='';//タブの色
   $scope.clickedFriendId=SharedStateService.clickedFriendId;//SharedStateService からクリックした友人のID を取得
   $scope.clickedFriendName=SharedStateService.clickedFriendName;//SharedStateService からクリックした友人のID を取得
   Wannas.all($scope.clickedFriendId).$loaded().then(function(data){
@@ -78,7 +81,8 @@ app.controller('HomeInFriendsTabCtrl', function($scope, Auth, $state, uid, $cord
         profile.disp={'display':'none'};
         profile.icon=  'ion-android-alert';
       }else if(profile.$id in $scope.myFriendsId){
-        profile.icon= 'ion-paper-airplane';
+        profile.disp={'display':'none'};
+        profile.icon=  'ion-android-alert';
       }else{
         profile.icon=  'ion-person-add';
       }
@@ -113,6 +117,9 @@ app.controller('HomeInFriendsTabCtrl', function($scope, Auth, $state, uid, $cord
 
 
   $scope.showFriends=function(){
+      $scope.colorList='';//タブの色
+      $scope.colorStar='';//タブの色
+      $scope.colorFriend='#11c1f3';//タブの色
       document.getElementById('wannaList').style.display="none";
       document.getElementById('friendList').style.display="block";
       Match.allMatchesByUserObject(uid).$loaded().then(function(mydata) {//自分の友人を取得
@@ -153,12 +160,18 @@ app.controller('HomeInFriendsTabCtrl', function($scope, Auth, $state, uid, $cord
   };
 
   $scope.defaultWanna= function(){
+      $scope.colorList='#11c1f3';//タブの色
+      $scope.colorStar='';//タブの色
+      $scope.colorFriend='';//タブの色
       document.getElementById('wannaList').style.display="block";
       document.getElementById('friendList').style.display="none";
       $scope.showingWannasList=$scope.allWannasList;
   };
 
   $scope.showCompletes= function(){
+      $scope.colorList='';//タブの色
+      $scope.colorStar='#ffc900';//タブの色
+      $scope.colorFriend='';//タブの色
       document.getElementById('wannaList').style.display="block";
       document.getElementById('friendList').style.display="none";
       var initList=[];

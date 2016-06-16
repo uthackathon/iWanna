@@ -4,6 +4,9 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
    var ref =new Firebase(FURL);
   $scope.friendImages ={'initUid':'initImg'};
   $scope.currentUid=uid;
+  $scope.colorList='#11c1f3';//タブの色
+  $scope.colorStar='';//タブの色
+  $scope.colorHeart='';//タブの色
   $scope.$watch(function(){
     return SharedStateService.friendImages;
   }, function(){
@@ -72,12 +75,18 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
 
 //ボタンによるスイッチング
   $scope.defaultWanna= function(){
+      $scope.colorList='#11c1f3';//タブの色
+      $scope.colorStar='';//タブの色
+      $scope.colorHeart='';//タブの色
       document.getElementById('myWannas').style.display="block";
       document.getElementById('myLikes').style.display="none";
       $scope.showingWannasList=$scope.allWannasList;
   };
 
   $scope.showCompletes= function(){
+      $scope.colorList='';//タブの色
+      $scope.colorStar='#ffc900';//タブの色
+      $scope.colorHeart='';//タブの色
       document.getElementById('myWannas').style.display="block";
       document.getElementById('myLikes').style.display="none";
       var initList=[];
@@ -90,6 +99,9 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   };
 
   $scope.showLikes= function(){
+      $scope.colorList='';//タブの色
+      $scope.colorStar='';//タブの色
+      $scope.colorHeart='rgb(255, 192, 203)';//タブの色
       document.getElementById('myWannas').style.display="none";
       document.getElementById('myLikes').style.display="block";
       $scope.showingWannasList=$scope.allLikeList;
