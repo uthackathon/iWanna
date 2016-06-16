@@ -524,6 +524,14 @@ div.complete i.icon{/*達成アイコン*/
   color: #deca29;
 }
 
+a.item.item-avatar.card-fixed button.button.button-calm{/*send massage button in friendHome*/
+  position: absolute; right: 10px; top: 10px;
+  /*このボタンのサイズ変更ができませんでした...*/
+}
+a.item.item-avatar.card-fixed button.button.button-calm i.icon.ion-paper-airplane{
+  position: absolute; left: 4px; top: 2px;
+}
+
 /*---------------------------------------------------------*/
 
 
