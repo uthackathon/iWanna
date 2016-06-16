@@ -15,7 +15,7 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   Wannas.all(uid).$loaded().then(function(data){
     $scope.allWannasList=data;
     $scope.allWannasList.reverse();
-    $scope.showingWannasList=$scope.allLikeList;
+    $scope.showingWannasList=$scope.allWannasList;
   });
   $scope.allLikeList = [];
 
@@ -38,11 +38,19 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
     $scope.allLikeList.splice(index,1);
   };
 
-  $scope.doReload=function(){
+  $scope.completeToggle=function(complete){//コンプリートマークの有無を返す
+    if(complete){
+        return {'display':'block'}
+    }else{
+        return {'display':'none'}
+    }
+  };
+
+  $scope.doReload=function(){//リロードの動作
       Wannas.all(uid).$loaded().then(function(data){
           $scope.allWannasList=data;
           $scope.allWannasList.reverse();
-          $scope.showingWannasList=$scope.allLikeList;
+          $scope.showingWannasList=$scope.allWannasList;
       });
       Auth.getProfile(uid).$loaded().then(function(obj){
         $scope.likeDir=obj['likes'];
