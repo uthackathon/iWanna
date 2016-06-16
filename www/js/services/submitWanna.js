@@ -167,7 +167,7 @@ app.factory('Wannas', function(FURL,$firebaseObject, $firebaseArray,$ionicPopup)
                             type: 'button-energized',
                             onTap: function(e) {
                                 ref.child('users').child(wanna.ownerId).child('wannas').child(wanna.$id).child('complete').set(1);
-                                ref.child('users').child(wanna.ownerId).child('wannas').child(wanna.$id).child('icon').child(0).set('ion-android-star-outline');//('ion-ribbon-b');//('ion-ios-star-outline');
+//アイコン差し替えはなし。                                ref.child('users').child(wanna.ownerId).child('wannas').child(wanna.$id).child('icon').child(0).set('ion-android-star-outline');//('ion-ribbon-b');//('ion-ios-star-outline');
                                   var congratulation = $ionicPopup.show({
                                     template: '<p style="color:#777777 ">あなたのWannaは達成されました。</p>',//<p style="color:#777777 ">このWannaが素敵な思い出となり、あなたの未来をより豊かにしてくれますことを願っています。</p>',
                                     title: 'おめでとうございます',

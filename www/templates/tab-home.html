@@ -33,6 +33,9 @@
         <ion-option-button class="button-assertive" ng-click="removeWanna($index , wanna.ownerId, wanna.$id,wanna.likes)">
           Delete
         </ion-option-button>
+        <div class="complete" ng-style="completeToggle(wanna.complete)">
+          <i class="icon ion-ribbon-b"></i>
+        </div>
       </ion-item>
     </ion-list>
 
