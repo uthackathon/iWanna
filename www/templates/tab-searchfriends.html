@@ -1,15 +1,11 @@
 <ion-view view-title="Friends">
     <ion-content class="padding">
-        <div align="right">
-            <a class="button button-icon icon ion-search" ng-click="showSearchFriendsBox()"></a>
-            <!--<i class="icon ion-search big placeholder-icon" ng-click="showSearchFriendsBox()"></i>-->
-        </div>
-        <div class="list list-inset" style="margin-top:0px;margin-bottom:8px;">
-            <label class="item item-input" id="searchFriendsBox" style="display:none; border: 0px;">
+        <div align="right" style="margin-bottom:8px;">
+            <label class="item item-input" id="searchFriendsBox" style="display:none; border: 0px; width:80%; float:left; margin-top:5px;">
                 <input ng-change = "searchFriendsByName($index,friendNameToFind)"  ng-model="friendNameToFind" placeholder="Search Friends">
             </label>
+            <a class="button button-icon icon ion-search" ng-click="showSearchFriendsBox()"></a>
         </div>
-        <!--<p>{{nameAddress}}</p>-->
 
         <div>
             <ion item class="list card" ng-repeat="profile in profiles">
