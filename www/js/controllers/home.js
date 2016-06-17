@@ -4,6 +4,9 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
    var ref =new Firebase(FURL);
   $scope.friendImages ={'initUid':'initImg'};
   $scope.currentUid=uid;
+  $scope.colorList='#11c1f3';//タブの色
+  $scope.colorStar='';//タブの色
+  $scope.colorHeart='';//タブの色
   $scope.$watch(function(){
     return SharedStateService.friendImages;
   }, function(){
@@ -12,8 +15,14 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   	$scope.accountInformation = Auth.getProfile(uid);//めっちゃおもいので、UserNameだけ取得にしました。
 	//$scope.accountName = Wannas.getUserName(uid);//UserNameだけ取得にしました。
   $scope.likeDir=[];
-  $scope.allWannasList = Wannas.all(uid);
+  Wannas.all(uid).$loaded().then(function(data){
+    $scope.allWannasList=data;
+    $scope.allWannasList.reverse();
+    $scope.showingWannasList=$scope.allWannasList;
+  });
   $scope.allLikeList = [];
+
+
   Auth.getProfile(uid).$loaded().then(function(obj){
     $scope.likeDir=obj['likes'];
     for(var key in $scope.likeDir){
@@ -32,9 +41,20 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
     $scope.allLikeList.splice(index,1);
   };
 
-  $scope.doReload=function(){
-      $scope.allWannasList = Wannas.all(uid);
+  $scope.completeToggle=function(complete){//コンプリートマークの有無を返す
+    if(complete){
+        return {'display':'block'}
+    }else{
+        return {'display':'none'}
+    }
+  };
 
+  $scope.doReload=function(){//リロードの動作
+      Wannas.all(uid).$loaded().then(function(data){
+          $scope.allWannasList=data;
+          $scope.allWannasList.reverse();
+          $scope.showingWannasList=$scope.allWannasList;
+      });
       Auth.getProfile(uid).$loaded().then(function(obj){
         $scope.likeDir=obj['likes'];
         var reloadList=[];
@@ -53,6 +73,40 @@ app.controller('HomeCtrl', function($scope, Auth, $state, uid, $cordovaScreensho
   });
   };
 
+//ボタンによるスイッチング
+  $scope.defaultWanna= function(){
+      $scope.colorList='#11c1f3';//タブの色
+      $scope.colorStar='';//タブの色
+      $scope.colorHeart='';//タブの色
+      document.getElementById('myWannas').style.display="block";
+      document.getElementById('myLikes').style.display="none";
+      $scope.showingWannasList=$scope.allWannasList;
+  };
+
+  $scope.showCompletes= function(){
+      $scope.colorList='';//タブの色
+      $scope.colorStar='#ffc900';//タブの色
+      $scope.colorHeart='';//タブの色
+      document.getElementById('myWannas').style.display="block";
+      document.getElementById('myLikes').style.display="none";
+      var initList=[];
+      for(var i =0;i<$scope.allWannasList.length;i++){
+        if($scope.allWannasList[i].complete==1){
+          initList.push($scope.allWannasList[i]);
+        }
+      }
+      $scope.showingWannasList=initList;
+  };
+
+  $scope.showLikes= function(){
+      $scope.colorList='';//タブの色
+      $scope.colorStar='';//タブの色
+      $scope.colorHeart='rgb(255, 192, 203)';//タブの色
+      document.getElementById('myWannas').style.display="none";
+      document.getElementById('myLikes').style.display="block";
+      $scope.showingWannasList=$scope.allLikeList;
+  };
+//以上、ボタンによるスイッチング
 
   $scope.alertComplete=function(wanna){
     Wannas.completePopup(wanna);

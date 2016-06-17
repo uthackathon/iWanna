@@ -28,8 +28,7 @@ app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $fi
     $state.go('tab.terms-of-use');
     };
 
-    $scope.aboutUTH = function()
-    {
+    $scope.aboutUTH = function(){
     var options = {
           location: 'yes',
           clearcache: 'yes',
@@ -37,6 +36,24 @@ app.controller('AccountCtrl', function($scope, Auth, uid, ImageUpload, FURL, $fi
         };
 
         $cordovaInAppBrowser.open('http://ut-hackathon.strikingly.com', '_system',options)//ほんとうは _blank のオプションで開きたい
+            .then(function(event) {
+            // success
+        })
+            .catch(function(event) {
+            // error
+        });
+
+        // Open cordova webview if the url is in the whitelist otherwise opens in app browser
+//        var ref = cordova.InAppBrowser.open('http://ut-hackathon.strikingly.com','_blank');
+    };
+    $scope.aboutiWanna = function(){
+    var options = {
+          location: 'yes',
+          clearcache: 'yes',
+          toolbar: 'yes'
+        };
+
+        $cordovaInAppBrowser.open('https://uthackathon.github.io/website/', '_system',options)//ほんとうは _blank のオプションで開きたい
             .then(function(event) {
             // success
         })

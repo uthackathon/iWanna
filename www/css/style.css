@@ -254,8 +254,8 @@ vertical-align: middle;
 
 .spinner svg {
 
-  width: 28px;
-  height: 28px;
+  width: 40px;/*サイズ変更 以前のサイズ28px*/
+  height: 40px;/*サイズ変更 以前のサイズ28px*/
   stroke: #fff;
   fill: #fff;
 }
@@ -369,7 +369,6 @@ div.like {/*wannaのlikeボタン*/
   width: 60px;
   height: 60px;
 }
-
 
 /*----------------------------------------------------------*/
 
@@ -511,4 +510,32 @@ div.liketest {/*wannaのlikeボタン*/
   top: 10px;
   right: 30px;
 }
-/*----------------------------------------------------------
+/*---------------------------------------------------------*/
+
+
+/*----------------------達成アイコンなど---------------------------------*/
+
+div.complete{/*達成アイコンのボックス位置*/
+  position: absolute; right: 50px; top: 5px;
+}
+
+div.complete i.icon{/*達成アイコン*/
+  font-size: 30px;
+  color: #deca29;
+}
+
+a.item.item-avatar.card-fixed button.button.button-calm{/*send massage button in friendHome*/
+  position: absolute; right: 10px; top: 10px;
+  /*このボタンのサイズ変更ができませんでした...*/
+}
+a.item.item-avatar.card-fixed button.button.button-calm i.icon.ion-paper-airplane{
+  position: absolute; left: 4px; top: 2px;
+}
+
+
+.loading-container .loading {
+    background-color: rgba(0,0,0,0);
+}
+/*---------------------------------------------------------*/
+
+
