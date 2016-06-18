@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('HomeInFriendsTabCtrl', function($scope, Auth, $state, uid, $cordovaScreenshot,Message,Match, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,SharedStateService,Report,$ionicPopup,$ionicActionSheet){
+app.controller('HomeInFriendsTabCtrl', function(Follow,Followed,$scope, Auth, $state, uid, $cordovaScreenshot,Message,Match, SocialShare, Wannas, ImageUpload, FURL, $firebase, $firebaseArray,SharedStateService,Report,$ionicPopup,$ionicActionSheet){
   $scope.friendImages ={'initUid':'initImg'};
   $scope.currentUid=uid;
   $scope.recommendedImages={};
