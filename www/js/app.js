@@ -9,7 +9,8 @@ var app = angular.module('starter', [
   'ionic',
   'firebase',
   'ngCordova',
-  'ngFileUpload'
+  'ngFileUpload',
+  'ngSanitize'
 ])
 
 .service('$cordovaScreenshot', ['$q', function($q) {
