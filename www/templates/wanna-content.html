@@ -12,7 +12,10 @@
       </div>
       <p>{{clickedWanna.user_name}}</p>
     </a>
-    <div class="item item-text-wrap pre-line">{{clickedWanna.description}}</div>
+
+    <div ng-bind-html="clickedWanna.description | linky:'_blank'" class="item item-text-wrap pre-line"></div>
+    <!--URLにリンクする-->
+    <!--<div class="item item-text-wrap pre-line">{{clickedWanna.description}}</div>-->
     <!--上の行は改行しないで-->
     <div class="item item-button-right" style="color: #696969;">
             投稿日時 :  {{date(clickedWanna.upload_time)}}
