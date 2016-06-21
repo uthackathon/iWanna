@@ -12,6 +12,16 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 	});
  	console.log('entered message room');
 
+    $scope.friends=SharedStateServiceForMessage.chosenGroupMembers;
+    $scope.members=SharedStateServiceForMessage.chosenGroupMembers;
+    $scope.memberNum=Object.keys($scope.members).length;
+
+    $scope.allFriendslist=[];
+    for(var key in $scope.members){
+        $scope.allFriendslist.push({'name': $scope.members[key],
+                                    '$id':key});
+    }
+
  	$scope.currentRoomId=SharedStateServiceForMessage.chosenRoomId;
     $scope.friendName=SharedStateServiceForMessage.chosenUserName;
  	console.log("ContentPage",$scope.chosenRoomId);
@@ -86,12 +96,43 @@ app.controller('MessageRoomCtrl', function(FURL,$scope,$state,Message,SharedStat
 　　　　return "self";
     }
   };
+  $scope.isMembers = function(num){
+    if(num){
+      return {'display':'block'}
+    }else{
+      return {'display':'none'}
+    }
+  };
               //砂時計を表示
   $scope.show = function() {
     $ionicLoading.show({
     template: '<ion-spinner icon = "bubbles"></ion-spiner>'
 
     });
+  };
+
+  $scope.showMembers = function(){
+    $state.go('tab.members');
+  };
+
+  $scope.referImage2 = function(friendUserId){
+    console.log('refer image fired');
+    if(friendUserId in $scope.friendImages){
+      console.log('already gotten recommend');
+    }else{
+      $scope.friendImages[friendUserId]='img/loading.png';
+      Wannas.imageAll(friendUserId).$loaded().then(function(images){
+        console.log('got new image');
+        console.log('friendId',friendUserId);
+        if(images[0]==null){console.log('undefined');
+          $scope.friendImages[friendUserId]='img/iw_gray.png';
+        }else{
+          $scope.friendImages[friendUserId]=images[0]['images'];
+        }
+      },function(error){
+      console.log('oh no! no images file');
+      });
+    }
   };
 
    //砂時計を非表示

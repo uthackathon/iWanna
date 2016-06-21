@@ -543,7 +543,7 @@ vertical-align: middle;
 a.item{/*グループ作るとこのやつアンカーにした*/
 color: #0288d1;
 }
-a.item i.icon{
+a.item i.icon.ion-checkmark{
 position: absolute; right: 20px; top: 25px;
 color: #11c1f3;
 font-size: 25px;

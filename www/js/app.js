@@ -432,6 +432,28 @@ var app = angular.module('starter', [
   })
 
 
+  .state('tab.members', {
+    url: '/messages/members',
+    views: {
+      'tab-messages': {
+        templateUrl: 'templates/members.html',
+        controller: 'MessageRoomCtrl'
+      }
+    },
+    resolve: {
+
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
+  })
+
+
   .state('tab.account', {
     url: '/account',
     views: {
