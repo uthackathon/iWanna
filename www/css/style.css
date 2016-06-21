@@ -536,6 +536,19 @@ a.item.item-avatar.card-fixed button.button.button-calm i.icon.ion-paper-airplan
 .loading-container .loading {
     background-color: rgba(0,0,0,0);
 }
+
+a.item  img {/*グループ作るとこのやつアンカーにした*/
+vertical-align: middle;
+}
+a.item{/*グループ作るとこのやつアンカーにした*/
+color: #0288d1;
+}
+a.item i.icon{
+position: absolute; right: 20px; top: 25px;
+color: #11c1f3;
+font-size: 25px;
+}
+
 /*---------------------------------------------------------*/
 
 

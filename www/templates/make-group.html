@@ -1,0 +1,23 @@
+<ion-view view-title="Make New Group">
+    <ion-content class="padding">
+        <br>
+        <br>
+        <label class="item item-input">
+            <input type="text" ng-model="groupName" placeholder="グループ名を設定">
+        </label>
+        <br>
+        <br>
+        <p>Friendからメンバーを選ぶ</p>
+        <div class="list" ng-repeat="friend in allFriends" ng-init="referImageAndName(friend)">
+            <a class="item item" ng-style="isName(friend.nameToggle)" ng-click="addMember(friend)">
+                    <img data-ng-src={{friendImages[friend.id]}} style="height:40px ; width:40px; border-radius: 200px">
+                    {{friend.name}}
+                    <i class="icon ion-checkmark" ng-style="isMember(friend.id)"></i>
+            </a>
+        </div>
+        <br>
+        <button class="button button-full button-calm" ng-click="makeNewGroup(groupName)">
+            グループを作成する
+        </button>
+    </ion-content>
+</ion-view>

@@ -1,6 +1,6 @@
 'use strict'
 
-app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStateServiceForMessage,SharedStateService, $firebaseArray,FURL,$firebaseObject){
+app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStateServiceForMessage,SharedStateService, $firebaseArray,FURL,$firebaseObject,$ionicActionSheet,Wannas){
   $scope.friendImages ={'initUid':'initImg'};
 
   var ref = new Firebase(FURL);
@@ -29,6 +29,61 @@ app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStat
   $scope.removeMessageRoom = function(roomId){
     return Message.removeMessages(roomId);
   }
+
+  $scope.getFriendGroupImages=function(friendId){
+    if(friendId==null ||friendId==""){//グループの場合
+      return "img/iw_gray.png"
+    }else{
+      return $scope.friendImages[friendId]
+    }
+  };
+
+  $scope.makeGroup = function() {
+    $ionicActionSheet.show({
+    buttons: [
+    { text: '新しいグループを作成する' },
+    { text: 'iW からグループを作成する'},
+    ],
+    cancelText: 'Cancel',
+    cancel: function() {
+    console.log('CANCELLED');
+    },
+    buttonClicked: function(index) {
+        if (index == 0){
+            console.log('new group');
+            SharedStateService.groupWanna=0;
+            $state.go('tab.make-group');
+        }else if(index==1){
+            console.log('new wanna group');
+            $state.go('tab.make-wannaGroup');
+        }
+          return true;
+        },
+    });
+  };
+
+
+  $scope.referImage = function(friendUserId){
+    if(friendUserId==null || friendUserId=="" ){//グループの時ないからreturn でスルーする
+        return
+    }
+    if(friendUserId in $scope.friendImages){
+      console.log('already gotten');
+    }else{
+      $scope.friendImages[friendUserId]='img/loading.png';
+      Wannas.imageAll(friendUserId).$loaded().then(function(images){
+      if(images[0]==null){console.log('undefined');
+      $scope.friendImages[friendUserId]='img/iw_gray.png';
+      }else{
+      $scope.friendImages[friendUserId]=images[0]['images'];
+      }
+      },function(error){
+      console.log('oh no! no images file');
+      });
+    }
+  };
+
+
 
 });
 

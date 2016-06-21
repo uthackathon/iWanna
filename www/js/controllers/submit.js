@@ -118,17 +118,8 @@ app.controller('SubmitCtrl', function(Auth,uid, $scope,$state, Wannas,$ionicPopu
                     }
                 }else{
                    if ($scope.chosenIconName==$scope.iconNames[num]){//そこにすでに色が付いていたら
-//                       targets[num].style.backgroundColor='';
-//                       targets[num].style.color='';
                        $scope.chosenIconName=0;
                    }else{//色つきなしor他のに色つきのとき
-//                       if($scope.chosenIconName){//他のに色つきの時
-//                           var preNum = $scope.iconNames.indexOf($scope.chosenIconName);
-//                           targets[preNum].style.backgroundColor='';//色が付いてたやつをoff
-//                           targets[preNum].style.color='';//色が付いてたやつをoff
-//                       }
-//                       targets[num].style.backgroundColor=$scope.motColor;
-//                       targets[num].style.color='#ffffff';
                        $scope.chosenIconName=$scope.iconNames[num];
                    }
                 }

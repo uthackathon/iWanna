@@ -368,8 +368,68 @@ var app = angular.module('starter', [
           }
         }
   })
+  .state('tab.make-group', {
+    url: '/messages/make-group',
+    views: {
+      'tab-messages': {
+        templateUrl: 'templates/make-group.html',
+        controller: 'MakeGroupCtrl'
+      }
+    },
+    resolve: {
 
 
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
+  })
+
+  .state('tab.make-wannaGroup', {
+    url: '/messages/make-wannaGroup',
+    views: {
+      'tab-messages': {
+        templateUrl: 'templates/make-wannaGroup.html',
+        controller: 'MakeWannaGroupCtrl'
+      }
+    },
+    resolve: {
+
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
+  })
+
+  .state('tab.wannaGroup-content', {
+    url: '/messages/make-wannaGroup/content',
+    views: {
+      'tab-messages': {
+        templateUrl: 'templates/wannaGroup-content.html',
+        controller: 'WannaGroupContentCtrl'
+      }
+    },
+    resolve: {
+
+
+          uid: function(Auth) {
+            return Auth.requireAuth()
+              .then(function(auth){
+                console.log(auth);
+                return auth.uid;
+            });
+          }
+        }
+  })
 
 
   .state('tab.account', {
