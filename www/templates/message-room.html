@@ -1,9 +1,11 @@
 <ion-view view-title={{friendName}}>
-
+    <ion-nav-buttons side="right">
+        <button class="button button-calm" ng-click="showMembers()" style="color:#ffffff" ng-style="isMembers(memberNum)">{{memberNum}} Members </button>
+    </ion-nav-buttons>
   <ion-content class="padding">
 
  <!--  <section class="chats" ng-repeat="message in allMessages" ng-class="(uid != message.userId)? 'self' : 'other' "> -->
-
+    <!--<p>{{friends}}</p>-->
   <section class="msglist" ng-repeat="message in allMessages" ng-init="readFlag($last)">
     <div class="chats" ng-class = "isMe(message.userId)">
                 <img data-ng-src={{getImage(message.userId)}} style=" height:40px ; width:40px; border-radius: 200px; display:{{dispToggle(message.userId)}}">

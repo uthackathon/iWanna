@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="room in AllRooms" type="item-text-wrap" ng-init="referImage(room.friendId)" ng-click="goMessageRoom(room.roomId,room.friendName)" >
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="room in AllRooms" type="item-text-wrap" ng-init="referImage(room.friendId)" ng-click="goMessageRoom(room.roomId,room.friendName,room.friends)" >
         <img data-ng-src={{getFriendGroupImages(room.friendId)}}>
         <h2>{{room.friendName}}</h2>
         <p style="color:{{room.color}};">{{room.lastMessage}}</p>

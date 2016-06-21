@@ -17,13 +17,19 @@ app.controller('MessagesCtrl', function($state, $scope, Message, uid, SharedStat
     return Auth.getProfile(uid).name;
   };
 
-  $scope.goMessageRoom=function(roomId,friendName){
+  $scope.goMessageRoom=function(roomId,friendName,friends){
                   console.log("goMessageDetailPage button was clicked");
                   $state.go('tab.message-room');
                   //timeline.jsを参考にした
                   SharedStateServiceForMessage.chosenRoomId= roomId;
                   SharedStateServiceForMessage.chosenUserName= friendName;
                   $scope.chosenRoomId = roomId;
+                  if(friends){
+                    SharedStateServiceForMessage.chosenGroupMembers =friends;
+                  }else{
+                    SharedStateServiceForMessage.chosenGroupMembers ={};
+                  }
+
   };
 
   $scope.removeMessageRoom = function(roomId){
