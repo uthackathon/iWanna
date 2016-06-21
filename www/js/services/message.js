@@ -174,7 +174,30 @@ app.factory('Message', function(FURL, $firebaseArray, $firebaseObject, Auth, Wan
                       ref.child('users').child(array[i].$value).child('rooms').child(currentRoomId).remove();//userのほうの削除
                     };
                   });
-    }
+    },
+
+
+    createNewGroup: function(groupName,groupMemberIdArray,groupMemberObject){
+        var rooms = $firebaseArray(ref.child('rooms'));
+        var newRoom={
+            users: groupMemberIdArray
+        };
+        return rooms.$add(newRoom).then(function(addedId){//ref直下のroomsに追加
+          var roomId = addedId.key();
+          console.log('newRoom',roomId);
+          //各userのroomsに追加
+          for(var i =0;i<groupMemberIdArray.length;i++){
+            var friendId = groupMemberIdArray[i];
+            var newRoom = {
+                friendName: groupName,
+                roomId: roomId,
+                friends: groupMemberObject,//オブジェクトを入れた。id:nameがいくつも入ってる
+            };
+            ref.child('users').child(friendId).child('rooms').child(roomId).set(newRoom);
+          }
+        });
+
+    },
 
   }
   return Message;

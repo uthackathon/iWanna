@@ -4,6 +4,7 @@ app.factory("SharedStateService", function() {
                     return {
                         clickedWanna: 'SharedStateService',
                         friendImages: {'initUid':'initImg'},
-                        clickedFriendId: 'SharedStateService'
+                        clickedFriendId: 'SharedStateService',
+                        groupWanna:'SharedStateService'
                     };
             });

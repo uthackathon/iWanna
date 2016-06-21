@@ -1,0 +1,14 @@
+<ion-view view-title="Make New Group">
+    <ion-content class="padding">
+        <ion-list id="myWannas" ng-repeat="wanna in showingWannasList">
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-click="goContentPage(wanna)" type="item-text-wrap" ng-style="isChosen(wanna)">
+                <i class = {{wanna.icon[0]}} style=" color:{{wanna.color}};"></i>
+                <h2>{{wanna.content}}</h2>
+                <p>{{wanna.description}}</p>
+                <div class="complete" ng-style="completeToggle(wanna.complete)">
+                    <i class="icon ion-ribbon-b"></i>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
